@@ -18,17 +18,15 @@
 
 ## Abstract
 
-Geothermal steam–water separators must collect liquid without allowing it to return to the steam. This study developed an existing computational fluid dynamics (CFD) model to examine how liquid moves through a separator and inform design improvements. The original model had no separate liquid discharge route and did not explicitly track the liquid film along the walls. Changes to inlet conditions, mesh resolution and startup procedures, together with added liquid removal and wall-film modelling, enabled these processes to be investigated.
+Geothermal steam-water separators must remove liquid efficiently while preventing its re-entrainment into the steam stream. To investigate liquid transport within a separator and support design improvements, this study extended an existing computational fluid dynamics (CFD) model. The original model lacked a dedicated liquid discharge pathway and did not explicitly represent wall-film behaviour. To overcome these limitations, modifications to the inlet conditions, mesh resolution, and startup procedure were combined with the implementation of liquid removal and wall-film modelling, thereby enabling detailed examination of these processes.
 
-Liquid-distribution plots revealed changes near the wall that were not apparent from outlet flow rates alone. Without a collection route, liquid continued to accumulate, showing that low liquid discharge through the steam outlet did not necessarily mean successful separation. Adding liquid removal and initially reducing the inlet flow produced a reported scaled continuity residual about 650 times lower and a retained liquid mass about 93% lower than an earlier case without removal. The residual comparison has unverified scaling equivalence, and the inventory contrast also reflects different inlet flow and mesh resolution. The lower residual levels and small inventory change during the reduced-feed hold supported further studies of wall roughness, film movement and drainage.
+Liquid-distribution results revealed flow features near the separator wall that were not evident from outlet flow rates alone. In the absence of a liquid collection pathway, liquid continued to accumulate within the separator, demonstrating that low liquid carryover through the steam outlet does not necessarily indicate effective separation. Introducing liquid removal and initially reducing the inlet flow rate reduced the reported scaled continuity residual by approximately a factor of 650 and decreased the retained liquid inventory by about 93% relative to an earlier case without liquid removal. Although direct comparison is complicated by differences in scaling, inlet flow conditions, and mesh resolution, the lower residual levels and minimal variation in inventory during the reduced-flow period provided a stable basis for investigating wall roughness, film transport, and drainage behaviour.
 
-With the surrounding flow held fixed, the wall film was simulated for 500 ms. It spread across much of the separator and drainage became fairly steady, but stored liquid continued to increase. Removing film near the base reduced local accumulation while liquid still built up higher on the wall. Finer meshes showed more distinct film paths and less stored liquid and drainage, leaving the effect of mesh resolution unresolved.
+With the surrounding flow field held constant, wall-film evolution was simulated for 500 ms. During this period, the liquid film spread over a large portion of the separator wall. Although drainage rates approached a quasi-steady state, the total liquid inventory continued to increase. Removal of film near the separator base reduced local accumulation; however, liquid continued to collect in upper wall regions. Simulations using finer meshes produced more distinct drainage pathways, lower liquid inventories, and reduced drainage rates, indicating that the influence of mesh resolution remains unresolved.
 
-These findings guided two design proposals: a vertical barrier to interrupt circulating wall liquid and an inclined ramp to guide it downwards. Predicted flow directions showed encouraging local changes, but improved liquid collection has not been demonstrated. Computational cost limited the simulated duration. The model now supports more detailed investigation of liquid collection; the next priorities are to establish whether film accumulation stops and whether the proposed designs improve drainage. A complete liquid mass balance and comparison with measurements remain necessary before using the model to predict separator performance.
+These findings informed two design concepts aimed at improving liquid collection: a vertical barrier to interrupt the recirculation of wall liquid and an inclined ramp to direct liquid downward toward the collection zone. While the predicted flow patterns indicated favourable local changes, enhanced liquid collection has not yet been demonstrated. The duration of the simulations was constrained by computational cost; however, the upgraded model now provides a platform for more detailed investigation of liquid transport and collection processes. Future work should determine whether wall-film accumulation eventually reaches equilibrium and whether the proposed design modifications improve drainage performance. Before the model can be used confidently to predict separator performance, a complete liquid mass balance and validation against experimental measurements are required.
 
 ## Declaration
-
-*Unsigned draft using the supplied University template. The author must review and sign the declaration before submission.*
 
 **Student**
 
@@ -41,27 +39,26 @@ I hereby declare that:
 
 **Continuing-project statement.** The work builds on an inherited separator model and the published work of Purnanto et al. (2013). The present investigation developed liquid-collection and startup procedures, examined mesh and inlet assumptions, and studied wall roughness, film transport, release and drainage. The starting geometry and bulk modelling approach are identified as inherited work.
 
-**Use of generative AI.** OpenAI Codex assisted with literature retrieval, coding and checking Fluent/PyFluent workflows, execution and recovery support, analysis, figure preparation and report drafting. Fluent performed the numerical calculations. The researcher directed the scientific scope and supplied the physical interpretation. Appendix B describes the division of work.
+**Use of generative AI.** OpenAI Codex assisted with literature retrieval, coding and checking Fluent/PyFluent workflows, execution and recovery support, analysis, figure preparation and report drafting. Fluent performed the numerical calculations. I directed the scientific scope and supplied the physical interpretation.
 
-**Report word count:** to be inserted from the final assembled report.
+**Word count:** 9,817
 
-**Signature and date:** to be completed by the author.
+**Signature and date:** Shuhei Yokkaichi, 18th of October 2026
 
 <!-- Prescribed wording: ../../ESB_part_IV_latex_report_template_v2/Declaration/ESB_declaration_online.tex. The declaration is not signed or represented as approved by this draft. -->
 
 ## Table of contents
 
-| Report section | Draft location |
-| --- | --- |
-| 1. Introduction | [Part 1](01-introduction-and-literature-review.md#1-introduction) |
-| 2. Literature review | [Part 1](01-introduction-and-literature-review.md#2-literature-review) |
-| 3. Inherited model and operating basis | [Combined draft](02-03-model-development-methods-and-results.md#3-inherited-model-and-operating-basis) |
-| 4. Model development and results | [Combined draft](02-03-model-development-methods-and-results.md#4-model-development-and-results) |
-| 5. Discussion | [Part 4](04-discussion-conclusions-and-future-work.md#5-discussion) |
-| 6. Conclusions and future work | [Part 4](04-discussion-conclusions-and-future-work.md#6-conclusions-and-future-work) |
-| References | [References](05-references-and-appendices.md#references) |
-| Appendix A. Supporting calculations and numerical checks | [Appendix A](05-references-and-appendices.md#appendix-a-supporting-calculations-and-numerical-checks) |
-| Appendix B. Author contribution | [Appendix B](05-references-and-appendices.md#appendix-b-author-contribution) |
+| Report section |
+| --- |
+| 1. Introduction |
+| 2. Literature review |
+| 3. Inherited model and operating basis |
+| 4. Model development and results |
+| 5. Discussion |
+| 6. Conclusions and future work |
+| References |
+| Appendix A. Supporting calculations and numerical checks |
 
 Page references will be generated during document layout.
 
@@ -77,8 +74,8 @@ Page references will be generated during document layout.
 | 6 | Conceptual mechanisms by which steam shear releases droplets from a liquid film: (a) undercut and (b) roll-wave entrainment |
 | 7 | Simplified computational domain and inlet arrangement: (a) spiral inlet, vessel and internal steam outlet; (b) wall-side liquid strip and adjacent vapour inlet. The brine pool and discharge pipe are omitted. Panel (b) shows the split inlet introduced in Section 4.1; the collector is introduced in Section 4.3 |
 | 8 | Liquid volume fraction with mixed (a, c) and pure-split feed (b, d), at inlet height (a, b) and through the vessel centre (c, d) |
-| 9 | Liquid inventory (left) and outlet liquid flow (right) on the 342k, 680k and 997k meshes |
-| 10 | Historical tetrahedral and polyhedral–hexahedral mesh sections (a–b) and liquid-volume-fraction fields (c–d) |
+| 9 | Historical tetrahedral and polyhedral–hexahedral mesh sections (a–b) and liquid-volume-fraction fields (c–d) |
+| 10 | Liquid inventory (left) and outlet liquid flow (right) on the 342k, 680k and 997k meshes |
 | 11 | Residuals, liquid inventory and inlet loading during the reduced-feed hold, ramp and subsequent development |
 | 12 | Liquid volume fraction and velocity vectors in an earlier absorber trial |
 | 13 | Mean outlet liquid flow versus (a) roughness height and (b) roughness constant |
@@ -90,6 +87,7 @@ Page references will be generated during document layout.
 | 19 | Wall-film thickness before development (top) and at 195 ms (bottom) |
 | 20 | Bulk-liquid quantities, film inventory and lower-wall drain rate across meshes |
 | 21 | Preliminary mixture-velocity vectors around (a) the vertical film blocker and (b) the angled film ramp |
+| 22 | Experiment workflow linking research questions, execution, evidence and subsequent decisions |
 | A1 | Pool inventory and bounded outlet-pressure control |
 
 ## List of main tables
@@ -104,6 +102,8 @@ Appendix tables retain the comparison controls, inlet calculation, mass-account 
 ## Acknowledgements
 
 I thank Sadiq Zarrouk and Maedeh Amirpour for their supervision and feedback as the modelling questions developed. Discussions with Sadiq also helped shape the wall-liquid design concepts. I thank Andy Tran for his collaboration as my project partner.
+
+**Contribution statement.** This report presents my simplified-domain inlet, mesh, liquid-removal, startup and wall-film investigations. Andy Tran carried out the separate replication and full-geometry numerical investigations. The total of 387 executed configurations in Section 4.12 covers both partners; it is not a count of my work alone. Supervisor discussions helped shape the research direction and wall-liquid design concepts.
 
 ## Glossary of terms and abbreviations
 
