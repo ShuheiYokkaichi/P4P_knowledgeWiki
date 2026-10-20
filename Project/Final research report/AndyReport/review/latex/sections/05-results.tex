@@ -1,0 +1,137 @@
+\section{Results}
+
+The work developed and tested ways to represent inlet distribution and remove retained liquid. The results follow the five questions that determine whether inlet-condition predictions can be interpreted reliably: baseline stability, inlet response, numerical collection, wall-film drainage and the remaining performance limits. Detailed outlet and supporting sensitivity studies are retained in Appendices F and G. Each comparison identifies its model and numerical window; results from separate configurations are not treated as one continuous simulation.
+
+\subsection{Reconstruction enabled inlet tests and exposed a liquid-accounting problem}
+
+Reconstructing the separator model made the incoming phase distribution an explicit modelling choice. Separate liquid and vapour inlet regions were implemented, with loading based on the actual inlet areas. The split arrangement represented the tested stratified distribution, with liquid supplied along the outer wall and vapour through the remaining inlet area. This made the imposed distribution explicit without establishing that the upstream pipe would produce that distribution under every operating condition.
+
+Outlet dryness is the vapour mass fraction of the flow leaving through the steam outlet. It describes outlet composition; separation efficiency also requires knowing the destination of the incoming liquid. In the reconstructed split-inlet baseline at iteration 5000, liquid and vapour feeds were 116.92 and 80.69 kg/s. The steam outlet carried only 0.082132 kg/s liquid and 81.464165 kg/s vapour, giving a reported dryness of 99.8993\%. However, the boundary imbalance was approximately 58.73\% of total feed. Particle tracking was also unresolved: 13,012 of 13,020 parcels remained incomplete. The high dryness therefore described the calculated outlet composition while leaving most incoming liquid unaccounted for by the boundaries.
+
+The mesh investigation exposed continuing changes within individual calculations. All seven historical meshes reached their nominal 3000-iteration endpoint, but the approximately 0.51\% pressure-drop difference between two fine cases was smaller than their respective final-window pressure drifts of 2.69\% and 2.46\%. Extending the 5,335,623-cell historical mesh calculation did not remove this dependence. Between iterations 4000 and 6000, liquid inventory increased from 104.054 to 171.030 kg and pressure drop increased from 31.029 to 34.049 kPa. Pressure drift remained 4.612\% over the final 500 iterations.
+
+A separate inlet-loading continuation also changed the apparent result substantially. Liquid outlet flow increased from 0.001327 to 3.219214 kg/s between iterations 3088 and 20000, while dryness fell from 99.99782\% to 94.96220\%. Thus neither a selected iteration count nor a near-100\% outlet ratio supplied an iteration-independent baseline. These observations motivated the liquid-removal studies that followed. They describe the reconstructed cases; they do not measure the conservation error of the published Purnanto et al.~(2013) solution.
+
+\subsection{Inlet representation changed liquid distribution and retention}
+
+The matched inlet comparison showed that directing liquid towards the outer wall changed both its spatial distribution and the amount retained. To assess this response, a later reconstruction compared mixed and split inlet representations using the same mesh and numerical settings. Both imposed 116.9387 kg/s liquid and 80.7029 kg/s vapour on the same two inlet faces. The mixed condition distributed both feeds in proportion to face area; the split condition directed all liquid to the outer strip and all vapour to the remaining face. The common 26.81 m/s label denotes total volumetric feed divided by combined area, not equal speed on each split face (Table D.2). Both used independent fresh Hybrid initialisation under the same procedure, rather than one shared developed field.
+
+On the 60,964-cell model, the mixed and split inlets retained 1262.6 and 1734.5 kg respectively at matched 10,000-iteration endpoints: approximately 37\% more liquid with the split inlet. Both cases had closed lower boundaries and no absorber. Steam-outlet liquid flow was close to the Eulerian liquid feed in the reported windows. The retention difference was a model response rather than evidence of useful separation.
+
+Figure 6 shows where the change in retained liquid appeared. The split inlet produced a more continuous liquid-rich band along the outer wall at inlet height and a deeper liquid-rich region near the base. These spatial differences complement the integrated inventory result: directing liquid towards the wall changed its distribution, but did not supply a route for collecting it separately from the steam.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=.46\textheight,keepaspectratio]{\detokenize{../../figures/results-inlet-spatial-comparison.png}}
+\caption{Mixed and split inlet conditions on the same 60,964-cell mesh at solver iteration 10,000. Panels (a--b) show the inlet-height section and (c--d) the vessel centre section, with a shared liquid-volume-fraction scale of 0--1. Each mixed/split view pair has equal magnification. Reproduced from Yokkaichi (2026, Figure 8).}
+\label{fig:figure-6}
+\end{figure}
+
+The inlet result established a link between prescribed liquid delivery and predicted retention. It also made the next modelling question explicit: once liquid gathered near the wall and base, how could it reach a separate collection route? The near-feed liquid discharge through the steam outlet showed why its destination mattered alongside the boundary balance. These were fixed-iteration comparisons without demonstrated stationary inventories, so they did not establish which inlet condition would give better separation in an operating vessel.
+
+\subsection{Collection and staged loading enabled controlled wall studies}
+
+Numerical collection provided an explicit route for removing liquid from the truncated model. Combined with staged loading and solver changes, it produced a developed field that could be reused for controlled roughness and film comparisons. The lower-cell-zone source removed liquid independently of vapour, and integration checks established that the requested removal was delivered. This verified the source operation; the resulting liquid balance remained a separate test. Appendix G.1 retains that check and the separate full-geometry collector comparison.
+
+The strongest early residual improvement came from the combined low-feed, inlet-ramp and solver procedure in Figure 7. An initially unapplied ramp left the model at 25\% feed, where the minimum reported continuity residual reached \(3.2056\times10^{-4}\). The corrected ramp then increased both inlet flows to their targets over 2000 iterations. Subsequent full-feed continuation used the Coupled solver and Global Time Step. This was numerical pseudo-time advancement of a steady model, not a physical transient loading experiment.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=.46\textheight,keepaspectratio]{\detokenize{../../figures/results-described-early-development.png}}
+\caption{Reduced-feed development and verified inlet ramp. A marks the ramp start; B marks full feed and Coupled activation; C marks later EWF activation, after the smooth-wall control endpoint. The panels show scaled residuals, bulk-liquid inventory and inlet command against steady solver iteration. Reproduced from Yokkaichi (2026, Figure 11).}
+\label{fig:figure-7}
+\end{figure}
+
+At the full-feed control endpoint, iteration 5586, continuity was 0.0027841 and bulk liquid inventory was 295.85 kg. The solver completed the terminal continuation without fatal numerical events, although residual oscillations, outlet reverse flow and viscosity limiting persisted. The source matched its 116.92 kg/s command, but an additional 24.3344 kg/s liquid left through the steam outlet, producing the source-inclusive remainders in Table 3.
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.29000000\dimexpr\linewidth-4\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.34000000\dimexpr\linewidth-4\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.37000000\dimexpr\linewidth-4\tabcolsep\relax}@{}}
+\caption{Full-feed control balances at iteration 5586. Inflow is positive; percentages use the corresponding phase or mixture feed. The solver-reported mixture rate and the sum of the separate phase outlet rates differ by 0.0030 kg/s.}\label{tab:table-3}\\
+\toprule
+Account & Signed remainder (kg/s) & Remainder/reference feed (\%) \\
+\midrule
+\endfirsthead
+\toprule
+Account & Signed remainder (kg/s) & Remainder/reference feed (\%) \\
+\midrule
+\endhead
+Liquid boundaries plus applied sink & −24.3344 & −20.8129 \\
+Vapour boundaries & +0.4391 & +0.5442 \\
+Solver-reported mixture boundaries plus applied sink & −23.8923 & −12.0906 \\
+\bottomrule
+\end{longtable}
+
+The starting field enabled subsequent wall-treatment experiments, while Table 3 identified a restriction of the throughput-based collector: the sink already removed the entire liquid feed, leaving additional outlet flow as excess removal. The combined procedure therefore improved numerical behaviour without establishing steady conservation. This distinguished the practical value of a developed starting field from its qualification as an operating separator state.
+
+Resolving the lower vessel and brine outlet was explored as an alternative removal route. Short transient drainage tests and a separate outlet-resistance benchmark passed limited checks, but the tested separator configurations did not establish a sustained, mass-conserving operating state. Appendix F presents the boundary treatments, pool-control tests and startup diagnostics. Numerical collection remained useful for examining wall-liquid behaviour separately from those unresolved outlet and pool responses.
+
+\subsection{Film modelling distinguished local drainage from continued storage}
+
+Wall-film modelling made surface liquid a separate, observable part of the collection problem. The bulk collector removed liquid from lower cells; EWF added film motion, transfer, storage and drainage along wall surfaces. This allowed the study to distinguish liquid reaching the wall from liquid leaving through a collection route. Roughness and early film screens showed that lower liquid outlet flow could accompany changes in retained inventory or numerically limited films (Appendix G.2). The main comparisons below show how revised startup enabled film development and how local drainage changed the retained film.
+
+A revised startup procedure allowed roughness, contact removal and film physics to be introduced before full loading. Introducing roughness, contact removal and EWF earlier reduced peak continuity during the loading ramp from 0.011166 to 0.0033336, a 70.15\% reduction. Peak combined bulk-plus-film inventory and peak liquid outlet flow fell by 70.43\% and 75.78\%. These changes resulted from the combined startup procedure. Its separate activation hold still reached a continuity peak of 0.10593, larger than the historical loading peak, and 15 of the final 100 film updates failed their inner tolerance.
+
+\noindent\begin{minipage}{\linewidth}
+\captionof{table}{Selected successful numerical checks, each confined to its stated window. Staged development required film-height and two film-velocity residuals each ≤\(10^{-5}\) and source-accounting discrepancy ≤1\%. Its denominator is the sum of the magnitudes of integrated net phase and DPM sources; other film errors use integrated accretion. Local passes do not establish whole-separator conservation or stationarity.}\label{tab:table-4}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.29000000\dimexpr\linewidth-4\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.34000000\dimexpr\linewidth-4\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.37000000\dimexpr\linewidth-4\tabcolsep\relax}@{}}
+\toprule
+Checked calculation & Positive numerical evidence & Remaining limitation \\
+\midrule
+Early EWF loading ramp & All 2000 ramp film updates met inner tolerance & Later target-hold failures; film still accumulated \\
+Selected steel-wall roughness, bulk equations active & Final-window continuity mean 0.00185; film mass-balance error 0.00993\% of integrated accretion & Only 4 ms additional film time; inner-film residuals unavailable; whole-system balance unverified \\
+Staged film development, bulk equations active, +35 ms endpoint & All 1000 inner-film solves passed; film source-accounting discrepancy 0.252\% of integrated source magnitude & Bulk outlet and collector balances still failed their criteria \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+
+Table 4 shows that useful film and residual checks were passed in selected development windows, including with the bulk equations active. These successes were limited to the stated windows. A later sequential 2.5 µs film trial passed every inner solve but retained a 1.16832\% source gap, above its 1\% criterion. Accurate film accounting, adequate inner iteration and stationary bulk behaviour remained separate requirements.
+
+Longer film calculations demonstrated sustained surface drainage while revealing continued storage under fixed bulk forcing. At the reference inlet speed of 26.81 m/s, a frozen-bulk calculation reached 500 ms of film time and 9.5444 kg of film. Over the final 10 ms, mean accretion was 81.121 kg/s, drainage was 69.600 kg/s and storage was 11.528 kg/s. Drainage had developed substantially, but remained 14.20\% below accretion. This difference was consistent with continuing film storage rather than, by itself, a conservation failure. Only the reference-speed case reached 500 ms; the lower-speed case stopped at 135.451 ms and the higher-speed case was not run.
+
+Figure 8 shows what the added film representation revealed: an established outflow can coexist with continued accumulation. The drainage rate changes relatively little late in the calculation, while film inventory keeps rising because input remains larger than removal. This response motivated testing whether a direct film-removal route could reduce storage.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=.46\textheight,keepaspectratio]{\detokenize{../../figures/results-film-development-reference500ms.png}}
+\caption{Wall-film development at reference speed with bulk flow fixed: (a) film inventory and (b) accretion and drainage over 500 ms of film time. Grey shading marks the final 10 ms assessment window. This film time does not represent a fully evolving separator. Reproduced from Yokkaichi (2026, Figure 16).}
+\label{fig:figure-8}
+\end{figure}
+
+A bulk contact sink did not directly remove the EWF store. Direct film drainage was therefore tested separately by adding a local film-mass source with matching momentum removal on the lower wall. In an isolated source test, the measured film loss followed the applied removal while bulk inventories remained fixed. The subsequent paired comparison used the same expanded film domain and starting field with the drain disabled and enabled, retaining all selected upper-wall film effects.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=.46\textheight,keepaspectratio]{\detokenize{../../figures/results-direct-film-drain.png}}
+\caption{Direct film drain disabled and enabled, with bulk flow fixed: (a) final lower-wall film mass after 15 ms and (b) cumulative film-edge outflow plus direct removal over that interval. Adapted from Yokkaichi (2026, Figure 18).}
+\label{fig:figure-9}
+\end{figure}
+
+Enabling the drain removed 0.5088 kg directly and reduced final lower-wall film from 0.187520 to 0.055650 kg, a 70.32\% reduction (Figure 9). Total external removal increased from 0.5302 to 0.7199 kg, a smaller net gain of 0.1897 kg because existing-edge outflow decreased. Total film was only 1.70\% lower, at 10.9829 rather than 11.1726 kg, and still grew in both cases. A longer continuation recorded 15.16 kg direct removal and 27.58 kg net accumulation, including a late interval exceeding the film Courant limit. The drain therefore controlled storage locally while accumulation continued in the wider film. This demonstrated a removal mechanism and showed why the liquid supply and transport towards that mechanism also needed assessment.
+
+\subsection{Mesh and particle tests identified sensitivities in performance estimates}
+
+The developed models enabled three checks on the reliability of performance estimates: whether small bulk-flow mass-balance gaps also indicated effective separation; whether predictions were stable across meshes and with further iteration; and whether particle-tracking settings changed the estimated separation. The section then assesses the computational saving obtained with the poly-hexcore reconstruction.
+
+Small bulk-flow mass-balance gaps did not by themselves show effective separation. At matched iteration-16000 endpoints, five coupled-DPM cases achieved final-window mean absolute Eulerian boundary gaps of 0.17--0.69\% of Eulerian feed. These small differences concerned only inlet and outlet flow in the bulk model. Their bulk-liquid outlet rates were still 94.30--98.72\% of total water feed. Adding provisional EWF reduced that outlet fraction at every matched point, but increased the Eulerian boundary gaps to 4.82--55.48\%. Film transfers and terminal particle fates were outside that boundary diagnostic. Reported DPM mass feedback was zero in those windows, consistent with the inert-particle model; this did not exclude momentum feedback or account for liquid stored in particles or film. The comparison therefore showed clear sensitivity to inlet and liquid representation while retaining incomplete whole-system accounting.
+
+Mesh sensitivity was examined in two separate model families. In the wall-film study, storage and drainage obtained on the coarse mesh were not reproduced at the same film age on finer meshes. Four selected states were compared at 195 ms (Table G.1). Total film was 7.490 kg on the 60,964-cell mesh, compared with 2.821, 2.950 and 2.056 kg on the 342,609-, 679,970- and 997,604-cell meshes. The corresponding instantaneous direct-drain rates were 22.716, 7.168, 6.778 and 4.587 kg/s. The two intermediate meshes gave similar values, but the finest completed mesh had about 30\% less film and 32\% less drainage than the 679,970-cell case. Apparent agreement between the intermediate meshes therefore did not establish mesh independence.
+
+These are available endpoint comparisons, not completed convergence or conservation assessments. Each film evolved under its own mesh's frozen bulk field, starting film ages differed, and the 342,609-cell reference preceded a bulk-active adjustment. Under the same direct-drain law, a lower film mass in the drain region produces a smaller removal rate; lower drainage alone does not show a less effective drain. Differences in film supply, release, transport and development time remain possible explanations. Continuous selected-run histories were unavailable to distinguish them or establish stationary film and complete liquid closure. The 2.6-million-cell mesh supplied only an initial-state reference to this analysis. Appendix G.3 retains preparation details and separates the selected frozen states from supplementary bulk-active extensions.
+
+Two geometry variants, a vertical film blocker and an angled film ramp, were also implemented, and both reached 150 ms of film development with the bulk flow frozen. Separate earlier near-50 ms snapshots showed concentrated local film storage near the blocker and a thinner, more downward-moving inlet-region film in the angled case. These observations supplied candidates for further assessment. Mesh independence was not established, and mesh resolution, film settings and preparation differed, so the snapshots did not isolate a geometry effect or establish improved separation. Appendix G.3 distinguishes the compared snapshots from the later 150 ms endpoints. Section 7.2 sets out further assessment of these designs and the proposed external collection channel.
+
+In the separate single-inlet mesh family, similar mean velocities concealed substantial differences in the spatial flow field. Six levels failed numerically; the seventh was stopped by the user at iteration 718 and remained a partial result. At iteration 1000, the volume-mean speeds on the 1.43-million-cell and 2.21-million-cell poly-hexcore meshes differed by only 0.98\%, while the spatial velocity-vector comparison differed by 16.79\% using the binning in Figure 10. Across the wider set of saved meshes, within-mesh changes between iterations 1000 and 2000 reached 17.60--26.90\%, with liquid inventory increasing 177.9--230.9\% (Figure 10). Iterative development was therefore comparable to or greater than cross-mesh differences. No mesh-independent solution or Richardson/GCI estimate was established.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=.46\textheight,keepaspectratio]{\detokenize{../../figures/field-refinement.png}}
+\caption{Velocity-field differences across meshes and iterations, expressed as normalised RMS vector differences. Cross-mesh comparisons cover 86--91\% of the 2.21-million-cell reference volume; same-mesh comparisons cover 100\%. Section 4.3 defines the binning method. These are field differences, not discretisation-error estimates. Source: the project mesh-sensitivity assessment.}
+\label{fig:figure-10}
+\end{figure}
+
+The single-inlet reconstruction also tested whether historical performance estimates could be reproduced at lower computational cost. It used the 946,967-cell poly-hexcore mesh generated by remeshing the separator geometry represented by the tetrahedral reference and completed five full-flow enthalpy cases. At 1600 kJ/kg, the 1500-iteration carrier endpoint still had substantial drift: liquid inventory grew 90.895\% over iterations 1000--1500, mean absolute liquid flux error was 91.120\% of liquid feed, and terminal continuity was 0.23252. The saved bulk flow therefore remained both iteration-dependent and imbalanced when droplet tracking began.
+
+For comparison with earlier work, incomplete particle trajectories were counted as separated, following the approach used by Purnanto et al.~(2013, Section 4.3). Under this convention, the five enthalpy cases produced assumed-capture efficiencies within 0.019 percentage points of the historical project estimates. However, 16.78--33.29\% of represented particle mass remained incomplete. Using the same assumption maintained consistency with the earlier approach, which Purnanto et al.~acknowledged was not rigorous; it did not establish that unresolved droplets were physically separated.
+
+A separate tracking-budget test showed why close agreement in these near-100\% estimates required caution. The same saved 1600 kJ/kg carrier field was retracked with a larger allowance for each particle. Increasing the tracking limit from 10,000 to 100,000 steps increased aggregate escaped mass from 0.01775 to 0.03812 kg/s, or 114.76\%, while incomplete represented mass changed only from approximately 19.74 to 19.71 kg/s. Most unresolved particles remained unresolved even as the small escaped fraction more than doubled. Because the inlet and steam outlet both permitted escape, this aggregate was not a verified steam-outlet carryover rate. The test identified tracking sensitivity without isolating a retention mechanism.
+
+The poly-hexcore case reduced the measured computational cost of the reconstruction. At 1600 kJ/kg, 1,500 carrier iterations required 42.01 minutes, compared with 86.17 minutes for the fresh tetrahedral repeat on the same computer and Fluent version. This approximately halved the measured flow-calculation time and supported the practical choice to use the poly-hexcore mesh for repeated reconstruction work. The comparison measures cost at a fixed iteration count, not time to a converged solution or equivalent accuracy. Appendix G.4 retains the enthalpy table, particle-tracking timings and unresolved geometry comparison; these limits prevent attributing the runtime difference solely to mesh type.

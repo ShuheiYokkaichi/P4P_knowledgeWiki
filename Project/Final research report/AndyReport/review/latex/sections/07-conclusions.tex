@@ -1,0 +1,44 @@
+\section{Conclusions and future work}
+
+\subsection{Conclusions against the project objectives}
+
+The project developed and tested inlet, collection and wall-film models for investigating inlet conditions. The tests showed how the prescribed inlet distribution changed retention, and assessed the transport and removal processes needed to interpret that change. They also identified the numerical checks still required for credible performance predictions. The four original objectives were addressed to different degrees:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Reproduce the existing model and establish a validated baseline.} Model settings, inlet loading and particle calculations were reconstructed, and conditional historical-output agreement was obtained. Mesh and iteration studies exposed continuing inventory, pressure and particle-fate dependence. A traceable comparison baseline was developed, but a numerically adequate and independently validated operating baseline was not established.
+\item
+  \textbf{Implement realistic two-phase inlet conditions across flow regimes.} Separate liquid and vapour regions implemented an imposed stratified inlet with liquid on the outer-wall side. Comparisons demonstrated an effect on retention and routing. The work did not extend to a validated range of annular, slug and other inlet regimes; the implemented distribution remains a prescribed approximation.
+\item
+  \textbf{Assess inlet effects on internal flow, pressure and separation across operating conditions.} Loading, enthalpy and inlet-representation studies produced field, pressure, inventory and outlet comparisons. Wall-film modelling added explicit transport and removal routes, with useful local accounting passes. Continuing numerical development and unresolved particle fates prevented these observations from establishing physical separation-efficiency or pressure-loss predictions.
+\item
+  \textbf{Identify influential parameters and inform optimisation.} The studies identified sensitivity to startup, solver treatment, collection strength, wall treatment, outlet resistance and tracking horizon. Controlled drainage and analytical resistance tests verified useful components. The evidence informs further model development, but does not establish a universal parameter ranking or an optimum separator design.
+\end{enumerate}
+
+The central finding is that changing where liquid enters and providing a local removal route are only parts of the collection problem. The tests demonstrated inlet sensitivity, improved startup, correctly applied sources, locally conservative film transport and functional drainage, while revealing continued storage and unresolved liquid destinations. This provides an evidence-based route for further model development. A stationary, fully accounted, mesh-independent and physically validated separator solution remains to be established before these capabilities can support performance optimisation.
+
+\subsection{Priorities for future work}
+
+The next stage should build on the developed film cases to determine whether sustained drainage can eventually balance supply without continued storage. This requires a complete liquid mass balance. Bulk, particle and film inventories must use compatible transfer definitions, counting each internal transfer once and identifying all external removal. Extend selected meshes beyond the available 195 ms snapshots while recording film supply, release, storage and drainage histories, to test whether the differing responses approach one another. Assess bulk-active extensions separately. Establish whether removal approaches inflow without inventory drift, then test sensitivity to reciprocal film--bulk momentum coupling. If physical transient behaviour is required, all stores must evolve on a compatible physical clock; frozen-bulk film time cannot supply that evidence.
+
+If resolved brine drainage is pursued, use the verified resistance component with independently constrained downstream head and compatible hydrostatic initialisation. Appendix F identifies the remaining startup and operating-state limits; a pressure adjustment alone is not an established remedy.
+
+Particle work should locate incomplete trajectories, separate inlet escape from steam-outlet escape, and test tracking sensitivity before assigning physical fates. Mesh-cost comparisons also require matched parcel workloads and tracking settings.
+
+Further mesh and runtime comparisons should use matched domains and workloads (Appendix G.4). Once a sufficiently settled, conservative reference exists, repeat matched mesh and applicable timestep comparisons using pressure, routing and field quantities. Neither mesh study established mesh independence, so this remains a required numerical verification step.
+
+Physical validation should compare compatible measurements of carryover, brine discharge and pressure loss, with uncertainty reported for both measurements and predictions.
+
+Once a numerically verified and physically validated reference is available, broader inlet-regime comparisons can extend beyond the imposed stratified arrangement. The following three geometry proposals can then be assessed against the original optimisation objective:
+
+\begin{itemize}
+\item
+  \textbf{Vertical film blocker:} intercept circulating wall liquid before it meets the inlet steam again, limiting its return to the bulk flow.
+\item
+  \textbf{Angled film ramp:} direct circulating wall liquid downward towards the lower collection region.
+\item
+  \textbf{External collection channel:} collect wall liquid through an opening in the vessel shell and route it downward through an external drain, reducing its repeated circulation inside the vessel.
+\end{itemize}
+
+The blocker and ramp already have completed 150 ms basic-EWF calculations (Appendix G.3), but these remain exploratory and do not establish improved performance. After the reference model passes the checks above, repeat their assessment against the unmodified separator. The external channel remains an untested proposal. Compare the three concepts using matched inlet conditions, wall and film settings, comparable mesh resolution and preparation, and sufficient development time. Assess steam-outlet liquid carryover, collected liquid, continuing film storage and pressure loss together. A thinner local film or lower inventory alone is insufficient evidence of improved separation.

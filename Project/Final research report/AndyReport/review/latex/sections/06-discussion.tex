@@ -1,0 +1,37 @@
+\section{Discussion}
+
+\subsection{Progress towards a credible inlet-condition model}
+
+The investigation established capabilities for testing inlet effects: separate phase-inlet regions, controlled loading, numerical collection and wall-film transport. These enabled comparisons of liquid retention, removal and sensitivity to numerical choices. The contribution is both the tested model components and the evidence needed to judge their predictions. Each comparison is interpreted against its own conservation, storage and convergence checks.
+
+Figure 6 locates the additional wall and base enrichment, complementing the approximately 37\% greater retained liquid in the split-inlet reconstruction at matched 10,000-iteration endpoints. The comparison demonstrates sensitivity to the prescribed distribution under matched phase feeds and the same startup procedure. It was limited to the imposed outer-wall liquid arrangement, without stationary inventories or an upstream pipe calculation establishing the regime. Its contribution is therefore a demonstrated change in predicted distribution and retention; its effect on physical separation efficiency remains unestablished.
+
+The baseline mesh study explained why the investigation had to extend beyond the inlet. Liquid inventory and pressure continued to change with iteration, while the inherited domain omitted a separate brine-removal path. A model intended to predict useful separation had to account for the liquid after it reached the wall and base. This motivated testing removal and transport, alongside the numerical checks needed to interpret their effects.
+
+\subsection{Collection and startup procedures made wall studies practical}
+
+The collector and staged preparation supplied a developed field from which roughness and film treatments could be compared. This was a practical advance: the study could introduce additional wall processes and examine their response from controlled starting conditions. Preparation and Coupled/Global Time Step treatment changed together, so the improved numerical behaviour cannot be assigned to ramping alone.
+
+The full-feed balance also revealed a restriction of the throughput-based collector. Because the sink already removed the whole liquid feed, additional liquid leaving through the steam outlet produced excess removal. Correct source delivery verified implementation but could not remove that restriction. The separate full-geometry depletion collector responded to its local-content law without establishing global balance (Appendix G.1); these different outcomes do not identify one common cause for every configuration.
+
+The modelling lesson is to assess collection rate, storage and liquid destination together. Selected particle cases had small bulk-boundary gaps while sending nearly all water through the steam outlet. Conversely, a removal source could operate correctly while the total liquid account remained inconsistent. Reports therefore need to identify whether they include sources, count each transfer once and use the stated phase or mixture denominator. This also applies to film release already included in a net source.
+
+\subsection{Film modelling separated local drainage from continued accumulation}
+
+EWF extended the study from liquid distribution in the vessel to transport and storage on its walls. Figure 8 shows the resulting insight: drainage can become sustained while liquid continues to accumulate. At 500 ms, drainage remained below accretion and the difference entered storage. The film representation made that distinction measurable instead of treating arrival at the wall as completed collection.
+
+The direct-drain comparison then showed how removal changed the film locally. It reduced the lower-wall store by 70.32\%, but total film by only 1.70\% relative to the undrained case; some direct removal replaced existing edge outflow. The drain controlled a small local store without controlling the whole inventory. Assessing collection therefore requires following liquid supply and transport towards the removal region, as well as checking the drain itself.
+
+Selected windows passed local film-balance and inner-iteration checks with the bulk equations active. These passes support the ability to calculate and account for film transport over those windows. They do not establish complete separator conservation or a stationary operating state. Likewise, the longer frozen-bulk runs isolate film development under fixed forcing: growing film can conserve mass, but fixed bulk inventory cannot establish coupled stationarity, and film time is not elapsed fully coupled separator time. Even bulk-active stages of the later enhanced model omitted reciprocal film--bulk momentum coupling.
+
+The 195 ms mesh comparison tested whether the coarse-mesh response persisted with finer resolution. Finer states had lower film inventory and drainage, and the finest completed case broke the similarity between the intermediate meshes. This established sensitivity of the developed film response to mesh and preparation. Lower supply, different release or different transport histories could contribute; the available endpoints cannot distinguish them. Each mesh retained its own bulk forcing, so the comparison is not an isolated discretisation-error estimate. The available design endpoints likewise did not establish an isolated design benefit.
+
+\subsection{Sensitivity tests defined what performance comparisons must resolve}
+
+The mesh and particle tests showed why detailed solution evidence was needed alongside summary performance estimates. Similar mean velocities concealed spatial field differences, while changes within a run matched or exceeded differences between meshes. The saved-field comparisons therefore identified continuing numerical development that prevented an isolated discretisation-error estimate.
+
+The particle test supplied a second example. Increasing the tracking allowance more than doubled the small escaped-mass estimate while most unresolved particle mass remained unresolved. Meanwhile, counting incomplete particles as separated produced efficiencies within 0.019 percentage points of the project's July estimates. The useful finding is that a near-100\% efficiency can conceal material uncertainty in liquid destination. Particle-fate distributions and their sensitivity to tracking are therefore needed to interpret apparent agreement.
+
+The measured computational savings remain specific to the compared cases (Appendix G.4). The historical efficiency comparison also has limits related to software provenance and the unrecovered tracking cap, detailed in that appendix. These limits identify what a matched follow-up comparison must control; the current evidence does not establish physical separation performance, an optimum geometry or a validated operating range.
+
+The resolved-outlet investigation added a verified resistance law and short conservative discharge tests (Appendix F). It did not produce a sustained full-separator operating state, but that outcome does not prove that a physical steady solution is impossible or identify one cause for all failed tests. Together, the studies provide tested components, observed sensitivities and specific requirements for assessing them as a complete separator model.
