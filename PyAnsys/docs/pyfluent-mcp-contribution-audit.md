@@ -6,7 +6,7 @@ Review date: 20 October 2026. Scope: compare the public PyFluent MCP implementat
 
 [Interactive official-workflow and contribution map](pyfluent-mcp-contribution-map.html).
 
-The first contribution is prepared locally. The 21 October version failed the complete identical-case comparison. The revised patch passed the desktop real-Fluent checks on 22 October, including identical cases, a saved energy change, incomplete reads, and owned-session cleanup. The revised patch has not been rerun on Server 3, and no upstream PR has been created. Offline checks are not acceptance evidence: [PR draft](pyfluent-mcp-comparison-pr.md), [patch with review instructions](../workflow_updates/pyfluent-mcp-compare-files/README.md), and [desktop receipt](../output/pyfluent-mcp-audit/20261022/desktop-live-status.json).
+The contribution is prepared locally. The 21 October version failed the complete identical-case comparison. The revised patch passed desktop real-Fluent checks on 22 October. It now also implements F02: an optional list of exact settings paths caught a saved inlet velocity change that the default comparison missed. The revised patch has not been rerun on Server 3, and no upstream PR has been created. Offline checks are not acceptance evidence: [PR draft](pyfluent-mcp-comparison-pr.md), [patch with review instructions](../workflow_updates/pyfluent-mcp-compare-files/README.md), [original desktop receipt](../output/pyfluent-mcp-audit/20261022/desktop-live-status.json), and [selected-path receipt](../output/pyfluent-mcp-audit/20261022-selected-paths/live-status.json).
 
 ## Evidence and version boundary
 
@@ -146,6 +146,8 @@ The fake backends both raised `state unavailable` and `names unavailable`. Both 
 **Acceptance checks.** Both reads fail; one side fails; one branch fails; ordinary equal cases; ordinary differences; inactive model; valid null; truncation; all cleanup paths. Keep the normal successful result shape and Markdown comparison format where practical. This is tool-result integrity, not physical validation.
 
 ### F02 — Compare selected named-object values in the existing tool
+
+**22 October update:** the draft now accepts up to 10 exact `settings_paths`. A real saved `cold-inlet` velocity change from 1 to 2 produced one selected-path difference while the default comparison produced none. A subsequent regression against the combined patch returned zero differences for identical copies, detected a saved energy change, and returned `comparison incomplete` at the 1-byte capture limit. The [live receipt and raw runs](../output/pyfluent-mcp-audit/20261022-selected-paths/live-status.json) record these results.
 
 **User benefit.** “Did this inlet change from 1 to 2 m/s?” is a natural extension of the documented case-comparison request.
 

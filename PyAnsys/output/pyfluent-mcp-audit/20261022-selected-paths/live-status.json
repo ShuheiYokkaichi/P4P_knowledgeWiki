@@ -1,0 +1,69 @@
+﻿{
+    "status":  "DESKTOP_LIVE_FEATURE_PASSED",
+    "machine":  "HOME-DESKTOP-SH",
+    "fluent":  "2025 R2 Student Edition",
+    "pyfluent":  "0.41.0",
+    "python":  "3.13",
+    "upstream_base_commit":  "f56e540931fbcdf5b9f81871a21934589f256d91",
+    "patch_sha256":  "48f85aa275e5ead62ef4a3536e81a3dbc23002b632f1178b6e091c9cf70f1eb1",
+    "source_hashes":  {
+                          "compare_tools":  "e59bc7d0411cd818ca0cf73b3262a428b275b5a8e7421a9e4be45f999f99282b",
+                          "introspection":  "afaf21c5aef92df8c1c1c67adbee217c415b770dbc68b9d80f5517fed0973010",
+                          "domain_tools":  "c898d1defda8f57168a67f96a45659b6977b903734b024e6d6aaa316e36bc29f"
+                      },
+    "selected_path":  "setup/boundary-conditions/velocity-inlet[cold-inlet]/momentum/velocity-magnitude/value",
+    "case_hashes":  {
+                        "mixing_elbow.cas.h5":  {
+                                                    "sha256":  "8145813f50f989a521ed8d1b02c891c7ca22ccc5fafa35a4eeba011949f19cbc",
+                                                    "bytes":  3062081
+                                                },
+                        "cold_inlet_2.cas.h5":  {
+                                                    "sha256":  "462b3d1977644430d1030656aefa7d260aa2a75c8871494209610fa38bdef21f",
+                                                    "bytes":  3546500
+                                                }
+                    },
+    "checks":  {
+                   "default_excludes_inlet_value":  true,
+                   "selected_path_detects_saved_value":  true,
+                   "unreadable_selected_path_is_incomplete":  true,
+                   "owned_sessions_closed":  true,
+                   "combined_patch_identical_cases_zero_diffs":  true,
+                   "combined_patch_saved_energy_change_detected":  true,
+                   "combined_patch_real_size_limit_incomplete":  true
+               },
+    "results":  {
+                    "selected_diff_count":  1,
+                    "selected_from":  1,
+                    "selected_to":  2,
+                    "selected_summary":  "### Differences: **mixing_elbow.cas.h5** vs **cold_inlet_2.cas.h5**\n_1 difference(s) total._\n\n#### setup / boundary-conditions / velocity-inlet[cold-inlet] / momentum / velocity-magnitude\n| Setting | mixing_elbow.cas.h5 | cold_inlet_2.cas.h5 |\n| --- | --- | --- |\n| `value` | 1 | 2 |",
+                    "default_diff_count":  0,
+                    "missing_error":  "comparison incomplete",
+                    "missing_has_diff_count":  false,
+                    "fluent_processes_after":  0,
+                    "combined_patch_regression":  {
+                                                      "identical_diff_count":  0,
+                                                      "energy_diff_count":  16,
+                                                      "energy_enabled_from":  true,
+                                                      "energy_enabled_to":  false,
+                                                      "size_limit_error":  "comparison incomplete",
+                                                      "size_limit_inputs":  [
+                                                                                "path_a",
+                                                                                "path_b"
+                                                                            ],
+                                                      "fluent_processes_after":  0
+                                                  }
+                },
+    "limits":  [
+                   "Real validation covers a scalar inlet setting, an unreadable selected path, identical cases, a saved energy change, and a real size-limit omission on this desktop.",
+                   "The revised combined patch has not been rerun on Server 3.",
+                   "No upstream PR or offline test code was created."
+               ],
+    "raw_evidence":  [
+                         "raw/desktop-selected.json",
+                         "raw/desktop-selected.log",
+                         "raw/desktop_selected.py",
+                         "raw/desktop-compare.json",
+                         "raw/desktop-feature-regression.log",
+                         "raw/desktop_compare.py"
+                     ]
+}

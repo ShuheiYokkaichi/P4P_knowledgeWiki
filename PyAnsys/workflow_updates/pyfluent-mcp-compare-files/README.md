@@ -1,4 +1,4 @@
-# PyFluent MCP comparison fix — review bundle
+# PyFluent MCP comparison extension — review bundle
 
 This is a draft contribution to [ansys/pyfluent-mcp](https://github.com/ansys/pyfluent-mcp). No upstream branch or pull request has been published.
 
@@ -8,13 +8,16 @@ This is a draft contribution to [ansys/pyfluent-mcp](https://github.com/ansys/py
 | Reviewable implementation | [changes.patch](changes.patch) |
 | PR draft | [pyfluent-mcp-comparison-pr.md](../../docs/pyfluent-mcp-comparison-pr.md) |
 | Desktop live receipt | [desktop-live-status.json](../../output/pyfluent-mcp-audit/20261022/desktop-live-status.json) |
+| Selected-path and combined-patch live receipt | [live-status.json](../../output/pyfluent-mcp-audit/20261022-selected-paths/live-status.json) |
 | Earlier Server 3 receipt | [live-status.json](../../output/pyfluent-mcp-audit/20261021/live-status.json) |
 
-**Status: desktop live acceptance passed on 22 October 2026.** The revised patch changes four upstream files (82 added lines, 27 removed lines) and adds no test code. The earlier, concurrent-session patch failed on Server 3; this revised patch has not been rerun there.
+**Status: desktop live acceptance passed on 22 October 2026.** The current draft changes five upstream files (144 added lines, 36 removed lines) and adds no test code. The earlier, concurrent-session patch failed on Server 3; this revised patch has not been rerun there.
 
 ## What changed
 
 `compare_files` could report no differences when both snapshots held the same read errors or omitted-state markers. It now returns `comparison incomplete` with the affected input and path. A lost Fluent connection during named-object fallback traversal also raises an error instead of returning a partial inventory.
+
+The new optional `settings_paths` input compares values at up to 10 exact Fluent settings paths in addition to the default global settings and named-object names. For example, the default comparison cannot see a velocity change at a named inlet when its name remains the same. Selecting that inlet's velocity path reports the saved value change.
 
 The tool still creates and closes a separate temporary Fluent session for each input. It now runs those sessions one after the other. Student Edition could launch one session but refused a second concurrent session. Sequential capture also reduces simultaneous licence and memory use without attaching to or changing the caller's workspace. The patch keeps the headless launch, lightweight file-read, and available run-calculation corrections.
 
@@ -29,8 +32,12 @@ Fluent 2025 R2 Student Edition, PyFluent 0.41.0 and Python 3.13 ran on `HOME-DES
 | Real 1-byte capture limit | `comparison incomplete` for both inputs; no summary or difference count |
 | Forced loss of an owned test session | Fallback walk raised the native connection-refused `RuntimeError`; it had found 70 collections before disconnect |
 | Temporary-session cleanup | No Fluent processes remained after the tool runs |
+| Saved `cold-inlet` velocity changed from 1 to 2 | Default comparison returned 0 differences; selecting its exact velocity path returned one difference, 1 to 2 |
+| Unreadable selected path | `comparison incomplete` for both inputs, with no difference count |
 
 The [raw desktop receipts and executed harness](../../output/pyfluent-mcp-audit/20261022/raw/) are retained for review. The direct inspection and forced-disconnect harness use the pinned desktop Fluent path and terminate only their own uniquely identified test process tree. Review those scripts before reuse on another machine.
+
+The [selected-path receipt and raw live runs](../../output/pyfluent-mcp-audit/20261022-selected-paths/) record the new capability and a full regression against the combined patch. The official mixing-elbow case was saved with `cold-inlet` velocity changed from 1 to 2. The exact path was `setup/boundary-conditions/velocity-inlet[cold-inlet]/momentum/velocity-magnitude/value`. The subsequent regression returned zero differences for byte-identical case copies, 16 differences for the saved energy change (including `enabled: true` to `false`), and `comparison incomplete` for both inputs under a real 1-byte capture limit. No Fluent processes remained after these runs. The source case and changed case hashes are in the receipt. No case binaries are committed.
 
 The previous [Server 3 evidence](../../output/pyfluent-mcp-audit/20261021/) remains valid for the older patch: byte-identical cases gave 63 false inventory differences when a connection failed during fallback traversal. The cause of that connection loss was not established. The revised patch has a different session schedule and propagates that failure; its Server 3 result is unverified.
 

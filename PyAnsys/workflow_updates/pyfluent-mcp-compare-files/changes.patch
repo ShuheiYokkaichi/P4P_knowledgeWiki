@@ -1,15 +1,15 @@
 diff --git a/doc/changelog.d/0.fixed.md b/doc/changelog.d/0.fixed.md
 new file mode 100644
-index 0000000..87cd1fd
+index 0000000..4723a34
 --- /dev/null
 +++ b/doc/changelog.d/0.fixed.md
 @@ -0,0 +1 @@
-+Report incomplete snapshot reads in ``compare_files`` instead of treating matching errors or omitted state as equal case settings. Collect the two cases in separate, sequential temporary sessions to avoid requiring two concurrent Fluent licences. Use headless launches, the lightweight file-read command, and the available run-calculation settings group.
++Report incomplete snapshot reads in ``compare_files`` instead of treating matching errors or omitted state as equal case settings. Add optional exact settings-path value comparisons. Collect the two cases in separate, sequential temporary sessions to avoid requiring two concurrent Fluent licences. Use headless launches, the lightweight file-read command, and the available run-calculation settings group.
 diff --git a/doc/source/user_guide/tools_and_capabilities.rst b/doc/source/user_guide/tools_and_capabilities.rst
-index 599b928..1ceaf8d 100644
+index 599b928..3c94e2c 100644
 --- a/doc/source/user_guide/tools_and_capabilities.rst
 +++ b/doc/source/user_guide/tools_and_capabilities.rst
-@@ -123,6 +123,12 @@ Route all "show mesh quality / skewness / check mesh" intents to
+@@ -123,6 +123,20 @@ Route all "show mesh quality / skewness / check mesh" intents to
  without touching the live workspace session. Requires the ``file-probe`` extra for
  ``.h5``/``.cas.h5`` files.
  
@@ -18,6 +18,14 @@ index 599b928..1ceaf8d 100644
 +affected input (``path_a`` or ``path_b``), section or settings path, and read error.
 +No difference count or comparison summary is returned for incomplete snapshots.
 +The two temporary Fluent sessions run one after the other and are closed by the tool.
++
++Pass optional ``settings_paths`` (up to 10 exact Fluent settings paths) to compare
++values beyond the default global state and named-object names. For example, a
++named inlet's velocity can be checked with
++``settings_paths=["setup/boundary-conditions/velocity-inlet[cold-inlet]/momentum/velocity-magnitude/value"]``.
++The result lists the selected paths, and any changed value appears in the normal
++diff and summary. A requested path that cannot be read makes the comparison
++incomplete.
 +
  Workflow examples
  -----------------
@@ -82,10 +90,52 @@ index c81b20e..a1cda34 100644
                  continue
              child_label = child.replace("_", "-")
 diff --git a/src/ansys/fluent/mcp/solve/lib/compare_tools.py b/src/ansys/fluent/mcp/solve/lib/compare_tools.py
-index 5174349..086cfa0 100644
+index 5174349..fa3b528 100644
 --- a/src/ansys/fluent/mcp/solve/lib/compare_tools.py
 +++ b/src/ansys/fluent/mcp/solve/lib/compare_tools.py
-@@ -120,6 +120,32 @@ async def collect_compare_snapshot(backend: Backend) -> dict[str, Any]:
+@@ -85,20 +85,26 @@ def ephemeral_pyfluent_backend(label: str = "PyFluent (compare)") -> Backend:
+ # ---------------------------------------------------------------------------
+ 
+ 
+-async def collect_compare_snapshot(backend: Backend) -> dict[str, Any]:
++async def collect_compare_snapshot(
++    backend: Backend, settings_paths: list[str] | None = None
++) -> dict[str, Any]:
+     """Read a deterministic slice of session state for diffing.
+ 
+     Combines the global-state slice (energy, viscous, solver, methods,
+-    operating conditions) with named-object name lists per family.
++    operating conditions) with named-object name lists per family and
++    optional exact settings-path values.
+     Returns a dictionary shaped like this::
+ 
+         {"global": {<path>: <state-or-marker>},
+-         "named":  {<family>: [<names>]}}
++         "named":  {<family>: [<names>]},
++         "selected": {<path>: <state-or-marker>}}  # only when requested
+ 
+     Parameters
+     ----------
+     backend : Backend
+         Backend to supply to the function.
++    settings_paths : list[str] | None
++        Additional exact settings paths to read from the case.
+ 
+     Returns
+     -------
+@@ -117,9 +123,46 @@ async def collect_compare_snapshot(backend: Backend) -> dict[str, Any]:
+         }
+     except Exception as exc:  # boundary
+         snap["named"] = {"_error": str(exc)}
++    if settings_paths:
++        try:
++            selected = await backend.get_state(paths=settings_paths)
++            snap["selected"] = {
++                path: selected.get(path, {"error": "setting was not returned"})
++                for path in settings_paths
++            }
++        except Exception as exc:  # boundary
++            snap["selected"] = {"_error": str(exc)}
      return snap
  
  
@@ -110,6 +160,8 @@ index 5174349..086cfa0 100644
 +        for path, value in values.items():
 +            if isinstance(value, dict) and set(value) == {"error"}:
 +                errors[f"{section}.{path}"] = value["error"]
++            elif section == "selected" and isinstance(value, dict) and set(value) == {"skipped"}:
++                errors[f"{section}.{path}"] = value["skipped"]
 +            elif value == "<large_state_omitted>":
 +                errors[f"{section}.{path}"] = "state exceeded capture size limit"
 +    return errors
@@ -118,7 +170,60 @@ index 5174349..086cfa0 100644
  def diff_snapshots(
      a: dict[str, Any],
      b: dict[str, Any],
-@@ -413,25 +439,23 @@ async def compare_files_impl(
+@@ -225,7 +268,7 @@ def split_diff_path(path: str) -> tuple[str, str]:
+     tuple[str, str]
+         Collection containing the operation results.
+     """
+-    for prefix in ("global.", "named."):
++    for prefix in ("global.", "named.", "selected."):
+         if path.startswith(prefix):
+             path = path[len(prefix) :]
+             break
+@@ -363,6 +406,7 @@ async def compare_files_impl(
+     *,
+     path_a: str,
+     path_b: str,
++    settings_paths: list[str] | None = None,
+ ) -> dict[str, Any]:
+     """Compare two Fluent case/mesh files in ephemeral PyFluent sessions.
+ 
+@@ -372,8 +416,9 @@ async def compare_files_impl(
+     Both sessions are launched headless (no GUI) and the cases are
+     read with ``lightweight_setup=True`` for speed. The live workspace
+     session, if any, is NOT touched. Returns a structured diff of
+-    global model state and per-family named-object name lists plus a
+-    pre-rendered markdown summary in the ``summary`` field.
++    global model state and per-family named-object name lists, with optional
++    caller-selected settings values, plus a pre-rendered markdown summary
++    in the ``summary`` field.
+ 
+     The ``backend`` argument from the leaf framework is intentionally
+     unused. The tool spawns its own ephemeral backends per file so
+@@ -388,6 +433,8 @@ async def compare_files_impl(
+         Path a to supply to the function.
+     path_b : str
+         Path b to supply to the function.
++    settings_paths : list[str] | None
++        Up to 10 exact settings paths to compare in addition to the default scope.
+ 
+     Returns
+     -------
+@@ -404,6 +451,14 @@ async def compare_files_impl(
+         return {"error": "failed to resolve both comparison paths"}
+     if res_a == res_b:
+         return {"error": "path_a and path_b resolve to the same file"}
++    if settings_paths is not None:
++        if (
++            not isinstance(settings_paths, list)
++            or len(settings_paths) > 10
++            or any(not isinstance(path, str) or not path.strip() for path in settings_paths)
++        ):
++            return {"error": "settings_paths must contain at most 10 non-empty paths"}
++        settings_paths = list(dict.fromkeys(path.strip() for path in settings_paths))
+     path_a_resolved = res_a
+     path_b_resolved = res_b
+ 
+@@ -413,25 +468,23 @@ async def compare_files_impl(
      backend_b = ephemeral_pyfluent_backend(
          label=f"PyFluent (compare:{path_b_resolved.name})",
      )
@@ -160,7 +265,7 @@ index 5174349..086cfa0 100644
              if getattr(run_res, "error_code", None):
                  return {
                      "error": f"failed to read {path.name}",
-@@ -439,24 +463,32 @@ async def compare_files_impl(
+@@ -439,31 +492,50 @@ async def compare_files_impl(
                          getattr(run_res, "message", None) or getattr(run_res, "stderr", None)
                      ),
                  }
@@ -169,7 +274,7 @@ index 5174349..086cfa0 100644
 -        snap_b = await collect_compare_snapshot(backend_b)
 -    finally:
 -        for label, b in (("path_a", backend_a), ("path_b", backend_b)):
-+            snapshots.append(await collect_compare_snapshot(b))
++            snapshots.append(await collect_compare_snapshot(b, settings_paths))
 +        finally:
              try:
                  await asyncio.wait_for(b.disconnect(), timeout=30.0)
@@ -186,6 +291,7 @@ index 5174349..086cfa0 100644
 +                    side,
                  )
  
+-    diffs = diff_snapshots(snap_a, snap_b)
 +    snap_a, snap_b = snapshots
 +
 +    # Equal read failures are not evidence that the cases match.
@@ -197,6 +303,50 @@ index 5174349..086cfa0 100644
 +    if errors:
 +        return {"error": "comparison incomplete", "detail": errors}
 +
-     diffs = diff_snapshots(snap_a, snap_b)
++    diffs = diff_snapshots(
++        {section: snap_a[section] for section in ("global", "named")},
++        {section: snap_b[section] for section in ("global", "named")},
++    )
++    if settings_paths:
++        for path in settings_paths:
++            value_a = snap_a["selected"][path]
++            value_b = snap_b["selected"][path]
++            if value_a != value_b:
++                diffs.append(
++                    {"path": f"selected.{path}", "change": "changed", "a": value_a, "b": value_b}
++                )
      summary = format_compare_summary(
          diffs,
+         name_a=path_a_resolved.name,
+         name_b=path_b_resolved.name,
+     )
+-    return {
++    result = {
+         "status": "ok",
+         "from": "compare_files",
+         "path_a": str(path_a_resolved),
+@@ -473,6 +545,9 @@ async def compare_files_impl(
+         "summary": summary,
+         "diffs": diffs,
+     }
++    if settings_paths:
++        result["settings_paths"] = settings_paths
++    return result
+ 
+ 
+ __all__ = [
+diff --git a/src/ansys/fluent/mcp/solve/lib/domain_tools.py b/src/ansys/fluent/mcp/solve/lib/domain_tools.py
+index b843aaa..91c653a 100644
+--- a/src/ansys/fluent/mcp/solve/lib/domain_tools.py
++++ b/src/ansys/fluent/mcp/solve/lib/domain_tools.py
+@@ -158,7 +158,9 @@ _COMPARE_FILES_DESCRIPTION = (
+     "Both sessions are launched headless (no_gui) and the cases are "
+     "read with lightweight_setup=True for speed; the live workspace "
+     "session, if any, is NOT touched. Returns a structured diff of "
+-    "global model state and per-family named-object name lists. Use "
++    "global model state and per-family named-object name lists. Pass "
++    "settings_paths (up to 10 exact Fluent settings paths) to also compare "
++    "values such as a named inlet's velocity. Use "
+     "for questions like 'what changed between these two cases?', "
+     "'compare A.cas.h5 and B.cas.h5'. The response includes a "
+     "pre-rendered markdown table in the 'summary' field grouped by "
