@@ -1,0 +1,54 @@
+﻿{
+    "status":  "DESKTOP_LIVE_ACCEPTANCE_PASSED",
+    "machine":  "HOME-DESKTOP-SH",
+    "fluent":  "2025 R2 Student Edition",
+    "pyfluent":  "0.41.0",
+    "python":  "3.13",
+    "base_commit":  "f56e540931fbcdf5b9f81871a21934589f256d91",
+    "patch_sha256":  "a2799e2005a5fa1a67d8b39787e75ddb294af74de20ef75e3e2f61b81c318b95",
+    "source_hashes":  {
+                          "compare_tools":  "eb54a507f15842ceaf6a52c47e142a46f0290da95c5a6ad31b5bdf1e1286add1",
+                          "introspection":  "afaf21c5aef92df8c1c1c67adbee217c415b770dbc68b9d80f5517fed0973010"
+                      },
+    "checks":  {
+                   "identical_cases":  true,
+                   "saved_energy_change":  true,
+                   "incomplete_reads":  true,
+                   "owned_session_cleanup":  true,
+                   "lost_connection_propagates":  true
+               },
+    "results":  {
+                    "identical_diff_count":  0,
+                    "identical_seconds":  52.08,
+                    "energy_diff_count":  16,
+                    "energy_seconds":  48.72,
+                    "size_limit_bytes":  1,
+                    "size_limit_error":  "comparison incomplete",
+                    "size_limit_affected_inputs":  [
+                                                       "path_a",
+                                                       "path_b"
+                                                   ],
+                    "size_limit_seconds":  50.7,
+                    "named_walk_before_disconnect":  70,
+                    "disconnect_error_type":  "RuntimeError",
+                    "fluent_processes_after":  0,
+                    "case_hash":  "8145813f50f989a521ed8d1b02c891c7ca22ccc5fafa35a4eeba011949f19cbc"
+                },
+    "limitations":  [
+                        "Student Edition could not launch two concurrent Fluent sessions; the revised tool runs two owned temporary sessions sequentially.",
+                        "The revised patch was checked on this desktop; the prior Server 3 failure has not been rerun with it.",
+                        "No upstream pull request or offline tests were run."
+                    ],
+    "raw_evidence":  [
+                         "raw/desktop-compare.json",
+                         "raw/desktop-compare-size_limit.json",
+                         "raw/desktop-disconnect.json",
+                         "raw/desktop-probe.json",
+                         "raw/desktop-compare.log",
+                         "raw/desktop-compare-r2.log",
+                         "raw/desktop-size-limit.log",
+                         "raw/desktop-disconnect-r2.log",
+                         "raw/desktop-named-debug.log",
+                         "raw/desktop-harness/"
+                     ]
+}

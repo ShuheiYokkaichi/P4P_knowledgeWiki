@@ -6,7 +6,7 @@ Review date: 20 October 2026. Scope: compare the public PyFluent MCP implementat
 
 [Interactive official-workflow and contribution map](pyfluent-mcp-contribution-map.html).
 
-The first contribution is prepared locally. Real Fluent checks on 21 October verified error rejection but failed the complete identical-case comparison; the draft is not ready to submit. Offline checks are not acceptance evidence: [PR draft](pyfluent-mcp-comparison-pr.md) and [patch with review instructions](../workflow_updates/pyfluent-mcp-compare-files/README.md).
+The first contribution is prepared locally. The 21 October version failed the complete identical-case comparison. The revised patch passed the desktop real-Fluent checks on 22 October, including identical cases, a saved energy change, incomplete reads, and owned-session cleanup. The revised patch has not been rerun on Server 3, and no upstream PR has been created. Offline checks are not acceptance evidence: [PR draft](pyfluent-mcp-comparison-pr.md), [patch with review instructions](../workflow_updates/pyfluent-mcp-compare-files/README.md), and [desktop receipt](../output/pyfluent-mcp-audit/20261022/desktop-live-status.json).
 
 ## Evidence and version boundary
 

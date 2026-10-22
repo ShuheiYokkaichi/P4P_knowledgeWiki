@@ -1,11 +1,23 @@
 # fix: report incomplete snapshots in compare_files
 
-`compare_files` can report “No differences” when both snapshot reads fail with the same error or omit state at the capture size limit. The error records compare equal even though the settings were not read.
+`compare_files` can report “No differences” when both snapshot reads fail with the same error or omit state at the capture size limit. A lost connection during named-object discovery can also produce a partial inventory that looks complete.
 
-Check the existing snapshot error markers before diffing and return the usual `error`/`detail` response, identifying the affected input and section or settings path. Complete comparisons retain their result format. Valid null, inactive and empty settings remain valid.
+This change checks snapshot errors before diffing. It returns `{"error": "comparison incomplete", "detail": {...}}` with the affected input and section or settings path. The fallback named-object walk propagates connection failures. Valid null, inactive and empty settings remain valid.
 
-Use the documented headless launch mode, pass `lightweight_setup` to `file.read`, and capture the available `solution/run-calculation` group. These three one-line corrections allow real Fluent 2025 R2 case reads and complete global-state capture. The tool still owns, loads and closes its two temporary Fluent sessions.
+The two case captures use separate, sequential temporary Fluent sessions. Each session is owned and closed by the tool; the caller's workspace is untouched. This removes the need for two concurrent Fluent licences. The patch also uses headless launch, passes `lightweight_setup` to `file.read`, and captures the available `solution/run-calculation` group.
 
-Validation: **incomplete; do not submit yet**. Real Fluent 2025 R2 with PyFluent 0.41.0 verified the read-error guard, omitted-state rejection through the public tool, energy-setting change detection, and temporary-process cleanup. However, byte-identical case copies returned 63 false named-inventory differences. Debug logs show that the existing fallback traversal suppresses connection-refused errors and returns a partial inventory. The cause of the temporary-session connection loss remains unresolved. Concurrent snapshots did not fix it, and that experiment was reverted.
+## Live validation
 
-No test code is added, and no offline checks count as acceptance. Existing upstream tests still encode GUI launch expectations; those were not changed or executed.
+On `HOME-DESKTOP-SH`, Fluent 2025 R2 Student Edition with PyFluent 0.41.0:
+
+| Check | Result |
+| --- | --- |
+| Byte-identical official mixing-elbow case copies | Zero differences |
+| Saved energy setting changed from true to false | Correct change detected |
+| Real 1-byte capture limit | `comparison incomplete` for both inputs; no summary or difference count |
+| Forced loss of an owned Fluent test session during fallback walk | Native connection-refused error propagated |
+| Tool process cleanup | No Fluent processes remained after the comparisons |
+
+The earlier concurrent-session version failed its identical-case check on a different host after connection loss. The revised patch has not been rerun on that host. No mock or offline tests were run as acceptance checks, and no test code is added. Existing upstream tests still contain GUI launch expectations; those need review before submission.
+
+This is a PR **draft only**. No upstream pull request has been created.

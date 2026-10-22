@@ -1,0 +1,124 @@
+{
+  "machine": "HOME-DESKTOP-SH",
+  "started": 1792663493.5094283,
+  "stage": "finished",
+  "equal": {
+    "seconds": 52.08,
+    "result": {
+      "status": "ok",
+      "from": "compare_files",
+      "path_a": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-compare-cases\\mixing_elbow.cas.h5",
+      "path_b": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-compare-cases\\mixing_elbow_copy.cas.h5",
+      "launch": {
+        "product": "pyfluent",
+        "ui_mode": "no_gui",
+        "precision": "double",
+        "lightweight_setup": true
+      },
+      "diff_count": 0,
+      "summary": "No differences between **mixing_elbow.cas.h5** and **mixing_elbow_copy.cas.h5**.",
+      "diffs": []
+    }
+  },
+  "energy": {
+    "seconds": 48.72,
+    "result": {
+      "status": "ok",
+      "from": "compare_files",
+      "path_a": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-compare-cases\\mixing_elbow.cas.h5",
+      "path_b": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-compare-cases\\energy_off.cas.h5",
+      "launch": {
+        "product": "pyfluent",
+        "ui_mode": "no_gui",
+        "precision": "double",
+        "lightweight_setup": true
+      },
+      "diff_count": 16,
+      "summary": "### Differences: **mixing_elbow.cas.h5** vs **energy_off.cas.h5**\n_16 difference(s) total._\n\n#### setup / models / energy\n| Setting | mixing_elbow.cas.h5 | energy_off.cas.h5 |\n| --- | --- | --- |\n| `enabled` | True | False |\n| `inlet_diffusion` | True | \u2014 |\n| `kinetic_energy` | False | \u2014 |\n| `pressure_work` | False | \u2014 |\n| `viscous_dissipation` | False | \u2014 |\n\n#### setup / models / viscous.options\n| Setting | mixing_elbow.cas.h5 | energy_off.cas.h5 |\n| --- | --- | --- |\n| `viscous_heating` | False | \u2014 |\n\n#### setup / models / viscous.turbulence_expert\n| Setting | mixing_elbow.cas.h5 | energy_off.cas.h5 |\n| --- | --- | --- |\n| `thermal_p_function` | True | \u2014 |\n\n#### setup / models / viscous.user_defined_functions\n| Setting | mixing_elbow.cas.h5 | energy_off.cas.h5 |\n| --- | --- | --- |\n| `energy_prandtl` | none | \u2014 |\n| `wall_prandtl` | none | \u2014 |\n\n#### solution / controls / equations\n| Setting | mixing_elbow.cas.h5 | energy_off.cas.h5 |\n| --- | --- | --- |\n| `temperature` | temperature | \u2014 |\n\n#### solution / controls / under-relaxation\n| Setting | mixing_elbow.cas.h5 | energy_off.cas.h5 |\n| --- | --- | --- |\n| `temperature` | temperature | \u2014 |\n\n#### solution / initialization / defaults\n| Setting | mixing_elbow.cas.h5 | energy_off.cas.h5 |\n| --- | --- | --- |\n| `temperature` | temperature | \u2014 |\n\n#### solution / controls / pseudo-time-explicit-relaxation-factor / global-dt-pseudo-relax\n| Setting | mixing_elbow.cas.h5 | energy_off.cas.h5 |\n| --- | --- | --- |\n| `temperature` | temperature | \u2014 |\n\n#### solution / controls / pseudo-time-explicit-relaxation-factor / local-dt-dualts-relax\n| Setting | mixing_elbow.cas.h5 | energy_off.cas.h5 |\n| --- | --- | --- |\n| `temperature` | temperature | \u2014 |\n\n#### solution / methods / spatial-discretization / discretization-scheme\n| Setting | mixing_elbow.cas.h5 | energy_off.cas.h5 |\n| --- | --- | --- |\n| `temperature` | temperature | \u2014 |\n\n#### solution / monitor / residual / equations\n| Setting | mixing_elbow.cas.h5 | energy_off.cas.h5 |\n| --- | --- | --- |\n| `energy` | energy | \u2014 |",
+      "diffs": [
+        {
+          "path": "global.setup/models/energy.enabled",
+          "change": "changed",
+          "a": true,
+          "b": false
+        },
+        {
+          "path": "global.setup/models/energy.inlet_diffusion",
+          "change": "only_in_a",
+          "a": true
+        },
+        {
+          "path": "global.setup/models/energy.kinetic_energy",
+          "change": "only_in_a",
+          "a": false
+        },
+        {
+          "path": "global.setup/models/energy.pressure_work",
+          "change": "only_in_a",
+          "a": false
+        },
+        {
+          "path": "global.setup/models/energy.viscous_dissipation",
+          "change": "only_in_a",
+          "a": false
+        },
+        {
+          "path": "global.setup/models/viscous.options.viscous_heating",
+          "change": "only_in_a",
+          "a": false
+        },
+        {
+          "path": "global.setup/models/viscous.turbulence_expert.thermal_p_function",
+          "change": "only_in_a",
+          "a": true
+        },
+        {
+          "path": "global.setup/models/viscous.user_defined_functions.energy_prandtl",
+          "change": "only_in_a",
+          "a": "none"
+        },
+        {
+          "path": "global.setup/models/viscous.user_defined_functions.wall_prandtl",
+          "change": "only_in_a",
+          "a": "none"
+        },
+        {
+          "path": "named.solution/controls/equations['temperature']",
+          "change": "only_in_a",
+          "a": "temperature"
+        },
+        {
+          "path": "named.solution/controls/pseudo-time-explicit-relaxation-factor/global-dt-pseudo-relax['temperature']",
+          "change": "only_in_a",
+          "a": "temperature"
+        },
+        {
+          "path": "named.solution/controls/pseudo-time-explicit-relaxation-factor/local-dt-dualts-relax['temperature']",
+          "change": "only_in_a",
+          "a": "temperature"
+        },
+        {
+          "path": "named.solution/controls/under-relaxation['temperature']",
+          "change": "only_in_a",
+          "a": "temperature"
+        },
+        {
+          "path": "named.solution/initialization/defaults['temperature']",
+          "change": "only_in_a",
+          "a": "temperature"
+        },
+        {
+          "path": "named.solution/methods/spatial-discretization/discretization-scheme['temperature']",
+          "change": "only_in_a",
+          "a": "temperature"
+        },
+        {
+          "path": "named.solution/monitor/residual/equations['energy']",
+          "change": "only_in_a",
+          "a": "energy"
+        }
+      ]
+    }
+  },
+  "finished": 1792663594.3116095
+}

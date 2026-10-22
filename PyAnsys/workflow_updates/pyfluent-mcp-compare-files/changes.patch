@@ -1,15 +1,15 @@
 diff --git a/doc/changelog.d/0.fixed.md b/doc/changelog.d/0.fixed.md
 new file mode 100644
-index 0000000..213ae90
+index 0000000..87cd1fd
 --- /dev/null
 +++ b/doc/changelog.d/0.fixed.md
 @@ -0,0 +1 @@
-+Report incomplete snapshot reads in ``compare_files`` instead of treating matching errors or omitted state as equal case settings. Use headless launches, the lightweight file-read command, and the available run-calculation settings group.
++Report incomplete snapshot reads in ``compare_files`` instead of treating matching errors or omitted state as equal case settings. Collect the two cases in separate, sequential temporary sessions to avoid requiring two concurrent Fluent licences. Use headless launches, the lightweight file-read command, and the available run-calculation settings group.
 diff --git a/doc/source/user_guide/tools_and_capabilities.rst b/doc/source/user_guide/tools_and_capabilities.rst
-index 599b928..5d34400 100644
+index 599b928..1ceaf8d 100644
 --- a/doc/source/user_guide/tools_and_capabilities.rst
 +++ b/doc/source/user_guide/tools_and_capabilities.rst
-@@ -123,6 +123,11 @@ Route all "show mesh quality / skewness / check mesh" intents to
+@@ -123,6 +123,12 @@ Route all "show mesh quality / skewness / check mesh" intents to
  without touching the live workspace session. Requires the ``file-probe`` extra for
  ``.h5``/``.cas.h5`` files.
  
@@ -17,12 +17,13 @@ index 599b928..5d34400 100644
 +``{"error": "comparison incomplete", "detail": {...}}``. The details identify the
 +affected input (``path_a`` or ``path_b``), section or settings path, and read error.
 +No difference count or comparison summary is returned for incomplete snapshots.
++The two temporary Fluent sessions run one after the other and are closed by the tool.
 +
  Workflow examples
  -----------------
  
 diff --git a/src/ansys/fluent/mcp/solve/backends/introspection.py b/src/ansys/fluent/mcp/solve/backends/introspection.py
-index c81b20e..b56c6ca 100644
+index c81b20e..a1cda34 100644
 --- a/src/ansys/fluent/mcp/solve/backends/introspection.py
 +++ b/src/ansys/fluent/mcp/solve/backends/introspection.py
 @@ -45,7 +45,7 @@ FLUENT_GLOBAL_STATE_PATHS: tuple[str, ...] = (
@@ -34,8 +35,54 @@ index c81b20e..b56c6ca 100644
      "setup/general/operating-conditions/gravity",
      "setup/general/operating-conditions/operating-pressure",
  )
+@@ -354,6 +354,19 @@ def discover_named_objects_via_walk(
+     """
+     out: dict[str, list[str]] = {}
+ 
++    def _raise_if_disconnected(exc: Exception) -> None:
++        """Do not turn a lost Fluent connection into a partial inventory."""
++        code = getattr(exc, "code", None)
++        status = str(code()) if callable(code) else ""
++        message = str(exc)
++        if (
++            isinstance(exc, (ConnectionError, TimeoutError))
++            or status in ("StatusCode.UNAVAILABLE", "StatusCode.DEADLINE_EXCEEDED")
++            or "failed to connect to all addresses" in message
++            or "Connection refused" in message
++        ):
++            raise exc
++
+     def _names(node: Any) -> Optional[list[str]]:
+         """Return available names for the current object.
+ 
+@@ -374,6 +387,7 @@ def discover_named_objects_via_walk(
+             try:
+                 v = fn() if callable(fn) else fn
+             except Exception as exc:
++                _raise_if_disconnected(exc)
+                 logger.debug("Failed to get names from '%s': %s", accessor, exc)
+                 continue
+             if isinstance(v, (list, tuple)):
+@@ -385,7 +399,8 @@ def discover_named_objects_via_walk(
+         if hasattr(node, "keys") and _is_indexable(node):
+             try:
+                 return [str(k) for k in node.keys()]  # type: ignore[call-arg]
+-            except Exception:
++            except Exception as exc:
++                _raise_if_disconnected(exc)
+                 return None
+         return None
+ 
+@@ -420,6 +435,7 @@ def discover_named_objects_via_walk(
+             try:
+                 child_obj = getattr(node, child)
+             except Exception as exc:
++                _raise_if_disconnected(exc)
+                 logger.debug("Failed to get child '%s' of '%s': %s", child, slash_path, exc)
+                 continue
+             child_label = child.replace("_", "-")
 diff --git a/src/ansys/fluent/mcp/solve/lib/compare_tools.py b/src/ansys/fluent/mcp/solve/lib/compare_tools.py
-index 5174349..425b7d9 100644
+index 5174349..086cfa0 100644
 --- a/src/ansys/fluent/mcp/solve/lib/compare_tools.py
 +++ b/src/ansys/fluent/mcp/solve/lib/compare_tools.py
 @@ -120,6 +120,32 @@ async def collect_compare_snapshot(backend: Backend) -> dict[str, Any]:
@@ -71,28 +118,76 @@ index 5174349..425b7d9 100644
  def diff_snapshots(
      a: dict[str, Any],
      b: dict[str, Any],
-@@ -413,7 +439,7 @@ async def compare_files_impl(
+@@ -413,25 +439,23 @@ async def compare_files_impl(
      backend_b = ephemeral_pyfluent_backend(
          label=f"PyFluent (compare:{path_b_resolved.name})",
      )
 -    launch = {"ui_mode": "gui", "precision": "double"}
+-    try:
+-        conn_a = await backend_a.connect(**launch)
+-        if getattr(conn_a, "status", None) != "ok":
+-            return {
+-                "error": "failed to launch session A",
+-                "detail": getattr(conn_a, "message", None),
+-            }
+-        conn_b = await backend_b.connect(**launch)
+-        if getattr(conn_b, "status", None) != "ok":
+-            return {
+-                "error": "failed to launch session B",
+-                "detail": getattr(conn_b, "message", None),
+-            }
+-
+-        for backend_i, path in ((backend_a, path_a_resolved), (backend_b, path_b_resolved)):
 +    launch = {"ui_mode": "no_gui", "precision": "double"}
-     try:
-         conn_a = await backend_a.connect(**launch)
-         if getattr(conn_a, "status", None) != "ok":
-@@ -430,7 +456,7 @@ async def compare_files_impl(
- 
-         for backend_i, path in ((backend_a, path_a_resolved), (backend_b, path_b_resolved)):
++    snapshots = []
++    # Each snapshot has its own Fluent session, but the sessions need not overlap.
++    for side, b, path in (
++        ("A", backend_a, path_a_resolved),
++        ("B", backend_b, path_b_resolved),
++    ):
++        try:
++            conn = await b.connect(**launch)
++            if getattr(conn, "status", None) != "ok":
++                return {
++                    "error": f"failed to launch session {side}",
++                    "detail": getattr(conn, "message", None),
++                }
              case_path = _normalize_path_for_fluent(path)
 -            snippet = f'session.settings.file.read_case(file_name="{case_path}", lightweight_setup=True)\n'  # noqa: E501
+-            run_res = await backend_i.run_code(snippet)
 +            snippet = f'session.settings.file.read(file_type="case", file_name="{case_path}", lightweight_setup=True)\n'  # noqa: E501
-             run_res = await backend_i.run_code(snippet)
++            run_res = await b.run_code(snippet)
              if getattr(run_res, "error_code", None):
                  return {
-@@ -457,6 +483,15 @@ async def compare_files_impl(
-                     label,
+                     "error": f"failed to read {path.name}",
+@@ -439,24 +463,32 @@ async def compare_files_impl(
+                         getattr(run_res, "message", None) or getattr(run_res, "stderr", None)
+                     ),
+                 }
+-
+-        snap_a = await collect_compare_snapshot(backend_a)
+-        snap_b = await collect_compare_snapshot(backend_b)
+-    finally:
+-        for label, b in (("path_a", backend_a), ("path_b", backend_b)):
++            snapshots.append(await collect_compare_snapshot(b))
++        finally:
+             try:
+                 await asyncio.wait_for(b.disconnect(), timeout=30.0)
+             except asyncio.TimeoutError:
+                 logger.warning(
+                     "compare_files: disconnect of %s timed out after 30s; headless Fluent process may linger",  # noqa: E501
+-                    label,
++                    side,
+                 )
+             except Exception:
+                 logger.exception(
+                     "compare_files: failed to disconnect ephemeral session for %s",
+-                    label,
++                    side,
                  )
  
++    snap_a, snap_b = snapshots
++
 +    # Equal read failures are not evidence that the cases match.
 +    errors = {}
 +    for side, snapshot in (("path_a", snap_a), ("path_b", snap_b)):

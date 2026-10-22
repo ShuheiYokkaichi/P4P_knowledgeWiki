@@ -1,0 +1,38 @@
+{
+  "machine": "HOME-DESKTOP-SH",
+  "started": 1792663638.88291,
+  "stage": "finished",
+  "size_limit": {
+    "seconds": 50.7,
+    "result": {
+      "error": "comparison incomplete",
+      "detail": {
+        "path_a": {
+          "global.setup/general/solver": "state exceeded capture size limit",
+          "global.setup/models/energy": "state exceeded capture size limit",
+          "global.setup/models/viscous": "state exceeded capture size limit",
+          "global.setup/models/radiation": "state exceeded capture size limit",
+          "global.setup/models/multiphase": "state exceeded capture size limit",
+          "global.setup/models/discrete-phase/general-settings/interaction": "state exceeded capture size limit",
+          "global.solution/methods/p-v-coupling": "state exceeded capture size limit",
+          "global.solution/run-calculation": "state exceeded capture size limit",
+          "global.setup/general/operating-conditions/gravity": "state exceeded capture size limit",
+          "global.setup/general/operating-conditions/operating-pressure": "state exceeded capture size limit"
+        },
+        "path_b": {
+          "global.setup/general/solver": "state exceeded capture size limit",
+          "global.setup/models/energy": "state exceeded capture size limit",
+          "global.setup/models/viscous": "state exceeded capture size limit",
+          "global.setup/models/radiation": "state exceeded capture size limit",
+          "global.setup/models/multiphase": "state exceeded capture size limit",
+          "global.setup/models/discrete-phase/general-settings/interaction": "state exceeded capture size limit",
+          "global.solution/methods/p-v-coupling": "state exceeded capture size limit",
+          "global.solution/run-calculation": "state exceeded capture size limit",
+          "global.setup/general/operating-conditions/gravity": "state exceeded capture size limit",
+          "global.setup/general/operating-conditions/operating-pressure": "state exceeded capture size limit"
+        }
+      }
+    }
+  },
+  "finished": 1792663689.5862408
+}
