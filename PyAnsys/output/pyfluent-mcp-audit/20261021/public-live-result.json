@@ -1,0 +1,17 @@
+{
+  "started": 1792550303.8823628,
+  "acceptance": "NOT_ESTABLISHED",
+  "pyfluent": "0.42.1",
+  "case_sha256": "8145813f50f989a521ed8d1b02c891c7ca22ccc5fafa35a4eeba011949f19cbc",
+  "stage": "COMPLETED",
+  "baseline": {
+    "error": "failed to read mixing_elbow.cas.h5",
+    "detail": "There is no active application.\nError Object: (rp-var-value 'pdf/filename)"
+  },
+  "patched_sha256": "afbd782943075fb49e6a95c53bab9e38ac515ebc7056f02ba1302a95d1016a38",
+  "patched": {
+    "error": "failed to read mixing_elbow.cas.h5",
+    "detail": "There is no active application.\nError Object: (rp-var-value 'pdf/filename)"
+  },
+  "finished": 1792550344.7798545
+}

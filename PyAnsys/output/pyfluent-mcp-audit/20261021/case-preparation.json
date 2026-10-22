@@ -1,0 +1,32 @@
+{
+  "started": 1792551158.644191,
+  "stage": "CASES_READY",
+  "connect": "status='ok' backend_kind='pyfluent' endpoint=None candidates=[] message='Connected via launch' error_code=None",
+  "run_calculation": {
+    "solution/run-calculation": {
+      "pseudo_time_settings": {
+        "verbosity": 0,
+        "time_step_method": {
+          "time_step_method": "automatic",
+          "length_scale_methods": "conservative",
+          "time_step_size_scale_factor": 1.0
+        }
+      },
+      "iter_count": 100,
+      "reporting_interval": 1,
+      "profile_update_interval": 1,
+      "data_sampling": {
+        "enabled": false
+      }
+    }
+  },
+  "energy_before": true,
+  "energy_after": false,
+  "changed_case": {
+    "path": "C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\cases\\energy_off.cas.h5",
+    "bytes": 3514920,
+    "sha256": "51283c6f135aa9c3787b06d748560b167a617c9c908b0cde4668256a4dc0b658"
+  },
+  "cleanup_returned": true,
+  "finished": 1792551196.898772
+}

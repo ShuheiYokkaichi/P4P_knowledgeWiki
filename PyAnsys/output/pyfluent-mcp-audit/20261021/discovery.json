@@ -1,0 +1,57 @@
+{
+  "file_state": {
+    "binary_legacy_files": true,
+    "cff_files": true,
+    "convert_hanging_nodes_during_read": true,
+    "write_pdat": false,
+    "auto_save": {
+      "case_frequency": "if-case-is-modified",
+      "data_frequency": 0,
+      "root_name": "./",
+      "retain_most_recent_files": false,
+      "append_file_name_with": {
+        "file_suffix_type": "time-step",
+        "file_decimal_digit": 6
+      }
+    },
+    "export": {
+      "sc_def_file_settings": {
+        "enable_auto_creation_of_scp_file": false
+      },
+      "settings": {
+        "cgns_export_filetype": "hdf5",
+        "cgns_mesh_type": "mixed-type",
+        "cgns_polyhedral_cpu_threads": 8,
+        "cgns_merge_ngons_to_single_ngon": false,
+        "cgns_default_cellsize_changes": true,
+        "cgns_familyname": false,
+        "cgns_separate_cellzones": false
+      }
+    },
+    "import_": {
+      "create_zones_from_ccl": true
+    },
+    "parametric_project": {},
+    "cffio_options": {
+      "io_mode": "NODE0",
+      "compression_level": 1,
+      "single_precision_data": false
+    },
+    "batch_options": {
+      "confirm_overwrite": false,
+      "exit_on_error": false,
+      "hide_answer": true,
+      "redisplay_question": false
+    }
+  },
+  "setup_active": true,
+  "scheme_cwd": {
+    "error": "An error occurred in the server while evaluating the Scheme expression"
+  },
+  "native_iteration": {
+    "error": "An error occurred in the server while evaluating the Scheme expression"
+  },
+  "mesh_valid": {
+    "error": "An error occurred in the server while evaluating the Scheme expression"
+  }
+}

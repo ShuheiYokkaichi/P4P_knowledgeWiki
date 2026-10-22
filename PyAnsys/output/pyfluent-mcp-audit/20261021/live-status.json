@@ -1,0 +1,87 @@
+{
+  "status": "LIVE_VERIFICATION_FAILED",
+  "acceptance": "NOT_ESTABLISHED",
+  "acceptance_basis": "Real Fluent only; no offline results counted",
+  "server_alias": "3",
+  "fluent_version": "2025 R2",
+  "pyfluent": "0.41.0",
+  "python": "3.12.13",
+  "base_commit": "f56e540931fbcdf5b9f81871a21934589f256d91",
+  "patch_sha256": "70a267a31e0c29da1de59345eb25e8db96e47d3cba9c6252e231ebd6515ddf1f",
+  "source_hashes": {
+    "compare_tools_v2.b64": "72cc039e75be1763dc21aecc54b952bc5197a5ff2a70af18f7e466dce2e2c020",
+    "introspection_v2.b64": "a8d2215080f25cb16400ac090bbd71c852dd03a86c6aa84abef70bbd9877a37b"
+  },
+  "final_sources_match_full_live_run": true,
+  "change_lines": {
+    "added": 44,
+    "removed": 3,
+    "files": 4,
+    "added_tests": 0
+  },
+  "full_tool_checks": {
+    "equal_cases": false,
+    "energy_difference": true,
+    "size_limit_error": true,
+    "cleanup": true
+  },
+  "identical_case_result": {
+    "expected_difference_count": 0,
+    "actual_difference_count": 63,
+    "differences": "All 63 differences were named-inventory entries missing from one side"
+  },
+  "saved_case_result": {
+    "energy_enabled_from": true,
+    "energy_enabled_to": false,
+    "actual_difference_count": 72,
+    "limit": "Additional named-inventory differences make the full difference list unreliable"
+  },
+  "size_limit_result": {
+    "capture_limit_bytes": 1,
+    "error": "comparison incomplete",
+    "affected_inputs": [
+      "path_a",
+      "path_b"
+    ],
+    "summary_returned": false,
+    "difference_count_returned": false
+  },
+  "additional_live_checks": [
+    "Guard detected the real unavailable parameters path on repeated native snapshots",
+    "Native energy change read back, detected, and restored",
+    "Supported-path equal snapshots were complete and matched"
+  ],
+  "remaining_blocker": "Named-object fallback traversal suppresses connection-refused errors and returns a partial inventory. The cause of temporary-session connection loss is not established.",
+  "diagnostics": {
+    "idle_preference": 0,
+    "runtime_disable_idle_command": "Accepted, but no evidence that this fixes the disconnect",
+    "scheme_probe": "Returned no inventory; native settings remained readable immediately afterwards",
+    "concurrent_snapshots": "Repeated the 63 false differences; experiment reverted; duplicate remaining checks stopped"
+  },
+  "main_session": {
+    "checked_at": "2026-10-21T03:15:45.301289+00:00",
+    "server_alias": "3",
+    "port": 61996,
+    "health": "SERVING",
+    "version": "(25 2 0)"
+  },
+  "test_process_cleanup": "Full initial comparison run had no new Fluent processes remaining after any of its three checks. The later duplicate experiment was stopped explicitly; final inventory retained only the original Fluent host PID 19180.",
+  "evidence": [
+    "edge-live.json",
+    "case-preparation.json",
+    "full-live.json",
+    "named-diagnostic.json",
+    "named-diagnostic2.json",
+    "named-debug.log",
+    "idle-diagnostic.json",
+    "scheme-probe.json",
+    "full-live-r2.json",
+    "r2-stop.json",
+    "final-health.json",
+    "final-source-restore.json"
+  ],
+  "upstream_test_note": "Existing tests still assert GUI launch. They were not changed or executed, as requested; this remains a submission issue.",
+  "pr_created": false,
+  "branch_pushed": false,
+  "next_action": "Resolve incomplete named-inventory collection and repeat the byte-identical full comparison before calling the contribution verified."
+}

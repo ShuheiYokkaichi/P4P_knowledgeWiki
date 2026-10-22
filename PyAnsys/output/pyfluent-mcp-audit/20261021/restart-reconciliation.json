@@ -1,0 +1,6 @@
+{
+  "server_alias": "3",
+  "port": 61996,
+  "health": "SERVING",
+  "version": "(25 2 0)"
+}

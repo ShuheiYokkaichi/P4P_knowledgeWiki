@@ -1,0 +1,16 @@
+{
+  "purpose": "Execution-source archive for the real Server 3 checks; not offline test fixtures or a portable desktop runner",
+  "capture_note": "Mac source files used to upload the host programs. Windows text uploads used CRLF. The final native transport helper is the version used for evidence retrieval.",
+  "files": {
+    "mcp-full-live.py": "36cb9fe4a482849db7c83fcc173cbeba4fab8006f6dfee7d0295b6ee5e6dae76",
+    "mcp-full-launch.ps1": "39634d99984ecd15e2176ece1afdfcd7ca329d00b98b7331c4382f7e9d1199b5",
+    "mcp-named-diagnostic2.py": "c1348bcd1996b06708556708467445d33b4293edd4da45a2e98fba337ba6e258",
+    "mcp-named-launch2.ps1": "90709e3ef31cbfd44bc746715e2544f36d38333695215556af3aee782346e9a2",
+    "mcp-prepare-cases.py": "c39093cc13f22ec976197b3edcb2f423ffb82f84e05accf48f5a561ceb7c71c0",
+    "mcp-prepare-launch.ps1": "11c97a20dc3736156334f212350a53748e83db1bdd91773a2e9bccb7969c168d",
+    "mcp_native.py": "c3eb3447b9970b3440524fdd9927c422ab9a72b7f5e1e6e16e46e64d97556bac",
+    "mcp-ps.py": "bdcef9a08070810295aeafb07391d23671988a312b68836a6e56183b688c624a",
+    "mcp-send.py": "952a3efe4c3c5e959e7205a9429191366fdb2f840c857a7ed58c819b7767b5a9",
+    "mcp-save-host.py": "5cb1350869da9de970855de7d29300daa19f53fd5acff81d4effd80597ce830f"
+  }
+}

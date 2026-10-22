@@ -1,0 +1,10 @@
+{
+    "restored_source":  "Final sequential-snapshot contribution",
+    "hash":  "72CC039E75BE1763DC21AECC54B952BC5197A5FF2A70AF18F7E466DCE2E2C020",
+    "remaining":  [
+                      {
+                          "Id":  19180,
+                          "ProcessName":  "fluent"
+                      }
+                  ]
+}

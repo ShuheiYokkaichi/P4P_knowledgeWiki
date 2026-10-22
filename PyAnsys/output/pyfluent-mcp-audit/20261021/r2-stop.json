@@ -1,0 +1,25 @@
+{
+    "actions":  [
+                    "SUCCESS: The process with PID 17728 (child process of PID 19888) has been terminated.\r\nSUCCESS: The process with PID 2156 (child process of PID 17040) has been terminated.\r\nSUCCESS: The process with PID 2300 (child process of PID 7500) has been terminated.\r\nSUCCESS: The process with PID 15588 (child process of PID 14964) has been terminated.\r\nSUCCESS: The process with PID 19888 (child process of PID 16276) has been terminated.\r\nSUCCESS: The process with PID 17040 (child process of PID 16276) has been terminated.\r\nSUCCESS: The process with PID 7500 (child process of PID 15212) has been terminated.\r\nSUCCESS: The process with PID 14964 (child process of PID 15212) has been terminated.\r\nSUCCESS: The process with PID 16276 (child process of PID 11256) has been terminated.\r\nSUCCESS: The process with PID 15212 (child process of PID 2868) has been terminated.\r\nSUCCESS: The process with PID 20572 (child process of PID 16788) has been terminated.\r\nSUCCESS: The process with PID 11256 (child process of PID 16788) has been terminated.\r\nSUCCESS: The process with PID 2296 (child process of PID 4816) has been terminated.\r\nSUCCESS: The process with PID 2868 (child process of PID 4816) has been terminated.\r\nSUCCESS: The process with PID 16788 (child process of PID 5484) has been terminated.\r\nSUCCESS: The process with PID 4816 (child process of PID 5484) has been terminated.\r\nSUCCESS: The process with PID 5484 (child process of PID 4372) has been terminated.\r\nSUCCESS: The process with PID 4372 (child process of PID 3616) has been terminated.\r\n"
+                ],
+    "reason":  "Concurrent snapshot experiment repeated the identical-case failure; duplicate remaining checks stopped",
+    "matched":  [
+                    {
+                        "ProcessId":  4372,
+                        "ParentProcessId":  3616,
+                        "CommandLine":  "\"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Scripts\\python.exe\" C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\mcp-full-live-r2.py"
+                    },
+                    {
+                        "ProcessId":  5484,
+                        "ParentProcessId":  4372,
+                        "CommandLine":  "\"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\python\\cpython-3.12-windows-x86_64-none\\python.exe\"  C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\mcp-full-live-r2.py"
+                    }
+                ],
+    "remaining":  [
+                      {
+                          "ProcessId":  19180,
+                          "ParentProcessId":  15892,
+                          "CommandLine":  "fluent -wait 3ddp -r25.2.0   -ic=default -host -t12  -cx EN432646.UoA.auckland.ac.nz:61837:61838"
+                      }
+                  ]
+}

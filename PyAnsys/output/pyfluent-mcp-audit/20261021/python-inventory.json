@@ -1,0 +1,18 @@
+{
+  "installRoot": "C:\\Program Files\\ANSYS Inc\\v252",
+  "controllerVersion": "3.10.16 (remotes/origin/14d18b8e2626165312e076b70cf60f0faa8db8d5-dirty:14d18b8e, May 20 2) [MSC v.1942 64 bit (AMD64)]",
+  "roots": [
+    {
+      "FullName": "C:\\Users\\syok443\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe"
+    },
+    {
+      "FullName": "C:\\Users\\syok443\\AppData\\Local\\Microsoft\\WindowsApps\\python3.exe"
+    },
+    {
+      "FullName": "C:\\Users\\syok443\\AppData\\Local\\Microsoft\\WindowsApps\\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\\python.exe"
+    },
+    {
+      "FullName": "C:\\Users\\syok443\\AppData\\Local\\Microsoft\\WindowsApps\\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\\python3.exe"
+    }
+  ]
+}

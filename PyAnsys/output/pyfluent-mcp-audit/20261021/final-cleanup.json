@@ -1,0 +1,20 @@
+{
+    "remaining":  [
+                      {
+                          "ProcessId":  19180,
+                          "ParentProcessId":  15892,
+                          "CommandLine":  "fluent -wait 3ddp -r25.2.0   -ic=default -host -t12  -cx EN432646.UoA.auckland.ac.nz:61837:61838"
+                      },
+                      {
+                          "ProcessId":  10436,
+                          "ParentProcessId":  5988,
+                          "CommandLine":  "\"C:\\Program Files\\ANSYS Inc\\v252\\fluent\\ntbin\\win64\\fluent.exe\"  3ddp -py -license=premium -gu -driver null -sifile=C:\\Users\\syok443\\AppData\\Local\\Temp\\serverinfo-45mpup5r.txt -nm -command=\"(set-session-idle-timeoutPLF+2)\""
+                      },
+                      {
+                          "ProcessId":  15492,
+                          "ParentProcessId":  12416,
+                          "CommandLine":  "fluent -wait 3ddp -r25.2.0   -ic=default -host -t1  -cx EN432646.UoA.auckland.ac.nz:57312:57313"
+                      }
+                  ],
+    "action":  "Not running"
+}

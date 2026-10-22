@@ -1,0 +1,107 @@
+diff --git a/doc/changelog.d/0.fixed.md b/doc/changelog.d/0.fixed.md
+new file mode 100644
+index 0000000..213ae90
+--- /dev/null
++++ b/doc/changelog.d/0.fixed.md
+@@ -0,0 +1 @@
++Report incomplete snapshot reads in ``compare_files`` instead of treating matching errors or omitted state as equal case settings. Use headless launches, the lightweight file-read command, and the available run-calculation settings group.
+diff --git a/doc/source/user_guide/tools_and_capabilities.rst b/doc/source/user_guide/tools_and_capabilities.rst
+index 599b928..5d34400 100644
+--- a/doc/source/user_guide/tools_and_capabilities.rst
++++ b/doc/source/user_guide/tools_and_capabilities.rst
+@@ -123,6 +123,11 @@ Route all "show mesh quality / skewness / check mesh" intents to
+ without touching the live workspace session. Requires the ``file-probe`` extra for
+ ``.h5``/``.cas.h5`` files.
+ 
++If a snapshot read fails or its state is omitted by the size limit, the tool returns
++``{"error": "comparison incomplete", "detail": {...}}``. The details identify the
++affected input (``path_a`` or ``path_b``), section or settings path, and read error.
++No difference count or comparison summary is returned for incomplete snapshots.
++
+ Workflow examples
+ -----------------
+ 
+diff --git a/src/ansys/fluent/mcp/solve/backends/introspection.py b/src/ansys/fluent/mcp/solve/backends/introspection.py
+index c81b20e..b56c6ca 100644
+--- a/src/ansys/fluent/mcp/solve/backends/introspection.py
++++ b/src/ansys/fluent/mcp/solve/backends/introspection.py
+@@ -45,7 +45,7 @@ FLUENT_GLOBAL_STATE_PATHS: tuple[str, ...] = (
+     "setup/models/multiphase",
+     "setup/models/discrete-phase/general-settings/interaction",
+     "solution/methods/p-v-coupling",
+-    "solution/run-calculation/parameters",
++    "solution/run-calculation",
+     "setup/general/operating-conditions/gravity",
+     "setup/general/operating-conditions/operating-pressure",
+ )
+diff --git a/src/ansys/fluent/mcp/solve/lib/compare_tools.py b/src/ansys/fluent/mcp/solve/lib/compare_tools.py
+index 5174349..425b7d9 100644
+--- a/src/ansys/fluent/mcp/solve/lib/compare_tools.py
++++ b/src/ansys/fluent/mcp/solve/lib/compare_tools.py
+@@ -120,6 +120,32 @@ async def collect_compare_snapshot(backend: Backend) -> dict[str, Any]:
+     return snap
+ 
+ 
++def _snapshot_errors(snapshot: dict[str, Any]) -> dict[str, str]:
++    """Return collection failures and per-path read or size-limit errors.
++
++    Parameters
++    ----------
++    snapshot : dict[str, Any]
++        Global settings and named-object inventories captured for one file.
++
++    Returns
++    -------
++    dict[str, str]
++        Unavailable snapshot sections or paths and their error messages.
++    """
++    errors: dict[str, str] = {}
++    for section, values in snapshot.items():
++        if "_error" in values:
++            errors[section] = values["_error"]
++            continue
++        for path, value in values.items():
++            if isinstance(value, dict) and set(value) == {"error"}:
++                errors[f"{section}.{path}"] = value["error"]
++            elif value == "<large_state_omitted>":
++                errors[f"{section}.{path}"] = "state exceeded capture size limit"
++    return errors
++
++
+ def diff_snapshots(
+     a: dict[str, Any],
+     b: dict[str, Any],
+@@ -413,7 +439,7 @@ async def compare_files_impl(
+     backend_b = ephemeral_pyfluent_backend(
+         label=f"PyFluent (compare:{path_b_resolved.name})",
+     )
+-    launch = {"ui_mode": "gui", "precision": "double"}
++    launch = {"ui_mode": "no_gui", "precision": "double"}
+     try:
+         conn_a = await backend_a.connect(**launch)
+         if getattr(conn_a, "status", None) != "ok":
+@@ -430,7 +456,7 @@ async def compare_files_impl(
+ 
+         for backend_i, path in ((backend_a, path_a_resolved), (backend_b, path_b_resolved)):
+             case_path = _normalize_path_for_fluent(path)
+-            snippet = f'session.settings.file.read_case(file_name="{case_path}", lightweight_setup=True)\n'  # noqa: E501
++            snippet = f'session.settings.file.read(file_type="case", file_name="{case_path}", lightweight_setup=True)\n'  # noqa: E501
+             run_res = await backend_i.run_code(snippet)
+             if getattr(run_res, "error_code", None):
+                 return {
+@@ -457,6 +483,15 @@ async def compare_files_impl(
+                     label,
+                 )
+ 
++    # Equal read failures are not evidence that the cases match.
++    errors = {}
++    for side, snapshot in (("path_a", snap_a), ("path_b", snap_b)):
++        failures = _snapshot_errors(snapshot)
++        if failures:
++            errors[side] = failures
++    if errors:
++        return {"error": "comparison incomplete", "detail": errors}
++
+     diffs = diff_snapshots(snap_a, snap_b)
+     summary = format_compare_summary(
+         diffs,

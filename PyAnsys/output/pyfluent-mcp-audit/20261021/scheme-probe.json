@@ -1,0 +1,23 @@
+{
+  "started": 1792552242.6898253,
+  "stage": "COMPLETED",
+  "connect": "status='ok' backend_kind='pyfluent' endpoint=None candidates=[] message='Connected via launch' error_code=None",
+  "preference_before": 0,
+  "run_code": {
+    "status": "ok",
+    "stdout": "",
+    "stderr": "",
+    "return_value": null,
+    "message": null,
+    "error_code": null,
+    "warnings": []
+  },
+  "preference_after": 0,
+  "scheme_inventory": null,
+  "state_after_probe": {
+    "setup/general/solver": {
+      "inactive": true
+    }
+  },
+  "finished": 1792552261.7603893
+}

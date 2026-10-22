@@ -1,0 +1,19 @@
+{
+  "cell_zones_active": false,
+  "host": {
+    "fluentRoot": "C:\\Program Files\\ANSYS Inc\\v252",
+    "processes": [
+      {
+        "ProcessName": "fluent",
+        "Id": 17912
+      }
+    ],
+    "oldPythonExists": true,
+    "python": [
+      {
+        "Name": "python.exe",
+        "Source": "C:\\PROGRA~1\\ANSYSI~1\\v252\\fluent\\fluent25.2.0\\..\\..\\commonfiles\\CPython\\3_10\\winx64\\Release\\python\\python.exe"
+      }
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "server_alias": "3",
+  "operation": "read_only_preflight",
+  "results": {
+    "fluent_version": "Ansys Fluent 2025 R2",
+    "host_profile": "C:\\Users\\syok443"
+  },
+  "errors": {
+    "iterating": {
+      "type": "RuntimeError",
+      "message": "api-checks-before-command-or-query: object is not active\nError Object: solution/run-calculation"
+    },
+    "working_directory": {
+      "type": "RuntimeError",
+      "message": "An error occurred in the server while evaluating the Scheme expression"
+    }
+  }
+}

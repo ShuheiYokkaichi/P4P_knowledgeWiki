@@ -1,0 +1,835 @@
+{
+  "started": 1792551688.6723647,
+  "sessions": [
+    {
+      "side": 0,
+      "global": {
+        "setup/general/solver": {
+          "type": "pressure-based",
+          "velocity_formulation": "absolute",
+          "time": "steady"
+        },
+        "setup/models/energy": {
+          "enabled": true,
+          "viscous_dissipation": false,
+          "pressure_work": false,
+          "kinetic_energy": false,
+          "inlet_diffusion": true
+        },
+        "setup/models/viscous": {
+          "model": "k-omega",
+          "k_omega_model": "sst",
+          "k_omega": {
+            "k_omega_low_re_correction": false
+          },
+          "near_wall_treatment": {
+            "wall_omega_treatment": "correlation"
+          },
+          "transition_module": "none",
+          "options": {
+            "viscous_heating": false,
+            "curvature_correction": {
+              "enabled": false
+            },
+            "corner_flow_correction": {
+              "enabled": false
+            },
+            "production_kato_launder_enabled": false,
+            "production_limiter": {
+              "enabled": true,
+              "clip_factor": 10.0
+            }
+          },
+          "turbulence_expert": {
+            "turb_non_newtonian": false,
+            "thermal_p_function": true,
+            "restore_sst_v61": false
+          },
+          "user_defined_functions": {
+            "turb_visc": "none",
+            "energy_prandtl": "none",
+            "wall_prandtl": "none"
+          }
+        },
+        "setup/models/radiation": {
+          "model": "none",
+          "solar_load": {
+            "solar_model": "none",
+            "sun_direction_vector_definition": {}
+          },
+          "solar_calculator": {
+            "longitude": -1.4770719,
+            "latitude": 0.23823741,
+            "timezone": -5.0,
+            "mesh_orientation": {
+              "north_direction": {
+                "north_x": 0.0,
+                "north_y": 1.0,
+                "north_z": 0.0
+              },
+              "east_direction": {
+                "east_x": 1.0,
+                "east_y": 0.0,
+                "east_z": 0.0
+              }
+            },
+            "date_and_time": {
+              "day": 21,
+              "month": 6,
+              "hour": 13,
+              "minute": 0
+            },
+            "calculator_method": "fair-weather-condition",
+            "sunshine_factor": 1.0
+          },
+          "solar_calculator_gui": {
+            "longitude": -1.4770719,
+            "latitude": 0.23823741,
+            "timezone": -5.0,
+            "mesh_orientation": {
+              "north_direction": {
+                "north_x": 0.0,
+                "north_y": 1.0,
+                "north_z": 0.0
+              },
+              "east_direction": {
+                "east_x": 1.0,
+                "east_y": 0.0,
+                "east_z": 0.0
+              }
+            },
+            "date_and_time": {
+              "day": 21,
+              "month": 6,
+              "hour": 13,
+              "minute": 0
+            },
+            "calculator_method": "fair-weather-condition",
+            "sunshine_factor": 1.0
+          }
+        },
+        "setup/models/multiphase": {
+          "model": "none"
+        },
+        "setup/models/discrete-phase/general-settings/interaction": {
+          "enabled": false
+        },
+        "solution/methods/p-v-coupling": {
+          "flow_scheme": "Coupled",
+          "flux_type": "Rhie-Chow: momentum based",
+          "flux_auto_select": true
+        },
+        "solution/run-calculation": {
+          "pseudo_time_settings": {
+            "verbosity": 0,
+            "time_step_method": {
+              "time_step_method": "automatic",
+              "length_scale_methods": "conservative",
+              "time_step_size_scale_factor": 1.0
+            }
+          },
+          "iter_count": 100,
+          "reporting_interval": 1,
+          "profile_update_interval": 1,
+          "data_sampling": {
+            "enabled": false
+          }
+        },
+        "setup/general/operating-conditions/gravity": {
+          "enable": false
+        },
+        "setup/general/operating-conditions/operating-pressure": 101325
+      },
+      "silenced": {
+        "type": "str",
+        "repr": "''"
+      },
+      "plain": {
+        "error": "Traceback (most recent call last):\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\mcp-named-diagnostic.py\", line 23, in main\n    raw=b._solver.scheme.eval(expr)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Lib\\site-packages\\ansys\\fluent\\core\\services\\scheme_interpreter.py\", line 165, in eval\n    return self.service.eval(scm_input, suppress_prompts)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Lib\\site-packages\\ansys\\fluent\\core\\_grpc_services\\scheme_interpreter_service_v0.py\", line 143, in eval\n    return self.scheme_eval(val=val, suppress_prompts=suppress_prompts)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Lib\\site-packages\\ansys\\fluent\\core\\_grpc_services\\scheme_interpreter_service_v0.py\", line 118, in scheme_eval\n    response = self._stub.SchemeEval(request, metadata=new_metadata)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Lib\\site-packages\\grpc\\_interceptor.py\", line 276, in __call__\n    response, ignored_call = self._with_call(\n                             ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Lib\\site-packages\\grpc\\_interceptor.py\", line 328, in _with_call\n    call = self._interceptor.intercept_unary_unary(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Lib\\site-packages\\ansys\\fluent\\core\\services\\interceptors.py\", line 175, in intercept_unary_unary\n    return self._intercept_call(continuation, client_call_details, request)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Lib\\site-packages\\ansys\\fluent\\core\\services\\interceptors.py\", line 165, in _intercept_call\n    raise new_ex from None\nRuntimeError: An error occurred in the server while evaluating the Scheme expression\n"
+      },
+      "root_child_names": [
+        "file",
+        "mesh",
+        "server",
+        "setup",
+        "solution",
+        "results",
+        "design",
+        "parametric_studies",
+        "current_parametric_study",
+        "parameters",
+        "parallel",
+        "transient_post_processing"
+      ],
+      "root_indexable": false,
+      "root_get_object_names": false,
+      "via_scheme": null,
+      "via_walk": {
+        "mesh/adapt/manage-criteria": [],
+        "mesh/geometry": [],
+        "setup/general/units-settings/units": [
+          "acceleration",
+          "angle",
+          "angular-velocity",
+          "area",
+          "area-inverse",
+          "area-per-time",
+          "area-temperature",
+          "collision-rate",
+          "nucleation-rate",
+          "concentration",
+          "contact-resistance",
+          "contact-resistance-vol",
+          "crank-angle",
+          "crank-angular-velocity",
+          "current",
+          "current-density",
+          "current-vol-density",
+          "density",
+          "density-gradient",
+          "density-inverse",
+          "density*specific-energy",
+          "density*specific-heat",
+          "density*velocity",
+          "depth",
+          "elec-capacity",
+          "elec-charge",
+          "elec-charge-density",
+          "elec-charge-flux-density",
+          "elec-concentration",
+          "elec-conductivity",
+          "elec-contact-resistance",
+          "elec-field",
+          "elec-permittivity",
+          "elec-resistivity",
+          "elec-resistance",
+          "energy",
+          "energy-density",
+          "force",
+          "force-per-area",
+          "force-per-volume",
+          "force*time-per-volume",
+          "frequency",
+          "gas-constant",
+          "heat-flux",
+          "heat-flux-resolved",
+          "heat-generation-rate",
+          "heat-transfer-coefficient",
+          "ignition-energy",
+          "kinematic-viscosity",
+          "length",
+          "length-inverse",
+          "length-temperature",
+          "length-time-inverse",
+          "length4-per-time",
+          "mag-permeability",
+          "mass",
+          "mass-diffusivity",
+          "mass-flow",
+          "mass-flow-per-depth",
+          "mass-flow-per-time",
+          "mass-flux",
+          "mass-transfer-rate",
+          "mole-transfer-rate",
+          "surface-mole-transfer-rate",
+          "mole-specific-energy",
+          "mole-specific-entropy",
+          "molec-wt",
+          "moment",
+          "moment-of-inertia",
+          "no-unit",
+          "number-density",
+          "particles-conc",
+          "particles-rate",
+          "percentage",
+          "power",
+          "power-per-time",
+          "pressure",
+          "mole-con-henry-const",
+          "pressure-gradient",
+          "pressure-time-derivative",
+          "pressure-time-deriv-sqr",
+          "pressure-2nd-time-derivative",
+          "resistance",
+          "site-density",
+          "soot-formation-constant-unit",
+          "soot-limiting-nuclei-rate",
+          "soot-linear-termination",
+          "soot-oxidation-constant",
+          "soot-pre-exponential-constant",
+          "soot-surface-growth-scale-factor",
+          "soot-sitespecies-concentration",
+          "source-elliptic-relaxation-function",
+          "source-energy",
+          "source-kinetic-energy",
+          "source-mass",
+          "source-momentum",
+          "source-specific-dissipation-rate",
+          "source-temperature-variance",
+          "source-turbulent-dissipation-rate",
+          "source-turbulent-viscosity",
+          "specific-area",
+          "specific-energy",
+          "specific-heat",
+          "spring-constant",
+          "spring-constant-angular",
+          "stefan-boltzmann-constant",
+          "surface-density",
+          "surface-tension",
+          "surface-tension-gradient",
+          "temperature",
+          "temperature-difference",
+          "temperature-gradient",
+          "temperature-inverse",
+          "temperature-variance",
+          "thermal-conductivity",
+          "thermal-resistivity",
+          "thermal-resistance",
+          "thermophoretic-diffusivity",
+          "time",
+          "time-inverse",
+          "time-inverse-squared",
+          "time-inverse-cubed",
+          "turb-kinetic-energy-production",
+          "turbulent-energy-diss-rate",
+          "turbulent-energy-diss-rate-gradient",
+          "turbulent-kinetic-energy",
+          "turbulent-kinetic-energy-gradient",
+          "univ-gas-constant",
+          "velocity",
+          "viscosity",
+          "viscosity-consistency-index",
+          "volume",
+          "volume-flow-rate",
+          "volume-flow-rate-per-depth",
+          "volume-inverse",
+          "volume-temperature",
+          "voltage",
+          "wave-length",
+          "youngs-modulus"
+        ],
+        "setup/models/multiphase/phases": [],
+        "setup/models/radiation/multiband": [],
+        "setup/models/discrete-phase/injections": [],
+        "setup/models/virtual-blade-model/rotor": [],
+        "setup/materials/fluid": [
+          "air"
+        ],
+        "setup/materials/solid": [
+          "aluminum"
+        ],
+        "setup/materials/mixture": [],
+        "setup/materials/inert-particle": [],
+        "setup/materials/droplet-particle": [],
+        "setup/materials/combusting-particle": [],
+        "setup/materials/particle-mixture": [],
+        "setup/cell-zone-conditions": [
+          "fluid",
+          "solid"
+        ],
+        "setup/physics": [
+          "volumes",
+          "boundaries",
+          "interfaces"
+        ],
+        "setup/boundary-conditions": [
+          "axis",
+          "degassing",
+          "exhaust_fan",
+          "fan",
+          "geometry",
+          "inlet_vent",
+          "intake_fan",
+          "interface",
+          "interior",
+          "mass_flow_inlet",
+          "mass_flow_outlet",
+          "network",
+          "network_end",
+          "outflow",
+          "outlet_vent",
+          "overset",
+          "periodic",
+          "porous_jump",
+          "pressure_far_field",
+          "pressure_inlet",
+          "pressure_outlet",
+          "radiator",
+          "rans_les_interface",
+          "recirculation_inlet",
+          "recirculation_outlet",
+          "shadow",
+          "symmetry",
+          "velocity_inlet",
+          "wall",
+          "non_reflecting_bc",
+          "perforated_wall",
+          "settings"
+        ],
+        "setup/mesh-interfaces/interface": [],
+        "setup/mesh-interfaces/turbo-create": [],
+        "setup/dynamic-mesh/dynamic-zones": [],
+        "setup/reference-frames": [
+          "global"
+        ],
+        "setup/named-expressions": [],
+        "solution/methods/spatial-discretization/discretization-scheme": [
+          "pressure",
+          "mom",
+          "k",
+          "omega",
+          "temperature"
+        ],
+        "solution/methods/phase-based-vof-discretization": [],
+        "solution/controls/relaxation-factor": [],
+        "solution/controls/under-relaxation": [
+          "density",
+          "body-force",
+          "k",
+          "omega",
+          "turb-viscosity",
+          "temperature"
+        ],
+        "solution/controls/pseudo-time-explicit-relaxation-factor/local-dt-dualts-relax": [
+          "density",
+          "body-force",
+          "k",
+          "omega",
+          "turb-viscosity",
+          "temperature"
+        ],
+        "solution/controls/pseudo-time-explicit-relaxation-factor/global-dt-pseudo-relax": [
+          "density",
+          "body-force",
+          "k",
+          "omega",
+          "turb-viscosity",
+          "temperature"
+        ],
+        "solution/controls/equations": [
+          "flow",
+          "kw",
+          "temperature"
+        ],
+        "solution/controls/advanced/correction-tolerance": [],
+        "solution/report-definitions": [
+          "mesh",
+          "surface",
+          "volume",
+          "force",
+          "lift",
+          "drag",
+          "moment",
+          "time",
+          "flux",
+          "vbm",
+          "injection",
+          "user_defined",
+          "aeromechanics",
+          "icing",
+          "expression",
+          "single_valued_expression",
+          "custom"
+        ],
+        "solution/monitor/residual/equations": [
+          "continuity",
+          "x-velocity",
+          "y-velocity",
+          "z-velocity",
+          "energy",
+          "k",
+          "omega"
+        ],
+        "solution/monitor/report-files": [],
+        "solution/monitor/report-plots": [],
+        "solution/monitor/convergence-conditions/convergence-reports": [],
+        "solution/cell-registers": [],
+        "solution/initialization/defaults": [
+          "pressure",
+          "x-velocity",
+          "y-velocity",
+          "z-velocity",
+          "k",
+          "omega",
+          "temperature"
+        ],
+        "solution/calculation-activity/execute-commands": [],
+        "solution/calculation-activity/solution-animations": [],
+        "solution/calculation-activity/poor-mesh-numerics/register-based": [],
+        "results/custom-field-functions": [],
+        "results/custom-vectors": [],
+        "results/surfaces/point-surface": [],
+        "results/surfaces/line-surface": [],
+        "results/surfaces/rake-surface": [],
+        "results/surfaces/plane-surface": [],
+        "results/surfaces/iso-surface": [],
+        "results/surfaces/iso-clip": [],
+        "results/surfaces/zone-surface": [
+          "wall-elbow",
+          "wall-inlet",
+          "outlet",
+          "cold-inlet",
+          "hot-inlet",
+          "symmetry-xyplane"
+        ],
+        "results/surfaces/partition-surface": [],
+        "results/surfaces/transform-surface": [],
+        "results/surfaces/imprint-surface": [],
+        "results/surfaces/plane-slice": [],
+        "results/surfaces/sphere-slice": [],
+        "results/surfaces/quadric-surface": [],
+        "results/surfaces/surface-cells": [],
+        "results/surfaces/expression-volume": [],
+        "results/surfaces/group-surface": [],
+        "results/graphics": [
+          "mesh",
+          "contour",
+          "vector",
+          "pathline",
+          "particle_track",
+          "lic",
+          "olic",
+          "volumes",
+          "contours",
+          "particle_tracks",
+          "colors",
+          "lighting",
+          "picture",
+          "views",
+          "windows",
+          "raytracing_options",
+          "pulse",
+          "periodic_instances",
+          "display",
+          "material"
+        ],
+        "results/plot/xy-plot": [],
+        "results/plot/cumulative-plot": [],
+        "results/scene": [],
+        "results/annotation": [],
+        "design/gradient-based/methods": [],
+        "parametric-studies": [],
+        "parameters/input-parameters/scheme-proc": [],
+        "parameters/input-parameters/udf-side": [],
+        "parameters/input-parameters/expression": [],
+        "parameters/output-parameters/report-definitions": [],
+        "parameters/output-parameters/named-expressions": []
+      }
+    },
+    {
+      "side": 1,
+      "global": {
+        "setup/general/solver": {
+          "type": "pressure-based",
+          "velocity_formulation": "absolute",
+          "time": "steady"
+        },
+        "setup/models/energy": {
+          "enabled": true,
+          "viscous_dissipation": false,
+          "pressure_work": false,
+          "kinetic_energy": false,
+          "inlet_diffusion": true
+        },
+        "setup/models/viscous": {
+          "model": "k-omega",
+          "k_omega_model": "sst",
+          "k_omega": {
+            "k_omega_low_re_correction": false
+          },
+          "near_wall_treatment": {
+            "wall_omega_treatment": "correlation"
+          },
+          "transition_module": "none",
+          "options": {
+            "viscous_heating": false,
+            "curvature_correction": {
+              "enabled": false
+            },
+            "corner_flow_correction": {
+              "enabled": false
+            },
+            "production_kato_launder_enabled": false,
+            "production_limiter": {
+              "enabled": true,
+              "clip_factor": 10.0
+            }
+          },
+          "turbulence_expert": {
+            "turb_non_newtonian": false,
+            "thermal_p_function": true,
+            "restore_sst_v61": false
+          },
+          "user_defined_functions": {
+            "turb_visc": "none",
+            "energy_prandtl": "none",
+            "wall_prandtl": "none"
+          }
+        },
+        "setup/models/radiation": {
+          "model": "none",
+          "solar_load": {
+            "solar_model": "none",
+            "sun_direction_vector_definition": {}
+          },
+          "solar_calculator": {
+            "longitude": -1.4770719,
+            "latitude": 0.23823741,
+            "timezone": -5.0,
+            "mesh_orientation": {
+              "north_direction": {
+                "north_x": 0.0,
+                "north_y": 1.0,
+                "north_z": 0.0
+              },
+              "east_direction": {
+                "east_x": 1.0,
+                "east_y": 0.0,
+                "east_z": 0.0
+              }
+            },
+            "date_and_time": {
+              "day": 21,
+              "month": 6,
+              "hour": 13,
+              "minute": 0
+            },
+            "calculator_method": "fair-weather-condition",
+            "sunshine_factor": 1.0
+          },
+          "solar_calculator_gui": {
+            "longitude": -1.4770719,
+            "latitude": 0.23823741,
+            "timezone": -5.0,
+            "mesh_orientation": {
+              "north_direction": {
+                "north_x": 0.0,
+                "north_y": 1.0,
+                "north_z": 0.0
+              },
+              "east_direction": {
+                "east_x": 1.0,
+                "east_y": 0.0,
+                "east_z": 0.0
+              }
+            },
+            "date_and_time": {
+              "day": 21,
+              "month": 6,
+              "hour": 13,
+              "minute": 0
+            },
+            "calculator_method": "fair-weather-condition",
+            "sunshine_factor": 1.0
+          }
+        },
+        "setup/models/multiphase": {
+          "model": "none"
+        },
+        "setup/models/discrete-phase/general-settings/interaction": {
+          "enabled": false
+        },
+        "solution/methods/p-v-coupling": {
+          "flow_scheme": "Coupled",
+          "flux_type": "Rhie-Chow: momentum based",
+          "flux_auto_select": true
+        },
+        "solution/run-calculation": {
+          "pseudo_time_settings": {
+            "verbosity": 0,
+            "time_step_method": {
+              "time_step_method": "automatic",
+              "length_scale_methods": "conservative",
+              "time_step_size_scale_factor": 1.0
+            }
+          },
+          "iter_count": 100,
+          "reporting_interval": 1,
+          "profile_update_interval": 1,
+          "data_sampling": {
+            "enabled": false
+          }
+        },
+        "setup/general/operating-conditions/gravity": {
+          "enable": false
+        },
+        "setup/general/operating-conditions/operating-pressure": 101325
+      },
+      "silenced": {
+        "type": "str",
+        "repr": "''"
+      },
+      "plain": {
+        "error": "Traceback (most recent call last):\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\mcp-named-diagnostic.py\", line 23, in main\n    raw=b._solver.scheme.eval(expr)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Lib\\site-packages\\ansys\\fluent\\core\\services\\scheme_interpreter.py\", line 165, in eval\n    return self.service.eval(scm_input, suppress_prompts)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Lib\\site-packages\\ansys\\fluent\\core\\_grpc_services\\scheme_interpreter_service_v0.py\", line 143, in eval\n    return self.scheme_eval(val=val, suppress_prompts=suppress_prompts)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Lib\\site-packages\\ansys\\fluent\\core\\_grpc_services\\scheme_interpreter_service_v0.py\", line 118, in scheme_eval\n    response = self._stub.SchemeEval(request, metadata=new_metadata)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Lib\\site-packages\\grpc\\_interceptor.py\", line 276, in __call__\n    response, ignored_call = self._with_call(\n                             ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Lib\\site-packages\\grpc\\_interceptor.py\", line 328, in _with_call\n    call = self._interceptor.intercept_unary_unary(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Lib\\site-packages\\ansys\\fluent\\core\\services\\interceptors.py\", line 175, in intercept_unary_unary\n    return self._intercept_call(continuation, client_call_details, request)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\runtime\\Lib\\site-packages\\ansys\\fluent\\core\\services\\interceptors.py\", line 165, in _intercept_call\n    raise new_ex from None\nRuntimeError: An error occurred in the server while evaluating the Scheme expression\n"
+      },
+      "root_child_names": [
+        "file",
+        "mesh",
+        "server",
+        "setup",
+        "solution",
+        "results",
+        "design",
+        "parametric_studies",
+        "current_parametric_study",
+        "parameters",
+        "parallel",
+        "transient_post_processing"
+      ],
+      "root_indexable": false,
+      "root_get_object_names": false,
+      "via_scheme": null,
+      "via_walk": {
+        "mesh/adapt/manage-criteria": [],
+        "mesh/geometry": [],
+        "setup/general/units-settings/units": [
+          "acceleration",
+          "angle",
+          "angular-velocity",
+          "area",
+          "area-inverse",
+          "area-per-time",
+          "area-temperature",
+          "collision-rate",
+          "nucleation-rate",
+          "concentration",
+          "contact-resistance",
+          "contact-resistance-vol",
+          "crank-angle",
+          "crank-angular-velocity",
+          "current",
+          "current-density",
+          "current-vol-density",
+          "density",
+          "density-gradient",
+          "density-inverse",
+          "density*specific-energy",
+          "density*specific-heat",
+          "density*velocity",
+          "depth",
+          "elec-capacity",
+          "elec-charge",
+          "elec-charge-density",
+          "elec-charge-flux-density",
+          "elec-concentration",
+          "elec-conductivity",
+          "elec-contact-resistance",
+          "elec-field",
+          "elec-permittivity",
+          "elec-resistivity",
+          "elec-resistance",
+          "energy",
+          "energy-density",
+          "force",
+          "force-per-area",
+          "force-per-volume",
+          "force*time-per-volume",
+          "frequency",
+          "gas-constant",
+          "heat-flux",
+          "heat-flux-resolved",
+          "heat-generation-rate",
+          "heat-transfer-coefficient",
+          "ignition-energy",
+          "kinematic-viscosity",
+          "length",
+          "length-inverse",
+          "length-temperature",
+          "length-time-inverse",
+          "length4-per-time",
+          "mag-permeability",
+          "mass",
+          "mass-diffusivity",
+          "mass-flow",
+          "mass-flow-per-depth",
+          "mass-flow-per-time",
+          "mass-flux",
+          "mass-transfer-rate",
+          "mole-transfer-rate",
+          "surface-mole-transfer-rate",
+          "mole-specific-energy",
+          "mole-specific-entropy",
+          "molec-wt",
+          "moment",
+          "moment-of-inertia",
+          "no-unit",
+          "number-density",
+          "particles-conc",
+          "particles-rate",
+          "percentage",
+          "power",
+          "power-per-time",
+          "pressure",
+          "mole-con-henry-const",
+          "pressure-gradient",
+          "pressure-time-derivative",
+          "pressure-time-deriv-sqr",
+          "pressure-2nd-time-derivative",
+          "resistance",
+          "site-density",
+          "soot-formation-constant-unit",
+          "soot-limiting-nuclei-rate",
+          "soot-linear-termination",
+          "soot-oxidation-constant",
+          "soot-pre-exponential-constant",
+          "soot-surface-growth-scale-factor",
+          "soot-sitespecies-concentration",
+          "source-elliptic-relaxation-function",
+          "source-energy",
+          "source-kinetic-energy",
+          "source-mass",
+          "source-momentum",
+          "source-specific-dissipation-rate",
+          "source-temperature-variance",
+          "source-turbulent-dissipation-rate",
+          "source-turbulent-viscosity",
+          "specific-area",
+          "specific-energy",
+          "specific-heat",
+          "spring-constant",
+          "spring-constant-angular",
+          "stefan-boltzmann-constant",
+          "surface-density",
+          "surface-tension",
+          "surface-tension-gradient",
+          "temperature",
+          "temperature-difference",
+          "temperature-gradient",
+          "temperature-inverse",
+          "temperature-variance",
+          "thermal-conductivity",
+          "thermal-resistivity",
+          "thermal-resistance",
+          "thermophoretic-diffusivity",
+          "time",
+          "time-inverse",
+          "time-inverse-squared",
+          "time-inverse-cubed",
+          "turb-kinetic-energy-production",
+          "turbulent-energy-diss-rate",
+          "turbulent-energy-diss-rate-gradient",
+          "turbulent-kinetic-energy",
+          "turbulent-kinetic-energy-gradient",
+          "univ-gas-constant",
+          "velocity",
+          "viscosity",
+          "viscosity-consistency-index",
+          "volume",
+          "volume-flow-rate",
+          "volume-flow-rate-per-depth",
+          "volume-inverse",
+          "volume-temperature",
+          "voltage",
+          "wave-length",
+          "youngs-modulus"
+        ],
+        "setup/models/multiphase/phases": [],
+        "setup/models/radiation/multiband": [],
+        "setup/models/discrete-phase/injections": [],
+        "setup/models/virtual-blade-model/rotor": []
+      }
+    }
+  ],
+  "stage": "COMPLETED",
+  "finished": 1792551778.9239898
+}

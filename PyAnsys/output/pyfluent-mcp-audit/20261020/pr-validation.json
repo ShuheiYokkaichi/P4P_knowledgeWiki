@@ -1,0 +1,5 @@
+{
+  "status": "SUPERSEDED",
+  "acceptance_receipt": "../20261021/live-status.json",
+  "note": "Live verification is now recorded in the linked receipt; no offline checks count as acceptance."
+}

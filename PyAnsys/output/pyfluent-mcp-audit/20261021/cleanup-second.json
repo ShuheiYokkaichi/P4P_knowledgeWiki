@@ -1,0 +1,14 @@
+{
+    "actions":  [
+                    "SUCCESS: The process with PID 13516 (child process of PID 7308) has been terminated.\r\nSUCCESS: The process with PID 7308 (child process of PID 14124) has been terminated.\r\nSUCCESS: The process with PID 14124 (child process of PID 15320) has been terminated.\r\n",
+                    "SUCCESS: The process with PID 10976 (child process of PID 5432) has been terminated.\r\nSUCCESS: The process with PID 5432 (child process of PID 17372) has been terminated.\r\nSUCCESS: The process with PID 17372 (child process of PID 1448) has been terminated.\r\n",
+                    "SUCCESS: The process with PID 2624 (child process of PID 15868) has been terminated.\r\nSUCCESS: The process with PID 15868 (child process of PID 19156) has been terminated.\r\nSUCCESS: The process with PID 19156 (child process of PID 8264) has been terminated.\r\n",
+                    "SUCCESS: The process with PID 4108 (child process of PID 3156) has been terminated.\r\nSUCCESS: The process with PID 3156 (child process of PID 19352) has been terminated.\r\nSUCCESS: The process with PID 19352 (child process of PID 14844) has been terminated.\r\n"
+                ],
+    "remaining":  [
+                      {
+                          "Id":  19180,
+                          "ProcessName":  "fluent"
+                      }
+                  ]
+}

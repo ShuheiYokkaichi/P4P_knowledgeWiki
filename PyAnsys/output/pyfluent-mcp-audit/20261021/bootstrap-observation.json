@@ -1,0 +1,6 @@
+{
+  "bootstrap-status.json": "{\n    \"error\":  \"MCP installation failed\",\n    \"time\":  \"2026-10-21T14:37:02.8594189+13:00\",\n    \"stage\":  \"FAILED\"\n}\n",
+  "bootstrap.stderr.txt": {
+    "error": "An error occurred in the server while evaluating the Scheme expression"
+  }
+}

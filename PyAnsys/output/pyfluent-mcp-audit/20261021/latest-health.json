@@ -1,0 +1,7 @@
+{
+  "server_alias": "3",
+  "error": {
+    "type": "TimeoutError",
+    "message": "Fluent endpoint is unreachable; reconcile the fleet before reconnecting."
+  }
+}

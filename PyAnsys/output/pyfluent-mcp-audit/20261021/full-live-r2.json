@@ -1,0 +1,514 @@
+{
+  "started": 1792552359.6694462,
+  "acceptance": "NOT_ESTABLISHED",
+  "sources": {
+    "compare_tools_v3.b64": "97fdb7817263aefbe6a30907ad58faef7681a2f4ad9dd92d10f9da16e5ff6463",
+    "introspection_v2.b64": "a8d2215080f25cb16400ac090bbd71c852dd03a86c6aa84abef70bbd9877a37b"
+  },
+  "pyfluent": "0.41.0",
+  "cases": {
+    "mixing_elbow.cas.h5": {
+      "sha256": "8145813f50f989a521ed8d1b02c891c7ca22ccc5fafa35a4eeba011949f19cbc",
+      "bytes": 3062081
+    },
+    "mixing_elbow_copy.cas.h5": {
+      "sha256": "8145813f50f989a521ed8d1b02c891c7ca22ccc5fafa35a4eeba011949f19cbc",
+      "bytes": 3062081
+    },
+    "energy_off.cas.h5": {
+      "sha256": "51283c6f135aa9c3787b06d748560b167a617c9c908b0cde4668256a4dc0b658",
+      "bytes": 3514920
+    }
+  },
+  "stage": "changed_energy",
+  "equal_cases": {
+    "result": {
+      "status": "ok",
+      "from": "compare_files",
+      "path_a": "C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\cases\\mixing_elbow.cas.h5",
+      "path_b": "C:\\Users\\syok443\\Documents\\FluentRuns\\MCPContribution\\20261021\\cases\\mixing_elbow_copy.cas.h5",
+      "launch": {
+        "product": "pyfluent",
+        "ui_mode": "no_gui",
+        "precision": "double",
+        "lightweight_setup": true
+      },
+      "diff_count": 63,
+      "summary": "### Differences: **mixing_elbow.cas.h5** vs **mixing_elbow_copy.cas.h5**\n_63 difference(s) total._\n\n#### (root)\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `parametric-studies` | \u2014 |  |\n\n#### results\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `annotation` | \u2014 |  |\n| `custom-field-functions` | \u2014 |  |\n| `custom-vectors` | \u2014 |  |\n| `graphics` | \u2014 | colors, contour, contours, display, lic, lighting, material, mesh, olic, partic\u2026 |\n| `scene` | \u2014 |  |\n\n#### setup\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `boundary-conditions` | \u2014 | axis, degassing, exhaust_fan, fan, geometry, inlet_vent, intake_fan, interface,\u2026 |\n| `cell-zone-conditions` | \u2014 | fluid, solid |\n| `named-expressions` | \u2014 |  |\n| `physics` | \u2014 | boundaries, interfaces, volumes |\n| `reference-frames` | \u2014 | global |\n\n#### solution\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `cell-registers` | \u2014 |  |\n| `report-definitions` | \u2014 | aeromechanics, custom, drag, expression, flux, force, icing, injection, lift, m\u2026 |\n\n#### design / gradient-based\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `methods` | \u2014 |  |\n\n#### parameters / input-parameters\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `expression` | \u2014 |  |\n| `scheme-proc` | \u2014 |  |\n| `udf-side` | \u2014 |  |\n\n#### parameters / output-parameters\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `named-expressions` | \u2014 |  |\n| `report-definitions` | \u2014 |  |\n\n#### results / plot\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `cumulative-plot` | \u2014 |  |\n| `xy-plot` | \u2014 |  |\n\n#### results / surfaces\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `expression-volume` | \u2014 |  |\n| `group-surface` | \u2014 |  |\n| `imprint-surface` | \u2014 |  |\n| `iso-clip` | \u2014 |  |\n| `iso-surface` | \u2014 |  |\n| `line-surface` | \u2014 |  |\n| `partition-surface` | \u2014 |  |\n| `plane-slice` | \u2014 |  |\n| `plane-surface` | \u2014 |  |\n| `point-surface` | \u2014 |  |\n| `quadric-surface` | \u2014 |  |\n| `rake-surface` | \u2014 |  |\n| `sphere-slice` | \u2014 |  |\n| `surface-cells` | \u2014 |  |\n| `transform-surface` | \u2014 |  |\n| `zone-surface` | \u2014 | cold-inlet, hot-inlet, outlet, symmetry-xyplane, wall-elbow, wall-inlet |\n\n#### setup / dynamic-mesh\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `dynamic-zones` | \u2014 |  |\n\n#### setup / materials\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `combusting-particle` | \u2014 |  |\n| `droplet-particle` | \u2014 |  |\n| `fluid` | \u2014 | air |\n| `inert-particle` | \u2014 |  |\n| `mixture` | \u2014 |  |\n| `particle-mixture` | \u2014 |  |\n| `solid` | \u2014 | aluminum |\n\n#### setup / mesh-interfaces\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `interface` | \u2014 |  |\n| `turbo-create` | \u2014 |  |\n\n#### solution / calculation-activity\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `execute-commands` | \u2014 |  |\n| `solution-animations` | \u2014 |  |\n\n#### solution / controls\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `equations` | \u2014 | flow, kw, temperature |\n| `relaxation-factor` | \u2014 |  |\n| `under-relaxation` | \u2014 | body-force, density, k, omega, temperature, turb-viscosity |\n\n#### solution / initialization\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `defaults` | \u2014 | k, omega, pressure, temperature, x-velocity, y-velocity, z-velocity |\n\n#### solution / methods\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `phase-based-vof-discretization` | \u2014 |  |\n\n#### solution / monitor\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `report-files` | \u2014 |  |\n| `report-plots` | \u2014 |  |\n\n#### solution / calculation-activity / poor-mesh-numerics\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `register-based` | \u2014 |  |\n\n#### solution / controls / advanced\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `correction-tolerance` | \u2014 |  |\n\n#### solution / controls / pseudo-time-explicit-relaxation-factor\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `global-dt-pseudo-relax` | \u2014 | body-force, density, k, omega, temperature, turb-viscosity |\n| `local-dt-dualts-relax` | \u2014 | body-force, density, k, omega, temperature, turb-viscosity |\n\n#### solution / methods / spatial-discretization\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `discretization-scheme` | \u2014 | k, mom, omega, pressure, temperature |\n\n#### solution / monitor / convergence-conditions\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `convergence-reports` | \u2014 |  |\n\n#### solution / monitor / residual\n| Setting | mixing_elbow.cas.h5 | mixing_elbow_copy.cas.h5 |\n| --- | --- | --- |\n| `equations` | \u2014 | continuity, energy, k, omega, x-velocity, y-velocity, z-velocity |",
+      "diffs": [
+        {
+          "path": "named.design/gradient-based/methods",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.parameters/input-parameters/expression",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.parameters/input-parameters/scheme-proc",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.parameters/input-parameters/udf-side",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.parameters/output-parameters/named-expressions",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.parameters/output-parameters/report-definitions",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.parametric-studies",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/annotation",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/custom-field-functions",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/custom-vectors",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/graphics",
+          "change": "only_in_b",
+          "b": [
+            "colors",
+            "contour",
+            "contours",
+            "display",
+            "lic",
+            "lighting",
+            "material",
+            "mesh",
+            "olic",
+            "particle_track",
+            "particle_tracks",
+            "pathline",
+            "periodic_instances",
+            "picture",
+            "pulse",
+            "raytracing_options",
+            "vector",
+            "views",
+            "volumes",
+            "windows"
+          ]
+        },
+        {
+          "path": "named.results/plot/cumulative-plot",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/plot/xy-plot",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/scene",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/expression-volume",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/group-surface",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/imprint-surface",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/iso-clip",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/iso-surface",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/line-surface",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/partition-surface",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/plane-slice",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/plane-surface",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/point-surface",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/quadric-surface",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/rake-surface",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/sphere-slice",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/surface-cells",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/transform-surface",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.results/surfaces/zone-surface",
+          "change": "only_in_b",
+          "b": [
+            "cold-inlet",
+            "hot-inlet",
+            "outlet",
+            "symmetry-xyplane",
+            "wall-elbow",
+            "wall-inlet"
+          ]
+        },
+        {
+          "path": "named.setup/boundary-conditions",
+          "change": "only_in_b",
+          "b": [
+            "axis",
+            "degassing",
+            "exhaust_fan",
+            "fan",
+            "geometry",
+            "inlet_vent",
+            "intake_fan",
+            "interface",
+            "interior",
+            "mass_flow_inlet",
+            "mass_flow_outlet",
+            "network",
+            "network_end",
+            "non_reflecting_bc",
+            "outflow",
+            "outlet_vent",
+            "overset",
+            "perforated_wall",
+            "periodic",
+            "porous_jump",
+            "pressure_far_field",
+            "pressure_inlet",
+            "pressure_outlet",
+            "radiator",
+            "rans_les_interface",
+            "recirculation_inlet",
+            "recirculation_outlet",
+            "settings",
+            "shadow",
+            "symmetry",
+            "velocity_inlet",
+            "wall"
+          ]
+        },
+        {
+          "path": "named.setup/cell-zone-conditions",
+          "change": "only_in_b",
+          "b": [
+            "fluid",
+            "solid"
+          ]
+        },
+        {
+          "path": "named.setup/dynamic-mesh/dynamic-zones",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.setup/materials/combusting-particle",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.setup/materials/droplet-particle",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.setup/materials/fluid",
+          "change": "only_in_b",
+          "b": [
+            "air"
+          ]
+        },
+        {
+          "path": "named.setup/materials/inert-particle",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.setup/materials/mixture",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.setup/materials/particle-mixture",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.setup/materials/solid",
+          "change": "only_in_b",
+          "b": [
+            "aluminum"
+          ]
+        },
+        {
+          "path": "named.setup/mesh-interfaces/interface",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.setup/mesh-interfaces/turbo-create",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.setup/named-expressions",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.setup/physics",
+          "change": "only_in_b",
+          "b": [
+            "boundaries",
+            "interfaces",
+            "volumes"
+          ]
+        },
+        {
+          "path": "named.setup/reference-frames",
+          "change": "only_in_b",
+          "b": [
+            "global"
+          ]
+        },
+        {
+          "path": "named.solution/calculation-activity/execute-commands",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.solution/calculation-activity/poor-mesh-numerics/register-based",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.solution/calculation-activity/solution-animations",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.solution/cell-registers",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.solution/controls/advanced/correction-tolerance",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.solution/controls/equations",
+          "change": "only_in_b",
+          "b": [
+            "flow",
+            "kw",
+            "temperature"
+          ]
+        },
+        {
+          "path": "named.solution/controls/pseudo-time-explicit-relaxation-factor/global-dt-pseudo-relax",
+          "change": "only_in_b",
+          "b": [
+            "body-force",
+            "density",
+            "k",
+            "omega",
+            "temperature",
+            "turb-viscosity"
+          ]
+        },
+        {
+          "path": "named.solution/controls/pseudo-time-explicit-relaxation-factor/local-dt-dualts-relax",
+          "change": "only_in_b",
+          "b": [
+            "body-force",
+            "density",
+            "k",
+            "omega",
+            "temperature",
+            "turb-viscosity"
+          ]
+        },
+        {
+          "path": "named.solution/controls/relaxation-factor",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.solution/controls/under-relaxation",
+          "change": "only_in_b",
+          "b": [
+            "body-force",
+            "density",
+            "k",
+            "omega",
+            "temperature",
+            "turb-viscosity"
+          ]
+        },
+        {
+          "path": "named.solution/initialization/defaults",
+          "change": "only_in_b",
+          "b": [
+            "k",
+            "omega",
+            "pressure",
+            "temperature",
+            "x-velocity",
+            "y-velocity",
+            "z-velocity"
+          ]
+        },
+        {
+          "path": "named.solution/methods/phase-based-vof-discretization",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.solution/methods/spatial-discretization/discretization-scheme",
+          "change": "only_in_b",
+          "b": [
+            "k",
+            "mom",
+            "omega",
+            "pressure",
+            "temperature"
+          ]
+        },
+        {
+          "path": "named.solution/monitor/convergence-conditions/convergence-reports",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.solution/monitor/report-files",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.solution/monitor/report-plots",
+          "change": "only_in_b",
+          "b": []
+        },
+        {
+          "path": "named.solution/monitor/residual/equations",
+          "change": "only_in_b",
+          "b": [
+            "continuity",
+            "energy",
+            "k",
+            "omega",
+            "x-velocity",
+            "y-velocity",
+            "z-velocity"
+          ]
+        },
+        {
+          "path": "named.solution/report-definitions",
+          "change": "only_in_b",
+          "b": [
+            "aeromechanics",
+            "custom",
+            "drag",
+            "expression",
+            "flux",
+            "force",
+            "icing",
+            "injection",
+            "lift",
+            "mesh",
+            "moment",
+            "single_valued_expression",
+            "surface",
+            "time",
+            "user_defined",
+            "vbm",
+            "volume"
+          ]
+        }
+      ]
+    },
+    "processes_before": [
+      {
+        "create_time": 1792547123.8093903,
+        "pid": 13836,
+        "name": "fl2520.exe"
+      },
+      {
+        "create_time": 1792547116.2309904,
+        "pid": 15892,
+        "name": "cx2520.exe"
+      },
+      {
+        "create_time": 1792547123.6116655,
+        "pid": 19180,
+        "name": "fluent.exe"
+      }
+    ],
+    "new_processes_remaining": []
+  }
+}
