@@ -82,8 +82,16 @@ def read_live_monitor_history(
     max_points: int = 1_000,
     max_scan_points: int = 10_000,
     max_series: int = 32,
+    output_prefix: str | None = None,
+    logarithmic: bool = False,
 ) -> dict[str, Any]:
     """Read one bounded tail snapshot without starting/stopping shared streams.
+
+    Optional output_prefix exports this exact snapshot as JSON, CSV and PNG
+    with hashes. The MCP bridge also returns the PNG as image content. Use
+    logarithmic=True for positive residual curves; zero/negative values cause
+    an explicit export error rather than being clipped. Tail statistics are
+    descriptive only; they do not establish convergence.
 
     Requires public ``get_monitor_set_data(..., start_index=...)`` support.
     One extra point detects truncation at the scan cap. Above that cap the
@@ -148,18 +156,30 @@ def read_live_monitor_history(
                 result.update(x_label=label, x_label_source="monitor_metadata.xlabel")
         except Exception as exc:
             result["metadata_warning"] = f"{type(exc).__name__}: {exc}"
-    return {
+    result = {
         **result, "status": "ok", "x": x[-max_points:],
         "series": {name: values[-max_points:] for name, values in series.items()},
     }
+    result["tail_statistics"] = {}
+    for name, values in result["series"].items():
+        change = values[-1] - values[0]
+        dx = result["x"][-1] - result["x"][0]
+        result["tail_statistics"][name] = {"first": values[0], "last": values[-1],
+            "minimum": min(values), "maximum": max(values),
+            "endpoint_change": change if math.isfinite(change) else None,
+            "endpoint_slope_per_x": change / dx if dx > 0 and math.isfinite(change / dx) else None}
+    if output_prefix is not None:
+        result["artifacts"] = _export_snapshot(result, output_prefix, logarithmic)
+    return result
 
 
 def export_monitor_history_png(
-    history: Mapping[str, Any], path: str | os.PathLike[str], *, dpi: int = 150
+    history: Mapping[str, Any], path: str | os.PathLike[str], *, dpi: int = 150,
+    logarithmic: bool = False,
 ) -> dict[str, Any]:
     """Plot candidate A's returned snapshot; embed provenance in PNG metadata.
 
-    Uses linear axes and the supplied metadata label, including ``unknown``.
+    Uses the requested y scale and supplied axis label, including ``unknown``.
     Does not fetch new data, change Matplotlib's global backend, create parent
     directories, or overwrite a file. Matplotlib is an optional dependency.
     """
@@ -178,6 +198,8 @@ def export_monitor_history_png(
             raise ValueError("export requires 1 to 128 series")
         series = {name: _finite_vector(values, str(name), count)
                   for name, values in raw_series.items()}
+        if logarithmic and any(v <= 0 for values in series.values() for v in values):
+            raise ValueError("Logarithmic plots require positive values; no samples were clipped")
         encoded = json.dumps(dict(history), sort_keys=True, allow_nan=False).encode("utf-8")
         provenance = {
             key: history.get(key) for key in (
@@ -187,7 +209,7 @@ def export_monitor_history_png(
             )
         }
         provenance.update(snapshot_sha256=hashlib.sha256(encoded).hexdigest(),
-                          exported_at_utc=_utc(), axis_scale="linear")
+                          exported_at_utc=_utc(), axis_scale="log" if logarithmic else "linear")
         from matplotlib.backends.backend_agg import FigureCanvasAgg
         from matplotlib.figure import Figure
 
@@ -196,6 +218,8 @@ def export_monitor_history_png(
         axis = figure.subplots()
         for name, values in series.items():
             axis.plot(x, values, label=name, linewidth=1)
+        if logarithmic:
+            axis.set_yscale("log")
         axis.set(xlabel=history.get("x_label", "unknown"), ylabel="Monitor value",
                  title=history["monitor_set"])
         axis.grid(True, alpha=0.25)
@@ -209,6 +233,35 @@ def export_monitor_history_png(
         return {**result, "status": "ok", "provenance": provenance}
     except Exception as exc:
         return _error(result, "png_export_failed", f"{type(exc).__name__}: {exc}")
+
+
+def _export_snapshot(history, prefix, logarithmic):
+    import csv
+    base = _local_path(prefix)
+    paths = {suffix: Path(str(base) + "." + suffix) for suffix in ("json", "csv", "png")}
+    if any(p.exists() for p in paths.values()):
+        raise FileExistsError("Snapshot outputs already exist")
+    created = []
+    try:
+        for suffix in ("json", "csv"):
+            with paths[suffix].open("x", encoding="utf-8", newline="") as stream:
+                created.append(paths[suffix])
+                if suffix == "json":
+                    json.dump(history, stream, indent=2, allow_nan=False)
+                else:
+                    writer = csv.writer(stream)
+                    writer.writerow([history["x_label"], *history["series"]])
+                    writer.writerows(zip(history["x"], *history["series"].values()))
+        image = export_monitor_history_png(history, paths["png"], logarithmic=logarithmic)
+        if image["status"] != "ok":
+            raise RuntimeError(str(image["error"]))
+        created.append(paths["png"])
+        return {k: {"path": str(p), "bytes": p.stat().st_size,
+                    "sha256": hashlib.sha256(p.read_bytes()).hexdigest()} for k, p in paths.items()}
+    except Exception:
+        for p in reversed(created):
+            p.unlink(missing_ok=True)
+        raise
 
 
 def _quoted_fields(text: str) -> list[str]:
@@ -260,6 +313,7 @@ def read_report_file_history(
     max_bytes: int = 4 * 1024 * 1024,
     max_points: int = 1_000,
     coordinate_column: str | None = None,
+    max_cells: int = 100_000,
 ) -> dict[str, Any]:
     """Read a UTF-8/ASCII native Fluent Report File on the local MCP host.
 
@@ -283,6 +337,7 @@ def read_report_file_history(
     """
     _limit("max_bytes", max_bytes, 64 * 1024 * 1024, 256)
     _limit("max_points", max_points, _MAX_POINTS)
+    _limit("max_cells", max_cells, 1_000_000)
     if coordinate_column is not None and not isinstance(coordinate_column, str):
         raise ValueError("coordinate_column must be a header label or None")
     target = _local_path(path)
@@ -310,6 +365,9 @@ def read_report_file_history(
             if coordinate_column is not None and coordinate_column not in columns:
                 raise ValueError(f"coordinate column {coordinate_column!r} is not in the header")
             coordinate_index = columns.index(coordinate_column) if coordinate_column is not None else 0
+            effective_points = min(max_points, max_cells // len(columns))
+            if not effective_points:
+                raise ValueError("max_cells must allow at least one complete row")
             if complete:
                 body, start, bytes_read, discarded = prefix[data_start:], data_start, len(prefix), 0
             else:
@@ -348,7 +406,7 @@ def read_report_file_history(
     )
     issues: list[dict[str, Any]] = []
     issue_count = rejected = valid = data_rows = segment = events_count = 0
-    records: deque[Any] = deque(maxlen=max_points)
+    records: deque[Any] = deque(maxlen=effective_points)
     events: deque[Any] = deque(maxlen=max_points)
     previous: float | None = None
 
@@ -408,11 +466,11 @@ def read_report_file_history(
             events.append({"byte_offset": row_offset, "segment": segment,
                            "kind": "decrease" if coordinate < previous else "repeat",
                            "previous_coordinate": previous, "coordinate": coordinate})
-        records.append((row, row_offset, segment))
+        records.append((row, row_offset, segment, unterminated))
         valid += 1
         previous = coordinate
     segments: list[dict[str, Any]] = []
-    for index, (row, row_offset, segment_id) in enumerate(records):
+    for index, (row, row_offset, segment_id, _) in enumerate(records):
         if not segments or segments[-1]["segment"] != segment_id:
             segments.append({"segment": segment_id, "start_index": index, "end_index": index + 1})
         else:
@@ -427,7 +485,9 @@ def read_report_file_history(
         "returned_points": len(records), "truncated": not complete or valid > len(records),
         "rows": [record[0] for record in records],
         "row_byte_offsets": [record[1] for record in records],
-        "segments": segments, "segment_index_scope": "scanned_data",
+        "row_provisional": [record[3] for record in records],
+        "segments": segments, "segment_range_scope": "returned_rows", "segment_id_scope": "scanned_data",
+        "max_cells": max_cells, "effective_max_points": effective_points,
         "segment_count_scanned": segment + 1 if valid else 0,
         "nonmonotonic_events_scanned": events_count,
         "nonmonotonic_events": [event for event in events if event["byte_offset"] >= first_offset],

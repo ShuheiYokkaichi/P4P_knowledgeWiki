@@ -1,0 +1,130 @@
+{
+  "geometry": {
+    "cold-inlet": {
+      "native_area_m2": 0.00389149155607667,
+      "returned_area_m2": 0.00389149155607667,
+      "native_centroid_m": [
+        -0.2000000015258789,
+        -0.1500035239876403,
+        0.02111510895901021
+      ]
+    },
+    "hot-inlet": {
+      "native_area_m2": 0.0002361066795256034,
+      "returned_area_m2": 0.0002361066795256034,
+      "native_centroid_m": [
+        0.1374907908917689,
+        -0.2250000017166137,
+        0.005185694652011795
+      ]
+    },
+    "outlet": {
+      "native_area_m2": 0.003891492797679819,
+      "returned_area_m2": 0.003891492797679819,
+      "native_centroid_m": [
+        0.150003531323232,
+        0.200000001525879,
+        0.02111510620239132
+      ]
+    }
+  },
+  "fingerprint_changed": {
+    "cold-inlet": true,
+    "hot-inlet": true,
+    "outlet": true
+  },
+  "fingerprint_restored": true,
+  "field_native_extrema": {
+    "minimum": 293.1502164366893,
+    "maximum": 301.0037973041318,
+    "summary": {
+      "field": "temperature",
+      "location": "face",
+      "boundary_values": true,
+      "metadata": {
+        "display_name": "Static Temperature",
+        "section": "Temperature...",
+        "domain": "mixture",
+        "quantity_name": "temperature",
+        "unit_si": "K",
+        "unit_basis": "SI quantity mapping; null means not mapped"
+      },
+      "surfaces": {
+        "outlet": {
+          "samples": 155,
+          "nonfinite": 0,
+          "minimum": 293.15020751953125,
+          "maximum": 301.0037841796875,
+          "polygon_area_weighted_mean": 294.3519006859998,
+          "finite_area_fraction": 1.0,
+          "status": "complete"
+        }
+      }
+    }
+  },
+  "data_export": {
+    "cold-inlet": {
+      "faces": 152,
+      "aligned": true
+    },
+    "hot-inlet": {
+      "faces": 55,
+      "aligned": true
+    },
+    "outlet": {
+      "faces": 155,
+      "aligned": true
+    }
+  },
+  "history_plot": {
+    "source": "live_monitor_png",
+    "path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\demo-20261026T062525Z\\history.png",
+    "status": "ok",
+    "provenance": {
+      "source": "live_monitor",
+      "monitor_set": "mcp-outlet-temperature-rplot",
+      "captured_at_utc": "2026-10-26T06:28:17.082966+00:00",
+      "x_label": "iteration",
+      "x_label_source": "monitor_metadata.xlabel",
+      "total_scope": "client_monitor_buffer",
+      "total_points": 1001,
+      "total_points_lower_bound": 1001,
+      "returned_points": 5,
+      "truncated": true,
+      "scan_truncated": false,
+      "snapshot_sha256": "6d2f727be8f4c27252d56ddd5ef0c72ad11ae530a7ff9e68db61b877a2d23e87",
+      "exported_at_utc": "2026-10-26T06:28:17.088491+00:00",
+      "axis_scale": "linear"
+    }
+  },
+  "routed_file_exists": true,
+  "join_retains_native_values": true,
+  "routing_reopened": true,
+  "final_progress": {
+    "source": "live Fluent",
+    "errors": {},
+    "iteration_expression": 1092.0,
+    "flow_time_s": 0,
+    "time_step_index": 0,
+    "iterating": false,
+    "configured_run_controls": {
+      "pseudo_time_settings": {
+        "verbosity": 0,
+        "time_step_method": {
+          "time_step_method": "automatic",
+          "length_scale_methods": "conservative",
+          "time_step_size_scale_factor": 1.0
+        }
+      },
+      "iter_count": 1000,
+      "reporting_interval": 1,
+      "profile_update_interval": 1,
+      "data_sampling": {
+        "enabled": false
+      }
+    },
+    "status": "complete",
+    "iteration_basis": "Fluent expression Iteration at the selected surface; not configured iter_count"
+  },
+  "no_temporary_contour": true
+}

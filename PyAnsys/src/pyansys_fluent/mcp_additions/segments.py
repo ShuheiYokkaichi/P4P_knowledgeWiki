@@ -69,8 +69,18 @@ def join_history_segments(
     *,
     expected_step: int | float | None = None,
     step_tolerance: int | float = 0,
+    max_rows: int = 2000,
+    max_cells: int = 20000,
 ) -> dict[str, Any]:
-    """Return aligned x/stage/series, provenance, coverage, gaps, and errors.
+    """Join bounded captured histories; retain conflicts and unavailable values.
+
+    Each segment requires source_id, sha256, axis{name,unit}, units, x and
+    aligned series arrays. Optional stage separates reset counters; optional
+    source_rows maps submitted samples to original source row indices. Hashes
+    are caller assertions. Establish common lineage, definitions, scaling,
+    units and equation activity first. Null means unavailable, never zero.
+    Equal coordinates collapse only exactly equal complete aligned vectors;
+    distinct variants remain with explicit errors. No interpolation/rebasing.
 
     Gap detection is disabled unless expected_step is a positive number. With
     it enabled, a gap is an adjacent unique-coordinate span strictly greater
@@ -91,6 +101,12 @@ def join_history_segments(
     """
     if not isinstance(segments, list) or not segments:
         raise ValueError("segments must be a nonempty list of segment dictionaries")
+    if len(segments) > 32:
+        raise ValueError("At most 32 segments may be joined")
+    for name, value, maximum in (("max_rows", max_rows, 10000), ("max_cells", max_cells, 100000)):
+        if type(value) is not int or not 1 <= value <= maximum:
+            raise ValueError(f"{name} must be an integer between 1 and {maximum}")
+    total_rows = 0
     _number(step_tolerance, "step_tolerance")
     if step_tolerance < 0 or (expected_step is None and step_tolerance != 0):
         raise ValueError("step_tolerance must be nonnegative and needs expected_step")
@@ -109,9 +125,9 @@ def join_history_segments(
     for index, segment in enumerate(segments):
         label = f"segment {index}"
         if not isinstance(segment, dict) or not required.issubset(segment) or (
-            set(segment) - required - {"stage"}
+            set(segment) - required - {"stage", "source_rows"}
         ):
-            raise ValueError(f"{label}: required keys are {sorted(required)}; only stage is optional")
+            raise ValueError(f"{label}: required keys are {sorted(required)}; stage/source_rows are optional")
         source_id, digest = segment["source_id"], segment["sha256"]
         if not isinstance(source_id, str) or not source_id.strip():
             raise ValueError(f"{label}: source_id must be a nonempty string")
@@ -131,6 +147,13 @@ def join_history_segments(
         x, series = segment["x"], segment["series"]
         if not isinstance(x, (list, tuple)) or not isinstance(series, dict):
             raise ValueError(f"{label}: x must be an array and series must be a mapping")
+        total_rows += len(x)
+        if total_rows > max_rows or total_rows * len(units) > max_cells:
+            raise ValueError("Join exceeds row/cell budget; select a smaller explicit window")
+        source_rows = segment.get("source_rows")
+        if source_rows is not None and (not isinstance(source_rows, (list, tuple)) or len(source_rows) != len(x)
+                or any(type(v) is not int or v < 0 for v in source_rows)):
+            raise ValueError(f"{label}: source_rows must contain one nonnegative integer per sample")
         if set(series) - set(units):
             raise ValueError(f"{label}: every series must have a declared unit")
         for column, values in series.items():
@@ -152,12 +175,14 @@ def join_history_segments(
         for row, coordinate in enumerate(x):
             vector = tuple(series[name][row] if name in series else None for name in units)
             variants = coordinates.setdefault(coordinate, {})
-            variants.setdefault(vector, []).append({"segment": index, "row": row})
+            variants.setdefault(vector, []).append({"segment": index, "submitted_row": row,
+                                                    "source_row": source_rows[row] if source_rows is not None else None})
 
     result: dict[str, Any] = {
         "status": "joined", "axis": axis, "units": units,
         "x": [], "stage": [], "series": {name: [] for name in units},
         "provenance": {"hash_verification": "caller_supplied_not_verified",
+                       "row_index_basis": "submitted_row indexes the supplied segment; source_row is caller-supplied or null",
                        "sources": sources, "rows": []},
         "coverage": [], "gaps": [], "duplicate_overlaps": [], "errors": [],
     }

@@ -1,0 +1,25 @@
+{
+  "name": "export_contour",
+  "arguments": {
+    "surfaces": [
+      "symmetry-xyplane"
+    ],
+    "field": "temperature",
+    "case_file": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\demo-20261026T062525Z\\result.cas.h5",
+    "data_file": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\demo-20261026T062525Z\\result.dat.h5",
+    "output": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\demo-20261026T062525Z\\temperature.png",
+    "minimum": 290,
+    "maximum": 315,
+    "view": "front"
+  },
+  "is_error": true,
+  "content": [
+    {
+      "type": "text",
+      "text": "Error calling tool 'export_contour': api-set-var: the object is not active\nError Object: results/graphics/picture/use-window-resolution?",
+      "annotations": null,
+      "meta": null
+    }
+  ],
+  "structured_content": null
+}

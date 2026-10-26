@@ -1,0 +1,17 @@
+{
+  "python": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\P4P_knowledgeWiki\\PyAnsys\\.venv\\Scripts\\python.exe",
+  "python_version": "3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]",
+  "host": "Home-Desktop-Shuhei",
+  "fluent": "Ansys Fluent 2025 R2",
+  "upstream_sha": "f56e540931fbcdf5b9f81871a21934589f256d91",
+  "source_sha256": {
+    "artifacts.py": "a6a158e1063224ece4e577929371a4a811ae4a08825743a801ecbfb02de3a950",
+    "geometry.py": "e2f04806b020eaf441fe6a75e4d9fa43eef9cf94b957a91d71840a2ea4aea7d3",
+    "histories.py": "416d7293fc2a75aee81c02d34327777c51f65f3205f07534ac897c375c0d4d17",
+    "integration.py": "c89076368535df2c4938b35beec36a32506947ead0f694c6f010ded64394b458",
+    "segments.py": "1eca21bbefbe01d3bc22b0b1e6510e725607879891a249653481298148271a59",
+    "session.py": "081830a01b9a880c93ae199a3abe5c28b6ac0f1e6edd5b1f2014fa1bd149684d",
+    "__init__.py": "3ce2240b64bf5291d8d603807beeec3b2ed0a3a55da8c3753ce0aee5c6d91c6d"
+  },
+  "harness_sha256": "e68a61704000833dbceba354f7b3c9594eabe3c39eab5813a675e842203e070b"
+}

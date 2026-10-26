@@ -1,0 +1,4 @@
+{
+  "official_backend_connected_after_client_exit": false,
+  "note": "Backend disconnection alone is not process-exit proof; verify owned Fluent process separately."
+}

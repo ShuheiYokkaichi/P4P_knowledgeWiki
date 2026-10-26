@@ -1,0 +1,33 @@
+{
+  "source": "live_monitor",
+  "monitor_set": "mcp-outlet-temperature-rplot",
+  "captured_at_utc": "2026-10-26T06:28:17.082966+00:00",
+  "x_label": "iteration",
+  "x_label_source": "monitor_metadata.xlabel",
+  "total_scope": "client_monitor_buffer",
+  "max_points": 5,
+  "max_scan_points": 10000,
+  "total_points": 1001,
+  "total_points_lower_bound": 1001,
+  "returned_points": 5,
+  "truncated": true,
+  "x": [
+    1088.0,
+    1089.0,
+    1090.0,
+    1091.0,
+    1092.0
+  ],
+  "series": {
+    "mcp-outlet-temperature": [
+      294.3516928937436,
+      294.3516928937436,
+      294.3516928937436,
+      294.3516928937435,
+      294.3516928937436
+    ]
+  },
+  "scanned_points": 1001,
+  "scan_truncated": false,
+  "status": "ok"
+}
