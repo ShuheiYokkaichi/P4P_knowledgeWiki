@@ -1,0 +1,16 @@
+{
+  "mcp-outlet-temperature-rfile": {
+    "name": "mcp-outlet-temperature-rfile",
+    "file_name": "mcp-additions-20261026\\\\demo-20261026T062525Z\\\\routed\\\\report-001.out",
+    "frequency_of": "iteration",
+    "frequency": 1,
+    "itr_index": "1",
+    "run_index": "0",
+    "report_defs": [
+      "mcp-outlet-temperature"
+    ],
+    "print": false,
+    "active": true,
+    "write_instantaneous_values": false
+  }
+}

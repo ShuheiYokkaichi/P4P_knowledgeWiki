@@ -1,0 +1,37 @@
+{
+  "field": "temperature",
+  "coordinates": "m",
+  "field_metadata": {
+    "display_name": "Static Temperature",
+    "section": "Temperature...",
+    "domain": "mixture",
+    "quantity_name": "temperature",
+    "unit_si": "K",
+    "unit_basis": "SI quantity mapping; null means not mapped"
+  },
+  "location": "face",
+  "boundary_values": true,
+  "surfaces": {
+    "cold-inlet": {
+      "prefix": "s0",
+      "faces": 152,
+      "nonfinite": 0
+    },
+    "hot-inlet": {
+      "prefix": "s1",
+      "faces": 55,
+      "nonfinite": 0
+    },
+    "outlet": {
+      "prefix": "s2",
+      "faces": 155,
+      "nonfinite": 0
+    }
+  },
+  "connectivity": "flat: vertex count followed by zero-based vertex IDs for each face",
+  "artifact": {
+    "path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\demo-20261026T062525Z\\surfaces.npz",
+    "bytes": 13152,
+    "sha256": "216abbe221eb37fdf1bfb2d25fdb8dd229ce2c86aad135f1c7cef80c596f75ab"
+  }
+}

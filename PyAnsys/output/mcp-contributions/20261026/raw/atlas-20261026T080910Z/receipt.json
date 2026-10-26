@@ -1,0 +1,171 @@
+{
+  "source_sha256": {
+    "mesh_file.py": "a62e4cf16f9a39206284a6a881b114dcaa9647640fe1ff4961eb308c5d3443bc",
+    "integration.py": "1626a5114b1dcc4491e6d5777f2c0d81e4abb2d18dcae5325ae9d41a3b395938",
+    "schemas.py": "328503cf23868158fa35acd846eee435f1e972d4f05b9efb2164606bf55a32f6"
+  },
+  "fluent": "Ansys Fluent 2025 R2",
+  "backend_connected": false,
+  "call": {
+    "arguments": {
+      "path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\atlas-20261026T080910Z\\native.cas.h5",
+      "allowed_root": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\atlas-20261026T080910Z"
+    },
+    "is_error": true,
+    "structured_content": null,
+    "content": [
+      {
+        "type": "text",
+        "text": "Error calling tool 'inspect_mesh_file': Source file or resolved path changed while opening",
+        "annotations": null,
+        "meta": null
+      }
+    ]
+  },
+  "native_geometry": {
+    "symmetry-xyplane": {
+      "area_m2": 0.0655676748991285,
+      "centroid_m": [
+        0.05504570573141658,
+        -0.05646682465276131,
+        0.0
+      ]
+    },
+    "hot-inlet": {
+      "area_m2": 0.0002361066795256034,
+      "centroid_m": [
+        0.1374907908917689,
+        -0.2250000017166137,
+        0.005185694652011795
+      ]
+    },
+    "cold-inlet": {
+      "area_m2": 0.00389149155607667,
+      "centroid_m": [
+        -0.2000000015258789,
+        -0.1500035239876403,
+        0.02111510895901021
+      ]
+    },
+    "outlet": {
+      "area_m2": 0.003891492797679819,
+      "centroid_m": [
+        0.150003531323232,
+        0.200000001525879,
+        0.02111510620239132
+      ]
+    },
+    "wall-inlet": {
+      "area_m2": 0.003157983093292343,
+      "centroid_m": [
+        0.138393641681122,
+        -0.1838900421662648,
+        0.00786800804860314
+      ]
+    },
+    "wall-elbow": {
+      "area_m2": 0.09922744455196852,
+      "centroid_m": [
+        0.05279118487185479,
+        -0.0527707214698321,
+        0.03182026321411395
+      ]
+    }
+  },
+  "schemas": [
+    {
+      "name": "inspect_mesh_file",
+      "title": null,
+      "description": "Return topology, raw-coordinate extents and boundary geometry with provenance.\n\n``path`` and ``allowed_root`` must be absolute local paths on the MCP host.\nThe resolved regular file must stay below the resolved caller-owned root.\nThe caller must choose an authorized root; this function cannot establish\nauthorization. Symlink escapes, UNC/device/URI paths and data streams fail.\n\nOnly the evidenced Fluent 25.2 version-2 layouts in ``.cas.h5`` and\n``.msh.h5`` are accepted. Every node and zone ID range must form an exact,\ndisjoint partition starting at 1. Boundary geometry uses intersections of\nface-zone ranges and connectivity-block ranges, regardless of block names.\nAll boundary faces are inspected or the call fails; there is no sampling,\npartial-success truncation, or automatic increase of resource limits.\n\n``max_file_bytes`` bounds each of two full SHA-256 passes.\n``max_read_bytes`` independently bounds the sum of declared decoded extents\nof accessed datasets, and cumulative selected dataset/attribute bytes read.\nCoordinate arrays, integer offsets and HDF5 caches add memory overhead.\nCounts, total zones, blocks per group, connectivity extent and vertices per face have\nseparate limits. Interior-only blocks are checked structurally but their\npayloads are not read; mixed blocks require all vertex counts for offsets.\n\nUnits are metadata, not an implicit conversion. Area and centroid methods,\nnormal winding limitations and uninspected interior semantics are returned\nin ``limitations``. Unknown cell/node type labels remain null. Names never\ndetermine a zone's type or flow role. No native volume semantics are used.\n\nRequires h5py and numpy only. Raises ValueError for unsupported/invalid data\nor limits, PermissionError for a root escape, RuntimeError for detected\nsource changes, and native I/O/HDF5 errors for unreadable/corrupt files.\n",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "allowed_root": {
+            "type": "string"
+          },
+          "expected_sha256": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "max_file_bytes": {
+            "default": 268435456,
+            "type": "integer"
+          },
+          "max_read_bytes": {
+            "default": 134217728,
+            "type": "integer"
+          },
+          "max_nodes": {
+            "default": 2000000,
+            "type": "integer"
+          },
+          "max_faces": {
+            "default": 5000000,
+            "maximum": 1000000,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "max_cells": {
+            "default": 2000000,
+            "maximum": 1000000,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "max_boundary_faces": {
+            "default": 200000,
+            "type": "integer"
+          },
+          "max_zones": {
+            "default": 512,
+            "type": "integer"
+          },
+          "max_blocks": {
+            "default": 128,
+            "type": "integer"
+          },
+          "max_connectivity_values": {
+            "default": 20000000,
+            "type": "integer"
+          },
+          "max_vertices_per_face": {
+            "default": 128,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "path",
+          "allowed_root"
+        ],
+        "type": "object"
+      },
+      "outputSchema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": {
+        "title": null,
+        "readOnlyHint": true,
+        "destructiveHint": null,
+        "idempotentHint": null,
+        "openWorldHint": null
+      },
+      "meta": {
+        "fastmcp": {
+          "tags": []
+        }
+      },
+      "execution": null
+    }
+  ]
+}

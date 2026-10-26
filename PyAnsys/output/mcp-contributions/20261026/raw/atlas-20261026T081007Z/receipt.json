@@ -1,0 +1,862 @@
+{
+  "source_sha256": {
+    "mesh_file.py": "7bdf539601c40eb6afddab97523b4da2c29b41a87be9d4d13c6c04e643d84615",
+    "integration.py": "1626a5114b1dcc4491e6d5777f2c0d81e4abb2d18dcae5325ae9d41a3b395938",
+    "schemas.py": "328503cf23868158fa35acd846eee435f1e972d4f05b9efb2164606bf55a32f6"
+  },
+  "fluent": "Ansys Fluent 2025 R2",
+  "backend_connected": false,
+  "call": {
+    "arguments": {
+      "path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\atlas-20261026T081007Z\\native.cas.h5",
+      "allowed_root": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\atlas-20261026T081007Z"
+    },
+    "is_error": false,
+    "structured_content": {
+      "schema": "fluent.mesh-file-atlas.v1",
+      "source_kind": "native_fluent_hdf5",
+      "captured_at_utc": "2026-10-26T08:10:08.794348+00:00",
+      "source": {
+        "path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\atlas-20261026T081007Z\\native.cas.h5",
+        "allowed_root": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\atlas-20261026T081007Z",
+        "host": "Home-Desktop-Shuhei",
+        "size_bytes": 3131701,
+        "sha256": "25d6fec9cc77703dc5ab422bf6f54922798fa710ecd07450db6de6666758cdb4",
+        "mtime_ns": 1793002208192277700,
+        "mesh_path": "/meshes/1",
+        "mesh_version": 2,
+        "dimension": 3,
+        "writer": {
+          "version": "25.2",
+          "solver": "ANSYS_FLUENT",
+          "origin": "ANSYS_FLUENT 25.2 Build 10205"
+        },
+        "coordinate_datasets": [
+          {
+            "first": 1,
+            "last": 66417,
+            "source": "/meshes/1/nodes/coords/163"
+          }
+        ],
+        "stability_check": "matching SHA-256 before/after inspection and matching stat identity"
+      },
+      "units": {
+        "stored_value": null,
+        "source": null,
+        "coordinate_basis": "raw stored values; scale to SI not established",
+        "area_basis": "square of raw coordinate units",
+        "conversion_applied": false
+      },
+      "counts": {
+        "nodes": 66417,
+        "faces": 91581,
+        "cells": 17822,
+        "boundary_faces": 4799,
+        "interior_faces": 86782
+      },
+      "bounds": {
+        "minimum": [
+          -0.2000000015258789,
+          -0.22500000171661377,
+          0.0
+        ],
+        "maximum": [
+          0.2000000015258789,
+          0.2000000015258789,
+          0.049922644126573094
+        ],
+        "span": [
+          0.4000000030517578,
+          0.42500000324249265,
+          0.049922644126573094
+        ]
+      },
+      "zones": {
+        "nodes": [
+          {
+            "id": 163,
+            "name": null,
+            "dimension": 3,
+            "first": 1,
+            "last": 66417,
+            "zone_type_code": null,
+            "zone_type": null,
+            "count": 66417,
+            "node_count": 66417,
+            "source": "/meshes/1/nodes/zoneTopology",
+            "stored_properties": {}
+          }
+        ],
+        "faces": [
+          {
+            "id": 34,
+            "name": "wall-elbow",
+            "dimension": 3,
+            "first": 1,
+            "last": 2168,
+            "zone_type_code": 3,
+            "zone_type": "wall",
+            "count": 2168,
+            "face_count": 2168,
+            "source": "/meshes/1/faces/zoneTopology",
+            "stored_properties": {
+              "zoneType": 3,
+              "childZoneId": 0,
+              "shadowZoneId": 0,
+              "flags": 0,
+              "faceType": 5,
+              "c0": 87,
+              "c1": 0
+            }
+          },
+          {
+            "id": 33,
+            "name": "wall-inlet",
+            "dimension": 3,
+            "first": 2169,
+            "last": 2436,
+            "zone_type_code": 3,
+            "zone_type": "wall",
+            "count": 268,
+            "face_count": 268,
+            "source": "/meshes/1/faces/zoneTopology",
+            "stored_properties": {
+              "zoneType": 3,
+              "childZoneId": 0,
+              "shadowZoneId": 0,
+              "flags": 0,
+              "faceType": 5,
+              "c0": 87,
+              "c1": 0
+            }
+          },
+          {
+            "id": 32,
+            "name": "outlet",
+            "dimension": 3,
+            "first": 2437,
+            "last": 2591,
+            "zone_type_code": 5,
+            "zone_type": "pressure-outlet",
+            "count": 155,
+            "face_count": 155,
+            "source": "/meshes/1/faces/zoneTopology",
+            "stored_properties": {
+              "zoneType": 5,
+              "childZoneId": 0,
+              "shadowZoneId": 0,
+              "flags": 0,
+              "faceType": 5,
+              "c0": 87,
+              "c1": 0
+            }
+          },
+          {
+            "id": 31,
+            "name": "cold-inlet",
+            "dimension": 3,
+            "first": 2592,
+            "last": 2743,
+            "zone_type_code": 10,
+            "zone_type": "velocity-inlet",
+            "count": 152,
+            "face_count": 152,
+            "source": "/meshes/1/faces/zoneTopology",
+            "stored_properties": {
+              "zoneType": 10,
+              "childZoneId": 0,
+              "shadowZoneId": 0,
+              "flags": 0,
+              "faceType": 5,
+              "c0": 87,
+              "c1": 0
+            }
+          },
+          {
+            "id": 30,
+            "name": "hot-inlet",
+            "dimension": 3,
+            "first": 2744,
+            "last": 2798,
+            "zone_type_code": 10,
+            "zone_type": "velocity-inlet",
+            "count": 55,
+            "face_count": 55,
+            "source": "/meshes/1/faces/zoneTopology",
+            "stored_properties": {
+              "zoneType": 10,
+              "childZoneId": 0,
+              "shadowZoneId": 0,
+              "flags": 0,
+              "faceType": 5,
+              "c0": 87,
+              "c1": 0
+            }
+          },
+          {
+            "id": 29,
+            "name": "symmetry-xyplane",
+            "dimension": 3,
+            "first": 2799,
+            "last": 4799,
+            "zone_type_code": 7,
+            "zone_type": "symmetry",
+            "count": 2001,
+            "face_count": 2001,
+            "source": "/meshes/1/faces/zoneTopology",
+            "stored_properties": {
+              "zoneType": 7,
+              "childZoneId": 0,
+              "shadowZoneId": 0,
+              "flags": 0,
+              "faceType": 5,
+              "c0": 87,
+              "c1": 0
+            }
+          },
+          {
+            "id": 89,
+            "name": "interior--elbow-fluid",
+            "dimension": 3,
+            "first": 4800,
+            "last": 91581,
+            "zone_type_code": 2,
+            "zone_type": "interior",
+            "count": 86782,
+            "face_count": 86782,
+            "source": "/meshes/1/faces/zoneTopology",
+            "stored_properties": {
+              "zoneType": 2,
+              "childZoneId": 0,
+              "shadowZoneId": 0,
+              "flags": 0,
+              "faceType": 0,
+              "c0": 87,
+              "c1": 87
+            }
+          }
+        ],
+        "cells": [
+          {
+            "id": 87,
+            "name": "elbow-fluid",
+            "dimension": 3,
+            "first": 1,
+            "last": 17822,
+            "zone_type_code": 1,
+            "zone_type": "fluid",
+            "count": 17822,
+            "cell_count": 17822,
+            "source": "/meshes/1/cells/zoneTopology",
+            "stored_properties": {
+              "zoneType": 1,
+              "childZoneId": 0,
+              "cellType": 0
+            }
+          }
+        ]
+      },
+      "boundaries": [
+        {
+          "zone_id": 34,
+          "face_count": 2168,
+          "bounds": {
+            "minimum": [
+              -0.2000000015258789,
+              -0.2000000015258789,
+              0.0
+            ],
+            "maximum": [
+              0.2000000015258789,
+              0.2000000015258789,
+              0.049922644126573094
+            ],
+            "span": [
+              0.4000000030517578,
+              0.4000000030517578,
+              0.049922644126573094
+            ]
+          },
+          "area": 0.09922744455196855,
+          "face_area": {
+            "minimum": 1.9999798970725502e-06,
+            "maximum": 6.725175807361469e-05,
+            "mean": 4.57691164907604e-05
+          },
+          "area_weighted_vertex_centroid": [
+            0.052791536449086636,
+            -0.052771600478458226,
+            0.031819867749573946
+          ],
+          "oriented_area_vector": [
+            -0.003662404440687966,
+            0.0036517644884973294,
+            -0.0635289761544536
+          ],
+          "area_weighted_mean_normal": [
+            -0.0369091883523197,
+            0.03680196043529857,
+            -0.6402359391728714
+          ],
+          "mean_normal_direction": [
+            -0.05745925964130625,
+            0.05729233002296568,
+            -0.9967025746941826
+          ],
+          "normal_coherence": 0.642354053684786,
+          "direction_coherence_floor": 1e-12,
+          "nodes_per_face": {
+            "5": 329,
+            "6": 1718,
+            "4": 6,
+            "7": 112,
+            "8": 3
+          },
+          "source_slices": [
+            {
+              "source": "/meshes/1/faces/nodes/1",
+              "face_ids_inclusive": [
+                1,
+                2168
+              ],
+              "flat_nodes_slice_half_open": [
+                0,
+                12785
+              ]
+            }
+          ]
+        },
+        {
+          "zone_id": 33,
+          "face_count": 268,
+          "bounds": {
+            "minimum": [
+              0.1250000009536743,
+              -0.22500000171661377,
+              0.0
+            ],
+            "maximum": [
+              0.15000000114440917,
+              -0.13228756484985352,
+              0.012476407331228255
+            ],
+            "span": [
+              0.025000000190734867,
+              0.09271243686676026,
+              0.012476407331228255
+            ]
+          },
+          "area": 0.0031579830932923453,
+          "face_area": {
+            "minimum": 1.77743815237411e-06,
+            "maximum": 1.848851321910206e-05,
+            "mean": 1.1783519004822184e-05
+          },
+          "area_weighted_vertex_centroid": [
+            0.13839085153477834,
+            -0.18388976723389333,
+            0.00787820214946909
+          ],
+          "oriented_area_vector": [
+            -0.00022908711538871174,
+            3.6216296568965177e-06,
+            -0.002038698744674886
+          ],
+          "area_weighted_mean_normal": [
+            -0.07254222350819418,
+            0.0011468173039269817,
+            -0.6455698730639646
+          ],
+          "mean_normal_direction": [
+            -0.1116663217826385,
+            0.001765328713307814,
+            -0.9937441905209158
+          ],
+          "normal_coherence": 0.6496338587152496,
+          "direction_coherence_floor": 1e-12,
+          "nodes_per_face": {
+            "4": 3,
+            "5": 82,
+            "6": 160,
+            "7": 20,
+            "8": 3
+          },
+          "source_slices": [
+            {
+              "source": "/meshes/1/faces/nodes/1",
+              "face_ids_inclusive": [
+                2169,
+                2436
+              ],
+              "flat_nodes_slice_half_open": [
+                12785,
+                14331
+              ]
+            }
+          ]
+        },
+        {
+          "zone_id": 32,
+          "face_count": 155,
+          "bounds": {
+            "minimum": [
+              0.10000000076293945,
+              0.2000000015258789,
+              0.0
+            ],
+            "maximum": [
+              0.2000000015258789,
+              0.2000000015258789,
+              0.04985713237702955
+            ],
+            "span": [
+              0.10000000076293945,
+              0.0,
+              0.04985713237702955
+            ]
+          },
+          "area": 0.0038914927976798183,
+          "face_area": {
+            "minimum": 4.826280328978244e-06,
+            "maximum": 5.7239181400376855e-05,
+            "mean": 2.510640514632141e-05
+          },
+          "area_weighted_vertex_centroid": [
+            0.15000466467659382,
+            0.2000000015258789,
+            0.02112323803096363
+          ],
+          "oriented_area_vector": [
+            0.0,
+            -0.0038914927976798183,
+            0.0
+          ],
+          "area_weighted_mean_normal": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "mean_normal_direction": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "normal_coherence": 1.0,
+          "direction_coherence_floor": 1e-12,
+          "nodes_per_face": {
+            "5": 29,
+            "4": 77,
+            "6": 38,
+            "7": 11
+          },
+          "source_slices": [
+            {
+              "source": "/meshes/1/faces/nodes/1",
+              "face_ids_inclusive": [
+                2437,
+                2591
+              ],
+              "flat_nodes_slice_half_open": [
+                14331,
+                15089
+              ]
+            }
+          ]
+        },
+        {
+          "zone_id": 31,
+          "face_count": 152,
+          "bounds": {
+            "minimum": [
+              -0.2000000015258789,
+              -0.2000000015258789,
+              0.0
+            ],
+            "maximum": [
+              -0.2000000015258789,
+              -0.10000000076293945,
+              0.04985712380629741
+            ],
+            "span": [
+              0.0,
+              0.10000000076293945,
+              0.04985712380629741
+            ]
+          },
+          "area": 0.00389149155607667,
+          "face_area": {
+            "minimum": 4.9833361559218575e-06,
+            "maximum": 6.824874277174167e-05,
+            "mean": 2.5601918132083355e-05
+          },
+          "area_weighted_vertex_centroid": [
+            -0.2000000015258789,
+            -0.15000256788619976,
+            0.021124560657847912
+          ],
+          "oriented_area_vector": [
+            0.00389149155607667,
+            0.0,
+            0.0
+          ],
+          "area_weighted_mean_normal": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "mean_normal_direction": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "normal_coherence": 1.0,
+          "direction_coherence_floor": 1e-12,
+          "nodes_per_face": {
+            "4": 72,
+            "5": 34,
+            "6": 38,
+            "7": 8
+          },
+          "source_slices": [
+            {
+              "source": "/meshes/1/faces/nodes/1",
+              "face_ids_inclusive": [
+                2592,
+                2743
+              ],
+              "flat_nodes_slice_half_open": [
+                15089,
+                15831
+              ]
+            }
+          ]
+        },
+        {
+          "zone_id": 30,
+          "face_count": 55,
+          "bounds": {
+            "minimum": [
+              0.1250000009536743,
+              -0.22500000171661377,
+              0.0
+            ],
+            "maximum": [
+              0.15000000114440917,
+              -0.22500000171661377,
+              0.012223770855299116
+            ],
+            "span": [
+              0.025000000190734867,
+              0.0,
+              0.012223770855299116
+            ]
+          },
+          "area": 0.00023610667952560338,
+          "face_area": {
+            "minimum": 1.3394234732434688e-06,
+            "maximum": 1.6810957320811558e-05,
+            "mean": 4.2928487186473345e-06
+          },
+          "area_weighted_vertex_centroid": [
+            0.1374879895723008,
+            -0.22500000171661377,
+            0.005224585849621578
+          ],
+          "oriented_area_vector": [
+            0.0,
+            0.00023610667952560338,
+            0.0
+          ],
+          "area_weighted_mean_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "mean_normal_direction": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "normal_coherence": 1.0,
+          "direction_coherence_floor": 1e-12,
+          "nodes_per_face": {
+            "6": 5,
+            "5": 10,
+            "4": 39,
+            "7": 1
+          },
+          "source_slices": [
+            {
+              "source": "/meshes/1/faces/nodes/1",
+              "face_ids_inclusive": [
+                2744,
+                2798
+              ],
+              "flat_nodes_slice_half_open": [
+                15831,
+                16074
+              ]
+            }
+          ]
+        },
+        {
+          "zone_id": 29,
+          "face_count": 2001,
+          "bounds": {
+            "minimum": [
+              -0.2000000015258789,
+              -0.22500000171661377,
+              0.0
+            ],
+            "maximum": [
+              0.2000000015258789,
+              0.2000000015258789,
+              0.0
+            ],
+            "span": [
+              0.4000000030517578,
+              0.42500000324249265,
+              0.0
+            ]
+          },
+          "area": 0.06556767489912854,
+          "face_area": {
+            "minimum": 1.6080472432281082e-07,
+            "maximum": 7.873457641369821e-05,
+            "mean": 3.276745372270292e-05
+          },
+          "area_weighted_vertex_centroid": [
+            0.05504831981510152,
+            -0.05646931682767194,
+            0.0
+          ],
+          "oriented_area_vector": [
+            0.0,
+            0.0,
+            0.06556767489912854
+          ],
+          "area_weighted_mean_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "mean_normal_direction": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "normal_coherence": 1.0,
+          "direction_coherence_floor": 1e-12,
+          "nodes_per_face": {
+            "6": 930,
+            "5": 299,
+            "7": 113,
+            "4": 656,
+            "9": 2,
+            "8": 1
+          },
+          "source_slices": [
+            {
+              "source": "/meshes/1/faces/nodes/1",
+              "face_ids_inclusive": [
+                2799,
+                4799
+              ],
+              "flat_nodes_slice_half_open": [
+                16074,
+                26590
+              ]
+            }
+          ]
+        }
+      ],
+      "methods": {
+        "area": "sum of magnitudes of translated Newell polygon area vectors",
+        "centre": "area-weighted arithmetic vertex centroid of each face",
+        "normal": "stored winding; outward direction unverified",
+        "coherence": "norm(sum(area vectors))/sum(area magnitudes)"
+      },
+      "limits": {
+        "max_file_bytes": 268435456,
+        "max_read_bytes": 134217728,
+        "max_nodes": 2000000,
+        "max_faces": 5000000,
+        "max_cells": 2000000,
+        "max_boundary_faces": 200000,
+        "max_zones": 512,
+        "max_blocks": 128,
+        "max_connectivity_values": 20000000,
+        "max_vertices_per_face": 128
+      },
+      "read_accounting": {
+        "declared_dataset_bytes": 3505103,
+        "selected_dataset_and_attribute_bytes": 1884255,
+        "hash_passes": 2,
+        "hash_bytes_per_pass": 3131701
+      },
+      "limitations": [
+        "Only native Fluent 25.2, mesh version 2, single 3D mesh, zero ID offsets; no lightweight, hierarchical, periodic/shadow, external or virtual storage.",
+        "Areas are magnitudes of Newell polygon area vectors, summed over faces. Warped polygons give projected vector areas, not a native triangulated surface area.",
+        "Centres are area-weighted arithmetic vertex centroids of faces; they are not Fluent face centroids, cell centroids, volume centroids or volume integrals.",
+        "Normals follow stored vertex winding; outward direction is not verified. Coherence is norm(sum(area vectors))/sum(area magnitudes), not mesh quality. Cancellation is expected on curved or closed boundaries.",
+        "Coordinates and areas remain in raw stored coordinate units and their square. The mesh units attribute is returned verbatim; it does not prove coordinate scaling or SI units. Missing units remain unknown.",
+        "Interior face connectivity is not fully audited and interior geometry is not computed. Cell counts and types are topology metadata; no cell volumes, quality, solution fields, physical flow roles or scientific validity are inferred.",
+        "Use a closed, saved file. Hash and stat checks detect changes but do not lock out writers. Byte bounds cover file size and decoded datasets/read selections, not all HDF5 metadata, decompression I/O, CPU time or process memory. This is not a sandbox for hostile HDF5 files; the MCP host owns access policy."
+      ]
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"schema\":\"fluent.mesh-file-atlas.v1\",\"source_kind\":\"native_fluent_hdf5\",\"captured_at_utc\":\"2026-10-26T08:10:08.794348+00:00\",\"source\":{\"path\":\"C:\\\\Users\\\\Shuhei Yokkaichi\\\\Documents\\\\CFD\\\\FluentDirectUse\\\\mcp-additions-20261026\\\\atlas-20261026T081007Z\\\\native.cas.h5\",\"allowed_root\":\"C:\\\\Users\\\\Shuhei Yokkaichi\\\\Documents\\\\CFD\\\\FluentDirectUse\\\\mcp-additions-20261026\\\\atlas-20261026T081007Z\",\"host\":\"Home-Desktop-Shuhei\",\"size_bytes\":3131701,\"sha256\":\"25d6fec9cc77703dc5ab422bf6f54922798fa710ecd07450db6de6666758cdb4\",\"mtime_ns\":1793002208192277700,\"mesh_path\":\"/meshes/1\",\"mesh_version\":2,\"dimension\":3,\"writer\":{\"version\":\"25.2\",\"solver\":\"ANSYS_FLUENT\",\"origin\":\"ANSYS_FLUENT 25.2 Build 10205\"},\"coordinate_datasets\":[{\"first\":1,\"last\":66417,\"source\":\"/meshes/1/nodes/coords/163\"}],\"stability_check\":\"matching SHA-256 before/after inspection and matching stat identity\"},\"units\":{\"stored_value\":null,\"source\":null,\"coordinate_basis\":\"raw stored values; scale to SI not established\",\"area_basis\":\"square of raw coordinate units\",\"conversion_applied\":false},\"counts\":{\"nodes\":66417,\"faces\":91581,\"cells\":17822,\"boundary_faces\":4799,\"interior_faces\":86782},\"bounds\":{\"minimum\":[-0.2000000015258789,-0.22500000171661377,0.0],\"maximum\":[0.2000000015258789,0.2000000015258789,0.049922644126573094],\"span\":[0.4000000030517578,0.42500000324249265,0.049922644126573094]},\"zones\":{\"nodes\":[{\"id\":163,\"name\":null,\"dimension\":3,\"first\":1,\"last\":66417,\"zone_type_code\":null,\"zone_type\":null,\"count\":66417,\"node_count\":66417,\"source\":\"/meshes/1/nodes/zoneTopology\",\"stored_properties\":{}}],\"faces\":[{\"id\":34,\"name\":\"wall-elbow\",\"dimension\":3,\"first\":1,\"last\":2168,\"zone_type_code\":3,\"zone_type\":\"wall\",\"count\":2168,\"face_count\":2168,\"source\":\"/meshes/1/faces/zoneTopology\",\"stored_properties\":{\"zoneType\":3,\"childZoneId\":0,\"shadowZoneId\":0,\"flags\":0,\"faceType\":5,\"c0\":87,\"c1\":0}},{\"id\":33,\"name\":\"wall-inlet\",\"dimension\":3,\"first\":2169,\"last\":2436,\"zone_type_code\":3,\"zone_type\":\"wall\",\"count\":268,\"face_count\":268,\"source\":\"/meshes/1/faces/zoneTopology\",\"stored_properties\":{\"zoneType\":3,\"childZoneId\":0,\"shadowZoneId\":0,\"flags\":0,\"faceType\":5,\"c0\":87,\"c1\":0}},{\"id\":32,\"name\":\"outlet\",\"dimension\":3,\"first\":2437,\"last\":2591,\"zone_type_code\":5,\"zone_type\":\"pressure-outlet\",\"count\":155,\"face_count\":155,\"source\":\"/meshes/1/faces/zoneTopology\",\"stored_properties\":{\"zoneType\":5,\"childZoneId\":0,\"shadowZoneId\":0,\"flags\":0,\"faceType\":5,\"c0\":87,\"c1\":0}},{\"id\":31,\"name\":\"cold-inlet\",\"dimension\":3,\"first\":2592,\"last\":2743,\"zone_type_code\":10,\"zone_type\":\"velocity-inlet\",\"count\":152,\"face_count\":152,\"source\":\"/meshes/1/faces/zoneTopology\",\"stored_properties\":{\"zoneType\":10,\"childZoneId\":0,\"shadowZoneId\":0,\"flags\":0,\"faceType\":5,\"c0\":87,\"c1\":0}},{\"id\":30,\"name\":\"hot-inlet\",\"dimension\":3,\"first\":2744,\"last\":2798,\"zone_type_code\":10,\"zone_type\":\"velocity-inlet\",\"count\":55,\"face_count\":55,\"source\":\"/meshes/1/faces/zoneTopology\",\"stored_properties\":{\"zoneType\":10,\"childZoneId\":0,\"shadowZoneId\":0,\"flags\":0,\"faceType\":5,\"c0\":87,\"c1\":0}},{\"id\":29,\"name\":\"symmetry-xyplane\",\"dimension\":3,\"first\":2799,\"last\":4799,\"zone_type_code\":7,\"zone_type\":\"symmetry\",\"count\":2001,\"face_count\":2001,\"source\":\"/meshes/1/faces/zoneTopology\",\"stored_properties\":{\"zoneType\":7,\"childZoneId\":0,\"shadowZoneId\":0,\"flags\":0,\"faceType\":5,\"c0\":87,\"c1\":0}},{\"id\":89,\"name\":\"interior--elbow-fluid\",\"dimension\":3,\"first\":4800,\"last\":91581,\"zone_type_code\":2,\"zone_type\":\"interior\",\"count\":86782,\"face_count\":86782,\"source\":\"/meshes/1/faces/zoneTopology\",\"stored_properties\":{\"zoneType\":2,\"childZoneId\":0,\"shadowZoneId\":0,\"flags\":0,\"faceType\":0,\"c0\":87,\"c1\":87}}],\"cells\":[{\"id\":87,\"name\":\"elbow-fluid\",\"dimension\":3,\"first\":1,\"last\":17822,\"zone_type_code\":1,\"zone_type\":\"fluid\",\"count\":17822,\"cell_count\":17822,\"source\":\"/meshes/1/cells/zoneTopology\",\"stored_properties\":{\"zoneType\":1,\"childZoneId\":0,\"cellType\":0}}]},\"boundaries\":[{\"zone_id\":34,\"face_count\":2168,\"bounds\":{\"minimum\":[-0.2000000015258789,-0.2000000015258789,0.0],\"maximum\":[0.2000000015258789,0.2000000015258789,0.049922644126573094],\"span\":[0.4000000030517578,0.4000000030517578,0.049922644126573094]},\"area\":0.09922744455196855,\"face_area\":{\"minimum\":1.9999798970725502e-6,\"maximum\":0.00006725175807361469,\"mean\":0.0000457691164907604},\"area_weighted_vertex_centroid\":[0.052791536449086636,-0.052771600478458226,0.031819867749573946],\"oriented_area_vector\":[-0.003662404440687966,0.0036517644884973294,-0.0635289761544536],\"area_weighted_mean_normal\":[-0.0369091883523197,0.03680196043529857,-0.6402359391728714],\"mean_normal_direction\":[-0.05745925964130625,0.05729233002296568,-0.9967025746941826],\"normal_coherence\":0.642354053684786,\"direction_coherence_floor\":1e-12,\"nodes_per_face\":{\"5\":329,\"6\":1718,\"4\":6,\"7\":112,\"8\":3},\"source_slices\":[{\"source\":\"/meshes/1/faces/nodes/1\",\"face_ids_inclusive\":[1,2168],\"flat_nodes_slice_half_open\":[0,12785]}]},{\"zone_id\":33,\"face_count\":268,\"bounds\":{\"minimum\":[0.1250000009536743,-0.22500000171661377,0.0],\"maximum\":[0.15000000114440917,-0.13228756484985352,0.012476407331228255],\"span\":[0.025000000190734867,0.09271243686676026,0.012476407331228255]},\"area\":0.0031579830932923453,\"face_area\":{\"minimum\":1.77743815237411e-6,\"maximum\":0.00001848851321910206,\"mean\":0.000011783519004822184},\"area_weighted_vertex_centroid\":[0.13839085153477834,-0.18388976723389333,0.00787820214946909],\"oriented_area_vector\":[-0.00022908711538871174,3.6216296568965177e-6,-0.002038698744674886],\"area_weighted_mean_normal\":[-0.07254222350819418,0.0011468173039269817,-0.6455698730639646],\"mean_normal_direction\":[-0.1116663217826385,0.001765328713307814,-0.9937441905209158],\"normal_coherence\":0.6496338587152496,\"direction_coherence_floor\":1e-12,\"nodes_per_face\":{\"4\":3,\"5\":82,\"6\":160,\"7\":20,\"8\":3},\"source_slices\":[{\"source\":\"/meshes/1/faces/nodes/1\",\"face_ids_inclusive\":[2169,2436],\"flat_nodes_slice_half_open\":[12785,14331]}]},{\"zone_id\":32,\"face_count\":155,\"bounds\":{\"minimum\":[0.10000000076293945,0.2000000015258789,0.0],\"maximum\":[0.2000000015258789,0.2000000015258789,0.04985713237702955],\"span\":[0.10000000076293945,0.0,0.04985713237702955]},\"area\":0.0038914927976798183,\"face_area\":{\"minimum\":4.826280328978244e-6,\"maximum\":0.000057239181400376855,\"mean\":0.00002510640514632141},\"area_weighted_vertex_centroid\":[0.15000466467659382,0.2000000015258789,0.02112323803096363],\"oriented_area_vector\":[0.0,-0.0038914927976798183,0.0],\"area_weighted_mean_normal\":[0.0,-1.0,0.0],\"mean_normal_direction\":[0.0,-1.0,0.0],\"normal_coherence\":1.0,\"direction_coherence_floor\":1e-12,\"nodes_per_face\":{\"5\":29,\"4\":77,\"6\":38,\"7\":11},\"source_slices\":[{\"source\":\"/meshes/1/faces/nodes/1\",\"face_ids_inclusive\":[2437,2591],\"flat_nodes_slice_half_open\":[14331,15089]}]},{\"zone_id\":31,\"face_count\":152,\"bounds\":{\"minimum\":[-0.2000000015258789,-0.2000000015258789,0.0],\"maximum\":[-0.2000000015258789,-0.10000000076293945,0.04985712380629741],\"span\":[0.0,0.10000000076293945,0.04985712380629741]},\"area\":0.00389149155607667,\"face_area\":{\"minimum\":4.9833361559218575e-6,\"maximum\":0.00006824874277174167,\"mean\":0.000025601918132083355},\"area_weighted_vertex_centroid\":[-0.2000000015258789,-0.15000256788619976,0.021124560657847912],\"oriented_area_vector\":[0.00389149155607667,0.0,0.0],\"area_weighted_mean_normal\":[1.0,0.0,0.0],\"mean_normal_direction\":[1.0,0.0,0.0],\"normal_coherence\":1.0,\"direction_coherence_floor\":1e-12,\"nodes_per_face\":{\"4\":72,\"5\":34,\"6\":38,\"7\":8},\"source_slices\":[{\"source\":\"/meshes/1/faces/nodes/1\",\"face_ids_inclusive\":[2592,2743],\"flat_nodes_slice_half_open\":[15089,15831]}]},{\"zone_id\":30,\"face_count\":55,\"bounds\":{\"minimum\":[0.1250000009536743,-0.22500000171661377,0.0],\"maximum\":[0.15000000114440917,-0.22500000171661377,0.012223770855299116],\"span\":[0.025000000190734867,0.0,0.012223770855299116]},\"area\":0.00023610667952560338,\"face_area\":{\"minimum\":1.3394234732434688e-6,\"maximum\":0.000016810957320811558,\"mean\":4.2928487186473345e-6},\"area_weighted_vertex_centroid\":[0.1374879895723008,-0.22500000171661377,0.005224585849621578],\"oriented_area_vector\":[0.0,0.00023610667952560338,0.0],\"area_weighted_mean_normal\":[0.0,1.0,0.0],\"mean_normal_direction\":[0.0,1.0,0.0],\"normal_coherence\":1.0,\"direction_coherence_floor\":1e-12,\"nodes_per_face\":{\"6\":5,\"5\":10,\"4\":39,\"7\":1},\"source_slices\":[{\"source\":\"/meshes/1/faces/nodes/1\",\"face_ids_inclusive\":[2744,2798],\"flat_nodes_slice_half_open\":[15831,16074]}]},{\"zone_id\":29,\"face_count\":2001,\"bounds\":{\"minimum\":[-0.2000000015258789,-0.22500000171661377,0.0],\"maximum\":[0.2000000015258789,0.2000000015258789,0.0],\"span\":[0.4000000030517578,0.42500000324249265,0.0]},\"area\":0.06556767489912854,\"face_area\":{\"minimum\":1.6080472432281082e-7,\"maximum\":0.00007873457641369821,\"mean\":0.00003276745372270292},\"area_weighted_vertex_centroid\":[0.05504831981510152,-0.05646931682767194,0.0],\"oriented_area_vector\":[0.0,0.0,0.06556767489912854],\"area_weighted_mean_normal\":[0.0,0.0,1.0],\"mean_normal_direction\":[0.0,0.0,1.0],\"normal_coherence\":1.0,\"direction_coherence_floor\":1e-12,\"nodes_per_face\":{\"6\":930,\"5\":299,\"7\":113,\"4\":656,\"9\":2,\"8\":1},\"source_slices\":[{\"source\":\"/meshes/1/faces/nodes/1\",\"face_ids_inclusive\":[2799,4799],\"flat_nodes_slice_half_open\":[16074,26590]}]}],\"methods\":{\"area\":\"sum of magnitudes of translated Newell polygon area vectors\",\"centre\":\"area-weighted arithmetic vertex centroid of each face\",\"normal\":\"stored winding; outward direction unverified\",\"coherence\":\"norm(sum(area vectors))/sum(area magnitudes)\"},\"limits\":{\"max_file_bytes\":268435456,\"max_read_bytes\":134217728,\"max_nodes\":2000000,\"max_faces\":5000000,\"max_cells\":2000000,\"max_boundary_faces\":200000,\"max_zones\":512,\"max_blocks\":128,\"max_connectivity_values\":20000000,\"max_vertices_per_face\":128},\"read_accounting\":{\"declared_dataset_bytes\":3505103,\"selected_dataset_and_attribute_bytes\":1884255,\"hash_passes\":2,\"hash_bytes_per_pass\":3131701},\"limitations\":[\"Only native Fluent 25.2, mesh version 2, single 3D mesh, zero ID offsets; no lightweight, hierarchical, periodic/shadow, external or virtual storage.\",\"Areas are magnitudes of Newell polygon area vectors, summed over faces. Warped polygons give projected vector areas, not a native triangulated surface area.\",\"Centres are area-weighted arithmetic vertex centroids of faces; they are not Fluent face centroids, cell centroids, volume centroids or volume integrals.\",\"Normals follow stored vertex winding; outward direction is not verified. Coherence is norm(sum(area vectors))/sum(area magnitudes), not mesh quality. Cancellation is expected on curved or closed boundaries.\",\"Coordinates and areas remain in raw stored coordinate units and their square. The mesh units attribute is returned verbatim; it does not prove coordinate scaling or SI units. Missing units remain unknown.\",\"Interior face connectivity is not fully audited and interior geometry is not computed. Cell counts and types are topology metadata; no cell volumes, quality, solution fields, physical flow roles or scientific validity are inferred.\",\"Use a closed, saved file. Hash and stat checks detect changes but do not lock out writers. Byte bounds cover file size and decoded datasets/read selections, not all HDF5 metadata, decompression I/O, CPU time or process memory. This is not a sandbox for hostile HDF5 files; the MCP host owns access policy.\"]}",
+        "annotations": null,
+        "meta": null
+      }
+    ]
+  },
+  "native_geometry": {
+    "symmetry-xyplane": {
+      "area_m2": 0.0655676748991285,
+      "centroid_m": [
+        0.05504570573141658,
+        -0.05646682465276131,
+        0.0
+      ]
+    },
+    "hot-inlet": {
+      "area_m2": 0.0002361066795256034,
+      "centroid_m": [
+        0.1374907908917689,
+        -0.2250000017166137,
+        0.005185694652011795
+      ]
+    },
+    "cold-inlet": {
+      "area_m2": 0.00389149155607667,
+      "centroid_m": [
+        -0.2000000015258789,
+        -0.1500035239876403,
+        0.02111510895901021
+      ]
+    },
+    "outlet": {
+      "area_m2": 0.003891492797679819,
+      "centroid_m": [
+        0.150003531323232,
+        0.200000001525879,
+        0.02111510620239132
+      ]
+    },
+    "wall-inlet": {
+      "area_m2": 0.003157983093292343,
+      "centroid_m": [
+        0.138393641681122,
+        -0.1838900421662648,
+        0.00786800804860314
+      ]
+    },
+    "wall-elbow": {
+      "area_m2": 0.09922744455196852,
+      "centroid_m": [
+        0.05279118487185479,
+        -0.0527707214698321,
+        0.03182026321411395
+      ]
+    }
+  },
+  "schemas": [
+    {
+      "name": "inspect_mesh_file",
+      "title": null,
+      "description": "Return topology, raw-coordinate extents and boundary geometry with provenance.\n\n``path`` and ``allowed_root`` must be absolute local paths on the MCP host.\nThe resolved regular file must stay below the resolved caller-owned root.\nThe caller must choose an authorized root; this function cannot establish\nauthorization. Symlink escapes, UNC/device/URI paths and data streams fail.\n\nOnly the evidenced Fluent 25.2 version-2 layouts in ``.cas.h5`` and\n``.msh.h5`` are accepted. Every node and zone ID range must form an exact,\ndisjoint partition starting at 1. Boundary geometry uses intersections of\nface-zone ranges and connectivity-block ranges, regardless of block names.\nAll boundary faces are inspected or the call fails; there is no sampling,\npartial-success truncation, or automatic increase of resource limits.\n\n``max_file_bytes`` bounds each of two full SHA-256 passes.\n``max_read_bytes`` independently bounds the sum of declared decoded extents\nof accessed datasets, and cumulative selected dataset/attribute bytes read.\nCoordinate arrays, integer offsets and HDF5 caches add memory overhead.\nCounts, total zones, blocks per group, connectivity extent and vertices per face have\nseparate limits. Interior-only blocks are checked structurally but their\npayloads are not read; mixed blocks require all vertex counts for offsets.\n\nUnits are metadata, not an implicit conversion. Area and centroid methods,\nnormal winding limitations and uninspected interior semantics are returned\nin ``limitations``. Unknown cell/node type labels remain null. Names never\ndetermine a zone's type or flow role. No native volume semantics are used.\n\nRequires h5py and numpy only. Raises ValueError for unsupported/invalid data\nor limits, PermissionError for a root escape, RuntimeError for detected\nsource changes, and native I/O/HDF5 errors for unreadable/corrupt files.\n",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "allowed_root": {
+            "type": "string"
+          },
+          "expected_sha256": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "max_file_bytes": {
+            "default": 268435456,
+            "type": "integer"
+          },
+          "max_read_bytes": {
+            "default": 134217728,
+            "type": "integer"
+          },
+          "max_nodes": {
+            "default": 2000000,
+            "type": "integer"
+          },
+          "max_faces": {
+            "default": 5000000,
+            "maximum": 1000000,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "max_cells": {
+            "default": 2000000,
+            "maximum": 1000000,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "max_boundary_faces": {
+            "default": 200000,
+            "type": "integer"
+          },
+          "max_zones": {
+            "default": 512,
+            "type": "integer"
+          },
+          "max_blocks": {
+            "default": 128,
+            "type": "integer"
+          },
+          "max_connectivity_values": {
+            "default": 20000000,
+            "type": "integer"
+          },
+          "max_vertices_per_face": {
+            "default": 128,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "path",
+          "allowed_root"
+        ],
+        "type": "object"
+      },
+      "outputSchema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": {
+        "title": null,
+        "readOnlyHint": true,
+        "destructiveHint": null,
+        "idempotentHint": null,
+        "openWorldHint": null
+      },
+      "meta": {
+        "fastmcp": {
+          "tags": []
+        }
+      },
+      "execution": null
+    }
+  ]
+}

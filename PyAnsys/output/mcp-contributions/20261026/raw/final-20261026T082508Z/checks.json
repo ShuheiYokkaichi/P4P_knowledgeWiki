@@ -1,0 +1,89 @@
+{
+  "live_boundary_geometry": {
+    "symmetry-xyplane": {
+      "area_m2": 0.0655676748991285,
+      "centroid_m": [
+        0.05504570573141658,
+        -0.05646682465276131,
+        0.0
+      ]
+    },
+    "hot-inlet": {
+      "area_m2": 0.0002361066795256034,
+      "centroid_m": [
+        0.1374907908917689,
+        -0.2250000017166137,
+        0.005185694652011795
+      ]
+    },
+    "cold-inlet": {
+      "area_m2": 0.00389149155607667,
+      "centroid_m": [
+        -0.2000000015258789,
+        -0.1500035239876403,
+        0.02111510895901021
+      ]
+    },
+    "outlet": {
+      "area_m2": 0.003891492797679819,
+      "centroid_m": [
+        0.150003531323232,
+        0.200000001525879,
+        0.02111510620239132
+      ]
+    },
+    "wall-inlet": {
+      "area_m2": 0.003157983093292343,
+      "centroid_m": [
+        0.138393641681122,
+        -0.1838900421662648,
+        0.00786800804860314
+      ]
+    },
+    "wall-elbow": {
+      "area_m2": 0.09922744455196852,
+      "centroid_m": [
+        0.05279118487185479,
+        -0.0527707214698321,
+        0.03182026321411395
+      ]
+    }
+  },
+  "export_hashes": [
+    true,
+    true
+  ],
+  "history_coordinate_semantics": {
+    "x": [
+      37.0,
+      38.0,
+      39.0
+    ],
+    "x_label": "monitor coordinate (unverified)",
+    "native_display_label": "flow-time",
+    "coordinate_semantics": "unverified",
+    "coordinate_unit": null
+  },
+  "figure_publication_rollback": true,
+  "figure_obstruction_preserved": true,
+  "figure_picture_restored": true,
+  "figure_cleanup": {
+    "status": "complete",
+    "errors": {}
+  },
+  "bundle_members": [
+    "manifest.json",
+    "artifacts/001.png",
+    "artifacts/002.json",
+    "artifacts/003.vw",
+    "artifacts/004.out",
+    "artifacts/005.npz",
+    "artifacts/006.json",
+    "artifacts/007.csv"
+  ],
+  "bundle_zip_integrity": true,
+  "bundle_resource_sha256": "f909184b9a2914970e028ad45d3bc7a6ccced8667404e59410c770b89818fd66",
+  "bundle_resource_matches_artifact": true,
+  "changed_resource_refused": true,
+  "changed_resource_error": "McpError: Error reading resource 'artifact://mcp-additions/bundles/0eae85a8d33f8a21e8bad0a74726131be7b1a311ba0a67d936c9713fb64ab7ba': Bundle bytes changed after publication"
+}

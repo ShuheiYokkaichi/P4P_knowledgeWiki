@@ -1,0 +1,57 @@
+{
+  "source": "live_monitor",
+  "monitor_set": "mcp-outlet-temperature-rplot",
+  "captured_at_utc": "2026-10-26T22:00:09.759065+00:00",
+  "x_label": "monitor coordinate (unverified)",
+  "x_label_source": "unmodified numeric coordinates; physical meaning unverified",
+  "native_display_label": "flow-time",
+  "coordinate_semantics": "unverified",
+  "coordinate_unit": null,
+  "total_scope": "client_monitor_buffer",
+  "max_points": 3,
+  "max_scan_points": 10,
+  "total_points": null,
+  "total_points_lower_bound": 11,
+  "returned_points": 3,
+  "truncated": true,
+  "x": [
+    37.0,
+    38.0,
+    39.0
+  ],
+  "series": {
+    "mcp-outlet-temperature": [
+      294.3516927400277,
+      294.3516928150808,
+      294.3516929297987
+    ],
+    "mcp-hot-temperature": [
+      313.1499999999997,
+      313.1499999999997,
+      313.1499999999997
+    ]
+  },
+  "scanned_points": 11,
+  "scan_truncated": true,
+  "native_display_label_source": "monitor_metadata.xlabel; display metadata only",
+  "status": "ok",
+  "tail_statistics": {
+    "mcp-outlet-temperature": {
+      "first": 294.3516927400277,
+      "last": 294.3516929297987,
+      "minimum": 294.3516927400277,
+      "maximum": 294.3516929297987,
+      "endpoint_change": 1.897709580589435e-07,
+      "endpoint_slope_per_x": 9.488547902947175e-08
+    },
+    "mcp-hot-temperature": {
+      "first": 313.1499999999997,
+      "last": 313.1499999999997,
+      "minimum": 313.1499999999997,
+      "maximum": 313.1499999999997,
+      "endpoint_change": 0.0,
+      "endpoint_slope_per_x": 0.0
+    }
+  },
+  "tail_statistics_basis": "native numeric coordinates; no physical time or iteration semantics established"
+}

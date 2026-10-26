@@ -1,0 +1,71 @@
+{
+  "schema": "fluent.surface-dataset.v1",
+  "field": "x-coordinate",
+  "coordinates": "m",
+  "field_metadata": {
+    "display_name": "X-Coordinate",
+    "section": "Mesh...",
+    "domain": "mixture",
+    "quantity_name": "length",
+    "unit_si": "m",
+    "unit_basis": "SI quantity mapping; null means not mapped"
+  },
+  "observation": {
+    "captured_at_utc": "2026-10-26T07:34:27.524717+00:00",
+    "iteration_expression": 1119.0,
+    "flow_time_s": 0.27
+  },
+  "sampling": "node",
+  "boundary_values": true,
+  "surfaces": {
+    "symmetry-xyplane": {
+      "prefix": "s0",
+      "faces": 2001,
+      "vertices": 3539,
+      "samples": 3539,
+      "nonfinite": 0
+    },
+    "hot-inlet": {
+      "prefix": "s1",
+      "faces": 55,
+      "vertices": 79,
+      "samples": 79,
+      "nonfinite": 0
+    },
+    "cold-inlet": {
+      "prefix": "s2",
+      "faces": 152,
+      "vertices": 241,
+      "samples": 241,
+      "nonfinite": 0
+    },
+    "outlet": {
+      "prefix": "s3",
+      "faces": 155,
+      "vertices": 246,
+      "samples": 246,
+      "nonfinite": 0
+    },
+    "wall-inlet": {
+      "prefix": "s4",
+      "faces": 268,
+      "vertices": 562,
+      "samples": 562,
+      "nonfinite": 0
+    },
+    "wall-elbow": {
+      "prefix": "s5",
+      "faces": 2168,
+      "vertices": 4495,
+      "samples": 4495,
+      "nonfinite": 0
+    }
+  },
+  "sampling_basis": "vertex-aligned",
+  "connectivity": "flat: vertex count followed by zero-based vertex IDs for each face",
+  "artifact": {
+    "path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\contracts-20261026T073404Z\\nodes.npz",
+    "bytes": 211648,
+    "sha256": "0b6378942424b1cb539bff96b1fc1e84ec30ee73af623d9f14716fa23e8daf57"
+  }
+}

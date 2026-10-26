@@ -1,0 +1,51 @@
+{
+  "arguments": {
+    "root": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\transport-20261026T221245Z",
+    "files": [
+      "cancel-source-00.out",
+      "cancel-source-01.out",
+      "cancel-source-02.out",
+      "cancel-source-03.out",
+      "cancel-source-04.out",
+      "cancel-source-05.out",
+      "cancel-source-06.out",
+      "cancel-source-07.out",
+      "cancel-source-08.out",
+      "cancel-source-09.out",
+      "cancel-source-10.out",
+      "cancel-source-11.out",
+      "cancel-source-12.out",
+      "cancel-source-13.out",
+      "cancel-source-14.out",
+      "cancel-source-15.out",
+      "cancel-source-16.out",
+      "cancel-source-17.out",
+      "cancel-source-18.out",
+      "cancel-source-19.out",
+      "cancel-source-20.out",
+      "cancel-source-21.out",
+      "cancel-source-22.out",
+      "cancel-source-23.out"
+    ],
+    "output": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\transport-20261026T221245Z\\cancelled.zip"
+  },
+  "cancelled_request_id": 2,
+  "cancellation_notification_sent": true,
+  "request_cancelled": true,
+  "bytes_at_cancellation": 2077,
+  "final_bytes": 2575270,
+  "worker_continued_after_cancellation": true,
+  "resource_uri": "artifact://mcp-additions/bundles/4341946d426e09929db66cb0df1aaee77b8fad85f193ca4e14d4cc445289e951",
+  "resource_matches_final_file": true,
+  "resource_mime_types": [
+    "application/zip"
+  ],
+  "pending_read_errors": [
+    "Error reading resource 'artifact://mcp-additions/bundles/49636944aa7d7a79fa935d88630b63d04fe3078b539873afcb0ab4c6b732617f': Unknown or expired bundle resource",
+    "Error reading resource 'artifact://mcp-additions/bundles/13ec5aeb4b5b0e2becafdbd494fb81a8cb090764d3ae441516e87082173a5699': Unknown or expired bundle resource",
+    "Error reading resource 'artifact://mcp-additions/bundles/6e463bdcd98898ca21b0fa4c5d0aca780523fca7b9ca5815ab3bdd7062458f94': Unknown or expired bundle resource",
+    "Error reading resource 'artifact://mcp-additions/bundles/377bb058fbe7d041bfc01c4fe0ecece4bebb35b1ee61c482a433c6369b42c786': Unknown or expired bundle resource",
+    "Error reading resource 'artifact://mcp-additions/bundles/d1a3d3d206a6ddfa0bcecec5568430ab08022b687206458e5c915e3bff604928': Unknown or expired bundle resource",
+    "Error reading resource 'artifact://mcp-additions/bundles/15b44506d2b2ef5662d1de26cacd79bb0e6f908b94459a17ccbbe67670442ff0': Unknown or expired bundle resource"
+  ]
+}

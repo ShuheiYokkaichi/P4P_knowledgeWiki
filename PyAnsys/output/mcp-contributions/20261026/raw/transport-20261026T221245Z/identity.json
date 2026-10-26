@@ -1,0 +1,25 @@
+{
+  "transport": "external Python process over stdio",
+  "launcher": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\P4P_mcp_contributions\\PyAnsys\\scripts\\connection\\fluent_mcp_contributions.py",
+  "launcher_sha256": "942c861adc013098e52d25bc7ed34d83bfb52c288a5aa82c5a51975fa47a1ea8",
+  "harness_sha256": "669fbd2809d3270544875a709b5e9dbe2bff70078fc7dd2246c2ddce3e135c87",
+  "source_file": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T215908Z\\native-history.out",
+  "native_input_sha256": "788690db07960b0b70f70d331cb3b7dfd4b29b44d4811f94d7fadef0351e45ff",
+  "cancellation_source_file": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\Phase10-ProposedDesign-213k-20261011\\monitors\\startup\\v2-lower-available-volume.out",
+  "cancellation_source_sha256": "3fc89b126a008eeebf174572e16c4f79c73f981e5f5ca6fca57a3de9e838aef7",
+  "cancellation_source_bytes": 664028,
+  "cancellation_copies": 24,
+  "source_sha256": {
+    "artifacts.py": "13210691f47877c17ed5a1631ba4082c7df181003b015be7457203903dc672c0",
+    "artifact_bundle.py": "15be4f1d6b4ec59a20288ff0b365f37739e2acac9a96145628bd0bdc15ea1690",
+    "dataset_comparison.py": "108c8b873fcdf37dd7b85d5eba50717000d7bc4fc0199ab7bd6fe1a49929dad7",
+    "geometry.py": "797c9b47828c75ff30bad3587dd8e8cef77f0942ca21ae7fff0c2041925b157a",
+    "histories.py": "de603d3257cf44ab714c7753b41f3dfdbe5c2a0a1dad781893bcae8d8498dbf3",
+    "integration.py": "4a24adce91bfe81d43ec2079c4c59316c4c81325bf8023617ecba4e3d4a6e718",
+    "mesh_file.py": "7bdf539601c40eb6afddab97523b4da2c29b41a87be9d4d13c6c04e643d84615",
+    "schemas.py": "1154e7750be62d9d69a61fdc853f335dfa9437aef8d79b6cd4ce0ab0f3c7bcb4",
+    "segments.py": "591ec7b7d70fb50f2ae79965026c9ed4e62cc507843e9dcbb7157e5cc5ea7e05",
+    "session.py": "3ea9d75fbadbf28cdf1756b6d88fdc2aad7df13860d7d5932c3f2a214e05465f",
+    "__init__.py": "3ce2240b64bf5291d8d603807beeec3b2ed0a3a55da8c3753ce0aee5c6d91c6d"
+  }
+}

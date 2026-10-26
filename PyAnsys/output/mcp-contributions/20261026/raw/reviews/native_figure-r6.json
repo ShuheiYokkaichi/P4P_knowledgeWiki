@@ -1,0 +1,26 @@
+{
+  "taskId": "node:delegated-task:command%3Amcp%3A9edd77ce-de78-40bc-b5c2-f988840a4b99%3Adelegate-task%3Amcp-review-native_figure-20261026-r6",
+  "childThreadId": "thread:delegated-task:command%3Amcp%3A9edd77ce-de78-40bc-b5c2-f988840a4b99%3Adelegate-task%3Amcp-review-native_figure-20261026-r6",
+  "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A9edd77ce-de78-40bc-b5c2-f988840a4b99%253Adelegate-task%253Amcp-review-native_figure-20261026-r6:ordinal:1",
+  "childNodeId": "node:delegated-task:command%3Amcp%3A9edd77ce-de78-40bc-b5c2-f988840a4b99%3Adelegate-task%3Amcp-review-native_figure-20261026-r6",
+  "status": "completed",
+  "workState": "result_available",
+  "hasPendingChildRuns": false,
+  "latestTerminalRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A9edd77ce-de78-40bc-b5c2-f988840a4b99%253Adelegate-task%253Amcp-review-native_figure-20261026-r6:ordinal:1",
+  "latestTerminalStatus": "completed",
+  "latestTerminalSummary": null,
+  "latestTerminalResultContextTransferId": null,
+  "providerInstanceId": "codex_17cb4f1e-c499-4c63-9b2e-ca53411ee32b",
+  "model": "gpt-6.1-sol",
+  "options": [
+    {
+      "id": "reasoningEffort",
+      "value": "xhigh"
+    }
+  ],
+  "summary": "**Overall: 8/10. One P2 remains.** Agent usefulness: 9; novelty: 7.5; lifecycle fit: 8; correctness: 7.5; real Fluent evidence: 8.\n\n- **P2 — Cleanup failures are hidden from the MCP caller.** [integration.py:90](</C:/Users/Shuhei Yokkaichi/Documents/CFD/P4P_mcp_contributions/PyAnsys/src/pyansys_fluent/mcp_additions/integration.py:90>) selects `result.message` before `result.stderr`. The helper preserves cleanup failures through exception notes at [artifacts.py:208](</C:/Users/Shuhei Yokkaichi/Documents/CFD/P4P_mcp_contributions/PyAnsys/src/pyansys_fluent/mcp_additions/artifacts.py:208>). Pinned upstream puts those notes in the traceback in `stderr`, while `message` contains `str(exc)`. Thus, an export failure combined with a cleanup failure hides the cleanup error from the agent. Leftover objects, settings or blocking files can then go unreported. Return both diagnostics, or a structured cleanup receipt. This is a static finding; the saved run does not exercise it.\n\nThe three prior repairs are present: cache invalidation runs in `finally`; graphics cleanup actions run independently; native outputs use private scratch files and exclusive publication with rollback.\n\nFor `contracts-20261026T074532Z`, all eight current module hashes match `identity.json`. The loaded upstream backend hash also matches the clean pinned checkout. Saved calls show the invalid-view failure followed by successful export to the same output path. Recorded checks report populated-then-cleared mesh caches, absent failure outputs, restored picture settings and no final temporary contours. I verified the saved source-pair, PNG, view and metadata hashes. The returned MCP image matches the saved PNG, which I also viewed.\n\nThe addition has useful scope beyond upstream screenshots and simulation reports: explicit field and surfaces, fixed limits, camera data, source hashes and image content in one operation. It keeps upstream session ownership and locking. Replacing unsaved state is explicit.\n\nEvidence remains limited to one case and version. The invalid-view failure occurs **before picture settings change**. It does not prove restoration after a later export failure, independent cleanup failures, or publication rollback. Those branches have source review only. Window restoration is not claimed.\n\nNo edits, tests, Fluent calls, delegates or commits were made.\n\n",
+  "resultContextTransferId": "context-transfer:type:subagent_result:source-thread:thread%3Adelegated-task%3Acommand%253Amcp%253A9edd77ce-de78-40bc-b5c2-f988840a4b99%253Adelegate-task%253Amcp-review-native_figure-20261026-r6:target-thread:a6de8eb2-74c5-4f44-ad50-d319d7e830b6:4dfa8aef-54aa-4b6e-b85a-40a0e258bb44",
+  "hasPendingQuestion": false,
+  "pendingApproval": null,
+  "waitTimedOut": false
+}

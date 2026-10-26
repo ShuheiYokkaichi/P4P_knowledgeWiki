@@ -1,0 +1,26 @@
+{
+  "taskId": "node:delegated-task:command%3Amcp%3A9edd77ce-de78-40bc-b5c2-f988840a4b99%3Adelegate-task%3Amcp-review-routing-20261026-r6",
+  "childThreadId": "thread:delegated-task:command%3Amcp%3A9edd77ce-de78-40bc-b5c2-f988840a4b99%3Adelegate-task%3Amcp-review-routing-20261026-r6",
+  "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A9edd77ce-de78-40bc-b5c2-f988840a4b99%253Adelegate-task%253Amcp-review-routing-20261026-r6:ordinal:1",
+  "childNodeId": "node:delegated-task:command%3Amcp%3A9edd77ce-de78-40bc-b5c2-f988840a4b99%3Adelegate-task%3Amcp-review-routing-20261026-r6",
+  "status": "completed",
+  "workState": "result_available",
+  "hasPendingChildRuns": false,
+  "latestTerminalRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A9edd77ce-de78-40bc-b5c2-f988840a4b99%253Adelegate-task%253Amcp-review-routing-20261026-r6:ordinal:1",
+  "latestTerminalStatus": "completed",
+  "latestTerminalSummary": null,
+  "latestTerminalResultContextTransferId": null,
+  "providerInstanceId": "codex_17cb4f1e-c499-4c63-9b2e-ca53411ee32b",
+  "model": "gpt-6.1-sol",
+  "options": [
+    {
+      "id": "reasoningEffort",
+      "value": "xhigh"
+    }
+  ],
+  "summary": "**Overall: 8.5/10. Retain `route_report_files` as an upstream contribution candidate. Zero actionable defects found in the reviewed path.**\n\n- Agent usefulness: **9/10**\n- Novelty: **7.5/10**\n- Lifecycle fit: **9/10**\n- Correctness: **8.5/10**\n- Real Fluent evidence: **8.5/10**\n\nThe value is the verified routing transaction: close writers, change selected destinations, preserve sampling and definitions, and return checked restoration state. Upstream `run_code` can perform these operations, which limits novelty. The bridge fits upstream’s existing session and lock ownership.\n\nThe latest [identity record](<C:/Users/Shuhei Yokkaichi/Documents/CFD/FluentDirectUse/mcp-additions-20261026/contracts-20261026T074532Z/identity.json>) matches all eight current module hashes and clean upstream `f56e540`. Older demo/followup hashes were treated as historical evidence.\n\nThe previous multi-object rollback evidence gap is closed:\n\n- The [actual MCP receipt](<C:/Users/Shuhei Yokkaichi/Documents/CFD/FluentDirectUse/mcp-additions-20261026/contracts-20261026T074532Z/calls.json:903>) reports the directory obstruction at the second destination. In the [current implementation](<C:/Users/Shuhei Yokkaichi/Documents/CFD/P4P_mcp_contributions/PyAnsys/src/pyansys_fluent/mcp_additions/session.py:95>), this error occurs after both path changes and exact-path readback.\n- Both selected objects return to their recorded state: rollback `verified`, errors `{}`, differences `{}`.\n- The saved records confirm inactive frequency **3**, unchanged unselected state, **12 native output samples after restoration**, and preserved routing after case reopen.\n\nLimits remain: one case, Windows, Fluent 2025 R2 Student/PyFluent 0.42. Rollback-setter failure and partial-restoration branches lack live proof. Managed counters and filesystem cleanup are outside rollback scope. Handled failures return MCP transport success, so agents must inspect `status` and `rollback.status`.\n\nNo edits, tests, Fluent calls, delegation, or commits were performed.",
+  "resultContextTransferId": "context-transfer:type:subagent_result:source-thread:thread%3Adelegated-task%3Acommand%253Amcp%253A9edd77ce-de78-40bc-b5c2-f988840a4b99%253Adelegate-task%253Amcp-review-routing-20261026-r6:target-thread:a6de8eb2-74c5-4f44-ad50-d319d7e830b6:de17b0e7-59c8-4436-ae62-64049859a354",
+  "hasPendingQuestion": false,
+  "pendingApproval": null,
+  "waitTimedOut": false
+}

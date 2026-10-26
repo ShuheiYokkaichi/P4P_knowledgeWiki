@@ -1,0 +1,13 @@
+{
+  "failed_worker_refused": true,
+  "initial_successes": 127,
+  "initial_distinct_resources": 127,
+  "concurrent_boundary_successes": 1,
+  "concurrent_boundary_refusals": 1,
+  "total_registered_resources": 128,
+  "full_registry_refused": true,
+  "refused_output_absent": true,
+  "resource_bytes": 1659,
+  "resource_sha256": "543f9126b017ffca75d7d9a56dba6b141da43b9eac3e814174006066ea891d4a",
+  "resource_matches_receipt": true
+}
