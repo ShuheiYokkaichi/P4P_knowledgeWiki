@@ -1,0 +1,191 @@
+[
+  {
+    "path": "final-20261026T082508Z/before.json",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\before.json",
+    "bytes": 1175,
+    "sha256": "bdea41d6d705171f261fb983fb34ec6304649affef543e954789e4b709dbb658",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/before.npz",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\before.npz",
+    "bytes": 5653,
+    "sha256": "a898fe60426b8afa1b85dce7fb80943c5b3619ad8d303a860a22400433eec232",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/calls.json",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\calls.json",
+    "bytes": 282342,
+    "sha256": "1bba271f95f4511ab084559646008af04f45a5cadb14390357d9fbed98cc15a1",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/changed-after-publication.zip",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\changed-after-publication.zip",
+    "bytes": 1698,
+    "sha256": "f50c7604735235ef4e6a6a0eff3006736a3e99f6f76af66fd17313d8b74d7592",
+    "purpose": "deliberate post-publication modification; resource refusal evidence"
+  },
+  {
+    "path": "final-20261026T082508Z/changed-geometry.json",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\changed-geometry.json",
+    "bytes": 1185,
+    "sha256": "148e59dc67c9d85b2c891275e6550defe7a6db882c0f65a4e9eec30563cf47ec",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/changed-geometry.npz",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\changed-geometry.npz",
+    "bytes": 5196,
+    "sha256": "eb646d15ec7ad44d8fd7f65245bc3be04e8636e73aab6b9c13476a25c28e477a",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/checks.json",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\checks.json",
+    "bytes": 2312,
+    "sha256": "bf8a7a98bfadc03249f43007fc3e8bd07f34fef5fa94306e21f6c36f77f9fe32",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/evidence.zip",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\evidence.zip",
+    "bytes": 37667,
+    "sha256": "f909184b9a2914970e028ad45d3bc7a6ccced8667404e59410c770b89818fd66",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/figure.json",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\figure.json",
+    "bytes": 3480,
+    "sha256": "fe3262501dc4b3ea991f8dd82620d763452464816f6fc5940b196a0bdfb15287",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/figure.png",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\figure.png",
+    "bytes": 30367,
+    "sha256": "e4facd77314b6affcebd6a723ac519f61e078594bc34c8bb572f9978f752366f",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/figure.vw",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\figure.vw",
+    "bytes": 244,
+    "sha256": "2cc871536277ff214176b155320c5c901410084739879c855fc5de0329a847ce",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/identity.json",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\identity.json",
+    "bytes": 1595,
+    "sha256": "8ff406fd5dcfad23bf04879128e3e6be7ff117de9be0fd5d8c57a606ebfe85e6",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/monitor.csv",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\monitor.csv",
+    "bytes": 128,
+    "sha256": "177cbe876551fac1c17c86735704886d5ee558d0953f8218514e93c6f51c39fd",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/monitor.json",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\monitor.json",
+    "bytes": 1302,
+    "sha256": "26ed89062401e98a2b99c5e65ebf4f9512d14791a02e7954bba5a5c7a343d72d",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/monitor.png",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\monitor.png",
+    "bytes": 58124,
+    "sha256": "7310a64d5cb36760bf586a55fc754c84405e2e8c6b822feb76e596f35b6d22c5",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/native-history.out",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\native-history.out",
+    "bytes": 489,
+    "sha256": "788690db07960b0b70f70d331cb3b7dfd4b29b44d4811f94d7fadef0351e45ff",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/nodes-before.json",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\nodes-before.json",
+    "bytes": 1104,
+    "sha256": "2cf455a4749ed1ca8d40aeeb4b322f41157e502157148490a03d0b4190499de6",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/nodes-before.npz",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\nodes-before.npz",
+    "bytes": 5867,
+    "sha256": "e2017c28c549c8500528da8ccf87f1b3a92c3b4137c252419a595b3e64ab656f",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/nodes-reordered.json",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\nodes-reordered.json",
+    "bytes": 1107,
+    "sha256": "69d58c8b3b46a32c0f331b3ca0c5cb93fc36659f232b566e01910bf941890eb9",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/nodes-reordered.npz",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\nodes-reordered.npz",
+    "bytes": 5860,
+    "sha256": "218d705f4f6ae5000c4ea87d6d71aee52038a13ba3c6e306c5faad67919a0e6b",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/patched.json",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\patched.json",
+    "bytes": 1176,
+    "sha256": "187141f82e29b7ee67caf824d00054ae6a2089a4b5e8c741fc4bfcc43ccbdaf8",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/patched.npz",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\patched.npz",
+    "bytes": 5188,
+    "sha256": "9ce659d15bb149de92cdb6d8fc67c96891604234ee2d8b3252c48afbd60196a3",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/reordered.json",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\reordered.json",
+    "bytes": 1178,
+    "sha256": "b3ab264d57fcc3daeda43c6b5a985f32e2d998cdc0c63c97e2d7c3ea913bfb3c",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/reordered.npz",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\reordered.npz",
+    "bytes": 5640,
+    "sha256": "b344d305c7dd8358a7ff18bba9336019312482eec701173f6e94b863eca0e998",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "final-20261026T082508Z/schemas.json",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T082508Z\\schemas.json",
+    "bytes": 85903,
+    "sha256": "dbce2fa3d8fc1b06e6d8fe6e88b42df9c3aacb0e60607de7b02768408f3f2b3f",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "atlas-20261026T080910Z/receipt.json",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\atlas-20261026T080910Z\\receipt.json",
+    "bytes": 6348,
+    "sha256": "8a9072228715b7970b057b06c76c0588fa1efb4f39d64d8aecce8023bd3698cb",
+    "purpose": "saved native artifact or MCP receipt"
+  },
+  {
+    "path": "atlas-20261026T081007Z/receipt.json",
+    "source_path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\atlas-20261026T081007Z\\receipt.json",
+    "bytes": 39356,
+    "sha256": "72bbe8cebe38ee3689249e78dfc4ea185e3bc074be4739375d9d8ef1a5018fd7",
+    "purpose": "saved native artifact or MCP receipt"
+  }
+]

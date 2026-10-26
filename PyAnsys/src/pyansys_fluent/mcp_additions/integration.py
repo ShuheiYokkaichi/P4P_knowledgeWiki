@@ -13,9 +13,10 @@ from .geometry import boundary_fingerprint, surface_field_summary, surface_geome
 from .session import route_report_files, solver_progress
 from .schemas import HistorySegment, JoinedHistory, MonitorHistory, ReportHistory, RoutingReceipt, SolverProgress
 from .schemas import BoundaryFingerprint, SurfaceFieldSummary, SurfaceGeometry
+from .schemas import ArtifactBundle, DatasetComparison, MeshAtlas
 
 
-def register_additions(server):
+def register_additions(server, *, include_experimental=False):
     """Add the contribution tools to an existing official SolveMCP instance.
 
     This laboratory bridge uses the backend's public run_code namespace to
@@ -25,17 +26,40 @@ def register_additions(server):
     """
     from .histories import read_live_monitor_history, read_report_file_history
     from .segments import join_history_segments
+    from .mesh_file import inspect_mesh_file
+    from .dataset_comparison import compare_surface_datasets
+    from .artifact_bundle import bundle_artifacts
 
-    live = [surface_geometry, boundary_fingerprint, surface_field_summary,
-            export_surface_data, read_live_monitor_history, solver_progress,
+    bundles = {}
+
+    @server.resource("artifact://mcp-additions/bundles/{artifact_id}", mime_type="application/zip",
+                     description="Read a bundle created by bundle_artifacts; arbitrary paths are not accepted")
+    def read_bundle(artifact_id: str) -> bytes:
+        import hashlib
+        from pathlib import Path
+        expected = bundles.get(artifact_id)
+        if expected is None:
+            raise FileNotFoundError("Unknown or expired bundle resource")
+        # Read at most the recorded size plus one byte, even if another process
+        # replaces/grows the file after publication. Verify before disclosure.
+        with Path(expected["path"]).open("rb") as stream:
+            data = stream.read(expected["bytes"] + 1)
+        if len(data) != expected["bytes"] or hashlib.sha256(data).hexdigest() != expected["sha256"]:
+            raise RuntimeError("Bundle bytes changed after publication")
+        return data
+
+    live = [export_surface_data, read_live_monitor_history, solver_progress,
             route_report_files, export_contour]
-    offline = [read_report_file_history, join_history_segments]
+    offline = [read_report_file_history, join_history_segments,
+               inspect_mesh_file, compare_surface_datasets, bundle_artifacts]
+    if include_experimental:
+        live += [surface_geometry, boundary_fingerprint, surface_field_summary]
     for function in live + offline:
-        _register(server, function, function in live)
+        _register(server, function, function in live, bundles)
     return [f.__name__ for f in live + offline]
 
 
-def _register(server, function, needs_solver):
+def _register(server, function, needs_solver, bundles=None):
     signature = inspect.signature(function)
     hints = get_type_hints(function)
     parameters = list(signature.parameters.values())[1 if needs_solver else 0:]
@@ -55,6 +79,21 @@ def _register(server, function, needs_solver):
               "max_cells": (1, 100000 if function.__name__ == "join_history_segments" else 1000000),
               "max_rows": (1, 10000), "max_faces": (1, 1000000),
               "width": (200, 4096), "height": (200, 4096)}
+    if function.__name__ == "inspect_mesh_file":
+        limits.update({"max_file_bytes": (1, 1073741824), "max_read_bytes": (1, 536870912),
+                       "max_nodes": (1, 5000000), "max_faces": (1, 20000000),
+                       "max_cells": (1, 10000000), "max_boundary_faces": (1, 1000000),
+                       "max_zones": (1, 4096), "max_blocks": (1, 4096),
+                       "max_connectivity_values": (1, 100000000), "max_vertices_per_face": (3, 1024)})
+    elif function.__name__ == "compare_surface_datasets":
+        limits.update({"max_file_bytes": (1, 536870912), "max_array_bytes": (1, 1073741824),
+                       "max_samples": (1, 1000000)})
+        parameters = [p.replace(annotation=Annotated[p.annotation, Field(ge=0, allow_inf_nan=False)])
+                      if p.name == "absolute_tolerance" else p for p in parameters]
+    elif function.__name__ == "bundle_artifacts":
+        limits.update({"max_total_bytes": (1, 16777216), "max_expanded_bytes": (1, 16777216)})
+        parameters = [p.replace(annotation=Annotated[p.annotation, Field(min_length=1, max_length=32)])
+                      if p.name == "files" else p for p in parameters]
     parameters = [p.replace(annotation=Annotated[p.annotation, Field(ge=limits[p.name][0], le=limits[p.name][1])])
                   if p.name in limits else p for p in parameters]
     output = {"read_live_monitor_history": MonitorHistory,
@@ -62,9 +101,12 @@ def _register(server, function, needs_solver):
               "join_history_segments": JoinedHistory, "route_report_files": RoutingReceipt,
               "solver_progress": SolverProgress, "surface_geometry": SurfaceGeometry,
               "boundary_fingerprint": BoundaryFingerprint,
-              "surface_field_summary": SurfaceFieldSummary}.get(function.__name__, dict)
+              "surface_field_summary": SurfaceFieldSummary, "inspect_mesh_file": MeshAtlas,
+              "compare_surface_datasets": DatasetComparison, "bundle_artifacts": ArtifactBundle}.get(function.__name__, dict)
 
     async def call(**kwargs):
+        if function.__name__ == "bundle_artifacts" and (bundles is None or len(bundles) >= 128):
+            raise RuntimeError("Bundle resource registry is unavailable or full; start a fresh MCP server")
         if reference_type and kwargs.get("reference") is not None and hasattr(kwargs["reference"], "model_dump"):
             kwargs["reference"] = kwargs["reference"].model_dump(exclude_none=True)
         if function.__name__ == "solver_progress" and kwargs.get("previous") is not None and hasattr(kwargs["previous"], "model_dump"):
@@ -87,10 +129,26 @@ def _register(server, function, needs_solver):
                     server.backend.invalidate_live_caches()
                     server.backend.invalidate_mesh_cache()
             if result.status != "ok":
-                raise RuntimeError(result.message or result.stderr or "Fluent operation failed")
+                # Upstream keeps exception notes (including cleanup failures)
+                # in stderr, while message contains only the primary error.
+                diagnostics = [value for value in (result.message, result.stderr) if value]
+                raise RuntimeError("\n".join(diagnostics) or "Fluent operation failed")
             receipt = result.return_value
         else:
             receipt = await asyncio.to_thread(function, **kwargs)
+        if function.__name__ == "bundle_artifacts":
+            import json
+            from fastmcp.tools.tool import ToolResult
+            from mcp.types import ResourceLink, TextContent
+            artifact = receipt["zip"]
+            resource_id = artifact["sha256"]
+            bundles[resource_id] = dict(artifact)
+            receipt["resource_uri"] = "artifact://mcp-additions/bundles/" + resource_id
+            return ToolResult(structured_content=receipt, content=[
+                TextContent(type="text", text=json.dumps(receipt)),
+                ResourceLink(type="resource_link", name="Fluent artifact bundle", uri=receipt["resource_uri"],
+                             mimeType="application/zip", size=artifact["bytes"]),
+            ])
         png = receipt.get("artifacts", {}).get("png") if function.__name__ == "read_live_monitor_history" else (
             receipt.get("artifact") if function.__name__ == "export_contour" else None)
         if png:
@@ -107,9 +165,11 @@ def _register(server, function, needs_solver):
 
     call.__name__ = function.__name__
     call.__doc__ = function.__doc__
+    if function.__name__ == "bundle_artifacts":
+        call.__doc__ += "\nMCP returns a resource_uri and resource link for ZIP retrieval. The hash-checked registry holds at most 128 bundles and lasts for this server process."
     call.__signature__ = inspect.Signature(parameters, return_annotation=output)
     call.__annotations__ = {p.name: p.annotation for p in parameters}
     call.__annotations__["return"] = output
-    server.tool(name=function.__name__, description=function.__doc__, annotations={
-        "readOnlyHint": function.__name__ not in {"route_report_files", "export_contour", "export_surface_data", "read_live_monitor_history"},
+    server.tool(name=function.__name__, description=call.__doc__, annotations={
+        "readOnlyHint": function.__name__ not in {"route_report_files", "export_contour", "export_surface_data", "read_live_monitor_history", "bundle_artifacts"},
     })(call)

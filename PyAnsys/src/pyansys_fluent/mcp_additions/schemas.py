@@ -104,6 +104,9 @@ class MonitorHistory(BaseModel):
     source: Literal["live_monitor"]
     status: Literal["ok", "unavailable", "error"]
     x_label: str
+    native_display_label: str | None
+    coordinate_semantics: Literal["unverified"]
+    coordinate_unit: None = None
     returned_points: int = Field(ge=0, le=10000)
     x: list[float]
     series: dict[str, list[float]]
@@ -181,3 +184,49 @@ class SolverProgress(BaseModel):
     iteration_basis: str
     observed_changes: dict[str, CounterChange] | None = None
     change_scope: str | None = None
+
+
+class MeshAtlas(BaseModel):
+    model_config = ConfigDict(extra="allow")
+    schema_id: Literal["fluent.mesh-file-atlas.v1"] = Field(alias="schema")
+    source_kind: Literal["native_fluent_hdf5"]
+    captured_at_utc: str
+    source: dict
+    units: dict
+    counts: dict[str, int]
+    bounds: dict[str, tuple[float, float, float]]
+    zones: dict[str, list[dict]]
+    boundaries: list[dict]
+    methods: dict[str, str]
+    limitations: list[str]
+
+
+class DatasetComparison(BaseModel):
+    model_config = ConfigDict(extra="allow")
+    schema_id: Literal["fluent.surface-dataset-comparison.v1"] = Field(alias="schema")
+    inputs: dict[str, dict]
+    field: str
+    sampling: Literal["face", "node"]
+    field_metadata: dict
+    boundary_values: Literal[True]
+    sampling_basis: str
+    coverage_complete: bool
+    surfaces: dict[str, dict]
+    matching_contract: dict
+    limitations: list[str]
+
+
+class ArtifactIdentity(BaseModel):
+    model_config = ConfigDict(extra="allow")
+    path: str
+    bytes: int = Field(ge=0)
+    sha256: str = Field(pattern="^[0-9a-f]{64}$")
+
+
+class ArtifactBundle(BaseModel):
+    status: Literal["ok", "partial"]
+    zip: ArtifactIdentity
+    manifest_member: str
+    manifest_sha256: str = Field(pattern="^[0-9a-f]{64}$")
+    manifest: dict
+    resource_uri: str = Field(description="Fetch with MCP resources/read; expires with this server process; changed bytes are refused")

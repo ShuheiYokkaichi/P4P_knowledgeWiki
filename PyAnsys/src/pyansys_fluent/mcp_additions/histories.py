@@ -2,8 +2,8 @@
 
 Candidate A reads an existing PyFluent monitor buffer once; it never manages
 streams or solves. Candidate B reads a native Report File on THIS host, not a
-remote Fluent filesystem. Neither reader changes Fluent or writes files.
-Only ``export_monitor_history_png`` writes, to an explicit new local PNG.
+remote Fluent filesystem. Neither reader changes Fluent. Optional monitor
+exports write the exact captured snapshot to new local files.
 
 Invalid limits/paths raise ValueError. Runtime/data failures have JSON status
 ``error``; absent live samples have status ``unavailable``. File status
@@ -97,6 +97,10 @@ def read_live_monitor_history(
     One extra point detects truncation at the scan cap. Above that cap the
     exact total is unavailable: ``total_points`` is null and its lower bound
     is explicit. Totals refer only to this client's current monitor buffer.
+    Coordinates remain the unmodified numeric monitor coordinates. Native
+    xlabel metadata is preserved separately as native_display_label, never
+    treated as proof of time/iteration meaning or units. Tail slopes are per
+    native numeric coordinate only; establish physical meaning independently.
     All fetched values, including those outside the returned tail, must be
     aligned and finite. An oversized series set is rejected, not filtered.
     PyFluent allocates arrays for every series before this helper can cap them.
@@ -108,8 +112,10 @@ def read_live_monitor_history(
         raise ValueError("monitor_set must be a nonempty string")
     result: dict[str, Any] = {
         "source": "live_monitor", "monitor_set": monitor_set,
-        "captured_at_utc": _utc(), "x_label": "unknown",
-        "x_label_source": "unknown", "total_scope": "client_monitor_buffer",
+        "captured_at_utc": _utc(), "x_label": "monitor coordinate (unverified)",
+        "x_label_source": "unmodified numeric coordinates; physical meaning unverified",
+        "native_display_label": None, "coordinate_semantics": "unverified", "coordinate_unit": None,
+        "total_scope": "client_monitor_buffer",
         "max_points": max_points, "max_scan_points": max_scan_points,
         "total_points": None, "total_points_lower_bound": 0,
         "returned_points": 0, "truncated": False, "x": [], "series": {},
@@ -153,7 +159,8 @@ def read_live_monitor_history(
         try:
             label = metadata(monitor_set_name=monitor_set, property="xlabel")
             if isinstance(label, str) and label.strip():
-                result.update(x_label=label, x_label_source="monitor_metadata.xlabel")
+                result.update(native_display_label=label,
+                              native_display_label_source="monitor_metadata.xlabel; display metadata only")
         except Exception as exc:
             result["metadata_warning"] = f"{type(exc).__name__}: {exc}"
     result = {
@@ -161,6 +168,7 @@ def read_live_monitor_history(
         "series": {name: values[-max_points:] for name, values in series.items()},
     }
     result["tail_statistics"] = {}
+    result["tail_statistics_basis"] = "native numeric coordinates; no physical time or iteration semantics established"
     for name, values in result["series"].items():
         change = values[-1] - values[0]
         dx = result["x"][-1] - result["x"][0]
@@ -188,6 +196,7 @@ def export_monitor_history_png(
     if target.suffix.lower() != ".png":
         raise ValueError("PNG output path must end in .png")
     result = {"source": "live_monitor_png", "path": str(target)}
+    created = False
     try:
         if history.get("status") != "ok" or history.get("source") != "live_monitor":
             raise ValueError("export requires an ok live_monitor snapshot")
@@ -204,6 +213,7 @@ def export_monitor_history_png(
         provenance = {
             key: history.get(key) for key in (
                 "source", "monitor_set", "captured_at_utc", "x_label", "x_label_source",
+                "native_display_label", "coordinate_semantics", "coordinate_unit",
                 "total_scope", "total_points", "total_points_lower_bound",
                 "returned_points", "truncated", "scan_truncated",
             )
@@ -229,9 +239,15 @@ def export_monitor_history_png(
                 "Description": json.dumps(provenance, sort_keys=True, allow_nan=False)
             })
             with target.open("xb") as stream:
+                created = True
                 stream.write(image.getvalue())
         return {**result, "status": "ok", "provenance": provenance}
     except Exception as exc:
+        if created:
+            try:
+                target.unlink(missing_ok=True)
+            except Exception as cleanup:
+                result["cleanup_error"] = f"Could not remove incomplete PNG {target}: {cleanup}"
         return _error(result, "png_export_failed", f"{type(exc).__name__}: {exc}")
 
 
@@ -254,13 +270,19 @@ def _export_snapshot(history, prefix, logarithmic):
                     writer.writerows(zip(history["x"], *history["series"].values()))
         image = export_monitor_history_png(history, paths["png"], logarithmic=logarithmic)
         if image["status"] != "ok":
-            raise RuntimeError(str(image["error"]))
+            raise RuntimeError(json.dumps({k: image[k] for k in ("error", "cleanup_error") if k in image}))
         created.append(paths["png"])
         return {k: {"path": str(p), "bytes": p.stat().st_size,
                     "sha256": hashlib.sha256(p.read_bytes()).hexdigest()} for k, p in paths.items()}
-    except Exception:
+    except Exception as original:
+        cleanup_errors = {}
         for p in reversed(created):
-            p.unlink(missing_ok=True)
+            try:
+                p.unlink(missing_ok=True)
+            except Exception as cleanup:
+                cleanup_errors[str(p)] = str(cleanup)
+        if cleanup_errors:
+            original.add_note("Snapshot cleanup failures: " + json.dumps(cleanup_errors))
         raise
 
 

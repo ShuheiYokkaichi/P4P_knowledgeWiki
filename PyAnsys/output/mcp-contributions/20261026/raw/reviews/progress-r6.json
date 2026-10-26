@@ -1,0 +1,26 @@
+{
+  "taskId": "node:delegated-task:command%3Amcp%3A9edd77ce-de78-40bc-b5c2-f988840a4b99%3Adelegate-task%3Amcp-review-progress-20261026-r6",
+  "childThreadId": "thread:delegated-task:command%3Amcp%3A9edd77ce-de78-40bc-b5c2-f988840a4b99%3Adelegate-task%3Amcp-review-progress-20261026-r6",
+  "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A9edd77ce-de78-40bc-b5c2-f988840a4b99%253Adelegate-task%253Amcp-review-progress-20261026-r6:ordinal:1",
+  "childNodeId": "node:delegated-task:command%3Amcp%3A9edd77ce-de78-40bc-b5c2-f988840a4b99%3Adelegate-task%3Amcp-review-progress-20261026-r6",
+  "status": "completed",
+  "workState": "result_available",
+  "hasPendingChildRuns": false,
+  "latestTerminalRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A9edd77ce-de78-40bc-b5c2-f988840a4b99%253Adelegate-task%253Amcp-review-progress-20261026-r6:ordinal:1",
+  "latestTerminalStatus": "completed",
+  "latestTerminalSummary": null,
+  "latestTerminalResultContextTransferId": null,
+  "providerInstanceId": "codex_17cb4f1e-c499-4c63-9b2e-ca53411ee32b",
+  "model": "gpt-6.1-sol",
+  "options": [
+    {
+      "id": "reasoningEffort",
+      "value": "xhigh"
+    }
+  ],
+  "summary": "**Overall: 8.5/10. Retain `solver_progress` for on-demand observation.** Zero confirmed defects within that scope.\n\nScores: agent usefulness **9**, novelty **7**, lifecycle fit **9**, correctness **9**, real Fluent evidence **8.5**.\n\nThe latest [saved calls](<C:/Users/Shuhei Yokkaichi/Documents/CFD/FluentDirectUse/mcp-additions-20261026/contracts-20261026T074532Z/calls.json:1051>) support the repaired capability:\n\n- Native iteration increased `1119 → 1131`, time steps `27 → 39`, and physical time `0.27 → 0.39 s`. Returned changes were correct.\n- An unknown surface produced `status: partial`, a null iteration value, and the native error. Other probes remained available.\n- Baseline reload reduced iteration `1131 → 92`, time steps `39 → 0`, and time `0.39 → 0`. All three changes were null with `counter_decreased: true`.\n- The actual MCP schema declares typed `previous`, `CounterChange`, basis, and scope fields.\n\nCurrent `session.py`, `schemas.py`, and `integration.py` hashes match that run. The loaded upstream backend hash also matches clean `f56e540`. The older `92 → 1092` demonstration used different source hashes; it supports historical behaviour, not acceptance of the current contract.\n\nIts main value is a consistent result that separates observed counters from configured limits and preserves partial failures. Novelty is moderate because upstream `run_code` can obtain the underlying values.\n\nLimits remain clear: the shared lock prevents observation during an upstream blocking solve. Caller-supplied comparisons do not verify case/session lineage or detect every reload. Counters do not establish convergence. Saved live qualification covers one case/version, with no current demonstration of `iterating: true`.\n\nReview remained read-only: no edits, tests, Fluent calls, delegates, or commits.\n\n",
+  "resultContextTransferId": "context-transfer:type:subagent_result:source-thread:thread%3Adelegated-task%3Acommand%253Amcp%253A9edd77ce-de78-40bc-b5c2-f988840a4b99%253Adelegate-task%253Amcp-review-progress-20261026-r6:target-thread:a6de8eb2-74c5-4f44-ad50-d319d7e830b6:8936f78d-af01-4813-b8a7-3fec37bb29fb",
+  "hasPendingQuestion": false,
+  "pendingApproval": null,
+  "waitTimedOut": false
+}
