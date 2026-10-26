@@ -12,7 +12,7 @@ P4P fleet scheduling, scientific acceptance rules, or remote-session ownership.
 The attached **Expand PyFluent MCP Capabilities** discussion is background.
 Its comparison work is retained in `work/pyfluent-mcp-live-comparison`; this
 branch uses upstream main `f56e540931fbcdf5b9f81871a21934589f256d91`, verified
-through GitHub on 26 October 2026. That source registers 25 tools. It already
+through GitHub on 27 October 2026 (New Zealand time). That source registers 25 tools. It already
 provides screenshots, report generation/export, named-object discovery, mesh
 quality headlines, and arbitrary supported Fluent API execution.
 
@@ -36,7 +36,8 @@ ordinary screenshots, report generation, and P4P fleet control are excluded.
 
 All source paths above are relative to `PyAnsys/`. The extracted code is in
 [`mcp_additions`](../src/pyansys_fluent/mcp_additions/). These are candidates,
-not ten claims of upstream readiness. Each must still pass live review.
+not ten claims of upstream readiness. The evidence and independent reviews
+below qualify their demonstrated scope.
 
 ## Try the tools
 
@@ -126,7 +127,8 @@ used `ui_mode="hidden_gui", graphics_driver="msw"`; default no-GUI/null graphics
 could not save the native image. Export replaces live state with the supplied
 saved pair. It uses private scratch outputs, publishes validated files without
 overwrite, attempts graphics cleanup independently, and invalidates upstream
-live/mesh caches even after failure. The active graphics window changes.
+live/mesh caches even after failure. The reply and sidecar report incomplete
+scratch cleanup explicitly. The active graphics window changes.
 
 Call `bundle_artifacts` with an absolute `root`, 1–32 explicitly selected files
 inside it, and a new ZIP `output` inside it. Its manifest maps numbered archive
@@ -135,7 +137,12 @@ case lineage nor scientific completeness; HTML dependencies are not fetched.
 The reply provides `resource_uri` and an MCP resource link. Fetch it with MCP
 `resources/read`; the server verifies size/hash before returning bytes. A
 client needs no access to the Fluent host's paths. The registry holds at most
-128 bundles and expires when the server process ends.
+128 bundles, including pending publications, and expires when the server
+process ends. Cancelling a request does not stop accepted publication. While
+the server runs, it retains the worker and its slot until failure cleanup or
+resource registration finishes. A successful cancelled call still consumes
+one slot; its resource URI ends with the completed ZIP's SHA-256. Both the
+resource link and fetched bytes declare `application/zip`.
 
 ## Acceptance
 
@@ -150,22 +157,22 @@ the repository. Only sessions created for this work may be closed.
 
 ## Evidence and review status
 
-The current ratings are tracked below. Scores are independent reviewer
+The final ten ratings are all above 8/10. Scores are independent reviewer
 judgements, not upstream maintainer acceptance. Earlier findings and failed
 demonstrations remain in the selected evidence.
 
 | Addition | Latest completed rating | State |
 | --- | --- | --- |
-| Mesh-file atlas | Pending | Live file/solver cross-check passed |
-| Dataset comparison | Pending | Native reorder and scalar-patch checks passed |
-| Artifact bundle/resource | Pending | Live ZIP/resource round trip passed |
-| Dataset export | 8.5 | Retained |
-| Live history | 7.8 | Coordinate-label defect repaired; fresh live evidence |
-| File history | 8.5 | Retained |
-| History join | 8.2 | Retained |
-| Solver progress | 8.5 | Retained |
-| Report routing | 8.5 | Retained |
-| Native figure | 8 | Diagnostics repaired; native publication rollback demonstrated |
+| Mesh-file atlas | [8.5](../output/mcp-contributions/20261026/raw/reviews/mesh_atlas-r2.json) | Retained; native file/solver cross-check |
+| Dataset comparison | [8.5](../output/mcp-contributions/20261026/raw/reviews/dataset_comparison-r2.json) | Retained; native reorder and scalar patch |
+| Artifact bundle/resource | [8.5](../output/mcp-contributions/20261026/raw/reviews/artifact_bundle-r4.json) | Retained; external retrieval, cancellation and concurrent capacity |
+| Dataset export | [8.5](../output/mcp-contributions/20261026/raw/reviews/data_export-r3.json) | Retained |
+| Live history | [8.2](../output/mcp-contributions/20261026/raw/reviews/live_history-r8.json) | Retained; subsequent run also captures both series |
+| File history | [8.5](../output/mcp-contributions/20261026/raw/reviews/file_history-r4.json) | Retained |
+| History join | [8.2](../output/mcp-contributions/20261026/raw/reviews/history_join-r6.json) | Retained |
+| Solver progress | [8.5](../output/mcp-contributions/20261026/raw/reviews/progress-r6.json) | Retained |
+| Report routing | [8.5](../output/mcp-contributions/20261026/raw/reviews/routing-r6.json) | Retained |
+| Native figure | [8.5](../output/mcp-contributions/20261026/raw/reviews/native_figure-r9.json) | Retained; native failure/retry and partial cleanup |
 
 Geometry summaries, standalone boundary fingerprints and field-range summaries
 each reached 8/10. They were replaced in the default set. The laboratory can
@@ -180,11 +187,38 @@ loaded upstream path, its clean Git status and revision. Request arguments and
 results are copied when recorded; historical receipts with the earlier mutable
 argument bug are not replay evidence for the conflict call.
 
+| Retained evidence | Supported result and identity scope |
+| --- | --- |
+| [`demo-r2`](../output/mcp-contributions/20261026/raw/demo-r2/) | Uninterrupted 1,000-iteration continuation, native histories and endpoint checks; historical implementation |
+| [`contracts-20261026T074532Z`](../output/mcp-contributions/20261026/raw/contracts-20261026T074532Z/) | Multi-report rollback, real conflicting field observations, counter reset and partial probes; historical wrapper |
+| [`final-20261026T215908Z`](../output/mcp-contributions/20261026/raw/final-20261026T215908Z/) | All ten operations, native reorder/patch/scale refusals, two-series monitor JSON/CSV/PNG, native figure failure/retry, real locked-file partial cleanup and seven-artifact bundle retrieval |
+| [`transport-20261026T220041Z`](../output/mcp-contributions/20261026/raw/transport-20261026T220041Z/) | External stdio resource delivery and 128-slot boundary; predates cancellation/MIME repairs |
+| [`transport-20261026T221245Z`](../output/mcp-contributions/20261026/raw/transport-20261026T221245Z/) | Current launcher over external stdio: explicit MCP cancellation during ZIP writing, completed resource registration, ZIP MIME type, failed-worker recovery and concurrent 128-slot boundary |
+| [`cleanup-20261027.json`](../output/mcp-contributions/20261026/raw/cleanup-20261027.json) | Saved endpoint and cleanup of the explicitly owned Fluent process tree |
+
+The latest Fluent run matches all ten helper/schema files and the live harness.
+Only `integration.py` changed afterward, in bundle task ownership and resource
+delivery. The latest external stdio run pins all eleven current module hashes
+and its own harness, and exposes the expected 35 tools. It does not connect to
+Fluent. The live execution branch is unchanged by these final bundle repairs.
+Earlier review records retain the source scope that each reviewer inspected.
+
+The cancellation workload selects 24 byte-identical copies of one saved native
+report to keep ZIP compression active. It demonstrates delivery mechanics;
+these are not 24 independent solver observations. `cancellation.json` records
+the actual request ID, cancellation notification and returned resource checks.
+Individual stdio ZIP outputs are retained byte-for-byte inside each run's
+`zip-outputs.zip`. The [retention manifest](../output/mcp-contributions/20261026/raw/retained-files-closure.json)
+maps runtime paths to archived files and hashes. Large native case/data pairs
+remain at the recorded local runtime paths outside Git.
+
 The initial public mixing-elbow case came from
 [`ansys/example-data`](https://raw.githubusercontent.com/ansys/example-data/main/pyfluent/mixing_elbow/mixing_elbow.cas.h5)
 (3,062,081 bytes; Git blob `a186ebbc7c0578b94668f51425a20cdc6ac9c011`).
 The current live harness is
 [`demo_mcp_additions_final.py`](../scripts/inspection/demo_mcp_additions_final.py).
+The external resource/cancellation harness is
+[`demo_mcp_artifact_transport.py`](../scripts/inspection/demo_mcp_artifact_transport.py).
 The older `demo_mcp_additions.py` covers the exploratory set.
 It runs on an explicitly supplied owned solver and official `SolveMCP` instance;
 it does not launch or claim ownership of arbitrary sessions. Its examples use

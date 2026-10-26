@@ -1,0 +1,259 @@
+2026-10-27 11:00:45,762 [INFO] httpx: HTTP Request: GET https://pypi.org/pypi/fastmcp/json "HTTP/1.1 200 OK"
+
+
++-----------------------------------------------------------------------------+
+|                                                                             |
+|                                                                             |
+|                        \u2584\u2580\u2580 \u2584\u2580\u2588 \u2588\u2580\u2580 \u2580\u2588\u2580 \u2588\u2580\u2584\u2580\u2588 \u2588\u2580\u2580 \u2588\u2580\u2588                        |
+|                        \u2588\u2580  \u2588\u2580\u2588 \u2584\u2584\u2588  \u2588  \u2588 \u2580 \u2588 \u2588\u2584\u2584 \u2588\u2580\u2580                        |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                FastMCP 3.4.7                                |
+|                            https://gofastmcp.com                            |
+|                                                                             |
+|            \U0001f5a5  Server:      ansys-fluent-mcp-contributions, 3.4.7            |
+|            \U0001f680 Deploy free: https://horizon.prefect.io                       |
+|                                                                             |
++-----------------------------------------------------------------------------+
++-----------------------------------------------------------------------------+
+|                         \U0001f389 Update available: 4.1.4                          |
+|                     Run: pip install --upgrade fastmcp                      |
++-----------------------------------------------------------------------------+
+
+
+2026-10-27 11:00:45,793 [INFO] ansys.fluent.mcp.base: solve leaf starting (backends=['pyfluent'])
+[10/27/26 11:00:45] INFO     Starting MCP server               transport.py:241
+                             'ansys-fluent-mcp-contributions'                  
+                             with transport 'stdio'                            
+2026-10-27 11:00:45,803 [INFO] mcp.server.lowlevel.server: Processing request of type ListToolsRequest
+2026-10-27 11:00:45,824 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+[10/27/26 11:00:45] Error calling tool 'bundle_artifacts'                      
+                    +----------- Traceback (most recent call last) -----------+
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\server\server.py:1312 in     |
+                    | call_tool                                               |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\tools\base.py:421 in _run    |
+                    |                                                         |
+                    |                 ... 9 frames hidden ...                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\AppData\Local\Programs\Python\Python313\Lib\p |
+                    | athlib\_local.py:670 in resolve                         |
+                    |                                                         |
+                    |   667         normalizing it.                           |
+                    |   668         """                                       |
+                    |   669                                                   |
+                    | > 670         return self.with_segments(os.path.realpat |
+                    |   671                                                   |
+                    |   672     if pwd:                                       |
+                    |   673         def owner(self, *, follow_symlinks=True): |
+                    | in realpath:726                                         |
+                    +---------------------------------------------------------+
+                    FileNotFoundError: [WinError 2] The system cannot find the 
+                    file specified: 'C:\\Users\\Shuhei                         
+                    Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-2
+                    0261026\\transport-20261026T220041Z\\missing-native.out'   
+2026-10-27 11:00:45,956 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:45,983 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,000 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,020 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,037 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,055 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,071 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,088 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,107 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,126 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,145 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,164 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,182 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,201 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,218 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,236 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,251 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,267 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,285 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,301 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,319 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,336 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,354 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,370 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,387 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,403 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,421 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,440 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,457 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,476 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,495 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,517 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,536 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,554 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,571 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,590 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,608 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,626 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,646 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,666 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,687 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,704 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,724 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,744 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,762 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,782 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,800 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,821 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,840 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,860 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,879 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,899 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,918 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,937 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,957 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,977 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:46,997 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,016 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,036 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,055 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,075 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,098 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,119 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,144 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,167 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,187 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,208 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,226 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,244 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,263 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,284 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,302 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,320 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,339 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,355 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,371 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,387 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,403 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,419 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,440 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,457 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,473 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,492 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,508 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,525 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,542 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,556 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,571 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,587 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,603 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,621 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,639 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,655 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,670 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,686 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,706 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,722 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,738 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,757 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,776 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,794 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,813 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,833 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,854 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,874 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,893 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,913 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,932 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,951 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,971 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:47,991 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,016 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,035 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,053 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,071 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,088 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,106 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,127 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,149 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,171 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,194 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,213 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,232 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,253 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,275 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,297 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,317 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,344 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:00:48,345 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+[10/27/26 11:00:48] Error calling tool 'bundle_artifacts'                      
+                    +----------- Traceback (most recent call last) -----------+
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\server\server.py:1312 in     |
+                    | call_tool                                               |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\tools\base.py:421 in _run    |
+                    |                                                         |
+                    |                 ... 2 frames hidden ...                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\tools\function_tool.py:88 in |
+                    | wrapper                                                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_mcp_contributions\PyAnsys\s |
+                    | rc\pyansys_fluent\mcp_additions\integration.py:177 in   |
+                    | call                                                    |
+                    |                                                         |
+                    |   174                 raise RuntimeError("Bundle resour |
+                    |   175             with bundle_lock:                     |
+                    |   176                 if len(bundles) >= 128:           |
+                    | > 177                     raise RuntimeError("Bundle re |
+                    |       MCP server")                                      |
+                    |   178                 reservation = "pending-" + uuid.u |
+                    |   179                 bundles[reservation] = None       |
+                    |   180         try:                                      |
+                    +---------------------------------------------------------+
+                    RuntimeError: Bundle resource registry is full; start a    
+                    fresh MCP server                                           
+2026-10-27 11:00:48,409 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+                    Error calling tool 'bundle_artifacts'                      
+                    +----------- Traceback (most recent call last) -----------+
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\server\server.py:1312 in     |
+                    | call_tool                                               |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\tools\base.py:421 in _run    |
+                    |                                                         |
+                    |                 ... 2 frames hidden ...                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\tools\function_tool.py:88 in |
+                    | wrapper                                                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_mcp_contributions\PyAnsys\s |
+                    | rc\pyansys_fluent\mcp_additions\integration.py:177 in   |
+                    | call                                                    |
+                    |                                                         |
+                    |   174                 raise RuntimeError("Bundle resour |
+                    |   175             with bundle_lock:                     |
+                    |   176                 if len(bundles) >= 128:           |
+                    | > 177                     raise RuntimeError("Bundle re |
+                    |       MCP server")                                      |
+                    |   178                 reservation = "pending-" + uuid.u |
+                    |   179                 bundles[reservation] = None       |
+                    |   180         try:                                      |
+                    +---------------------------------------------------------+
+                    RuntimeError: Bundle resource registry is full; start a    
+                    fresh MCP server                                           
+2026-10-27 11:00:48,446 [INFO] mcp.server.lowlevel.server: Processing request of type ReadResourceRequest

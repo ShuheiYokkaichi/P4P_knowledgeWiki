@@ -11,6 +11,7 @@ import base64
 import hashlib
 import inspect
 import json
+import shutil
 import subprocess
 import sys
 import threading
@@ -96,6 +97,8 @@ async def demonstrate(solver, server, runtime_dir, case_file, data_file):
         plots = solver.settings.solution.monitor.report_plots
         plots["mcp-outlet-temperature-rplot"].report_defs = ["mcp-outlet-temperature", "mcp-hot-temperature"]
         solver.monitors.refresh(solver, None)  # Refresh only this demo-owned client's stream metadata.
+        backend_solver = server.backend._pyfluent._solver
+        backend_solver.monitors.refresh(backend_solver, None)
         files = solver.settings.solution.monitor.report_files
         main = "mcp-outlet-temperature-rfile"
         files[main].report_defs = ["mcp-outlet-temperature", "mcp-outlet-pressure", "mcp-physical-time"]
@@ -151,6 +154,51 @@ async def demonstrate(solver, server, runtime_dir, case_file, data_file):
         figure = await call("export_contour", arguments, "figure_retry_after_publication_failure")
         checks["figure_picture_restored"] = picture == solver.settings.results.graphics.picture.get_state()
         checks["figure_cleanup"] = figure.get("cleanup")
+
+        # Hold a real Windows file handle without FILE_SHARE_DELETE. Native
+        # rendering can finish, but scratch removal must report partial cleanup.
+        import ctypes
+        from ctypes import wintypes
+        kernel = ctypes.WinDLL("kernel32", use_last_error=True)
+        create_file = kernel.CreateFileW
+        create_file.argtypes = [wintypes.LPCWSTR, wintypes.DWORD, wintypes.DWORD,
+                               wintypes.LPVOID, wintypes.DWORD, wintypes.DWORD, wintypes.HANDLE]
+        create_file.restype = wintypes.HANDLE
+        kernel.CloseHandle.argtypes = [wintypes.HANDLE]
+        release_handle, handle_acquired = threading.Event(), threading.Event()
+        locked_paths = []
+
+        def hold_camera_file():
+            while not release_handle.wait(0.001):
+                for path in out.glob(".mcp-figure-*/camera.vw"):
+                    handle = create_file(str(path), 0x80000000, 3, None, 3, 128, None)
+                    if handle != ctypes.c_void_p(-1).value:
+                        locked_paths.append(str(path))
+                        handle_acquired.set()
+                        release_handle.wait(120)
+                        kernel.CloseHandle(handle)
+                        return
+
+        worker = threading.Thread(target=hold_camera_file, daemon=True)
+        worker.start()
+        try:
+            locked = await call("export_contour", {**arguments, "output": str(out / "locked-figure.png")},
+                                "figure_scratch_removal_blocked_by_real_handle")
+        finally:
+            release_handle.set()
+            worker.join(timeout=5)
+        checks["scratch_handle_acquired"] = handle_acquired.is_set()
+        checks["scratch_locked_paths"] = locked_paths
+        checks["scratch_cleanup_receipt"] = locked.get("cleanup")
+        locked_sidecar = json.loads((out / "locked-figure.json").read_text(encoding="utf-8"))
+        checks["scratch_cleanup_sidecar_matches_reply"] = locked_sidecar["cleanup"] == locked.get("cleanup")
+        remaining = (locked.get("cleanup") or {}).get("scratch_directory")
+        if remaining:
+            owned_scratch = Path(remaining).resolve()
+            if owned_scratch.parent != out.resolve() or not owned_scratch.name.startswith(".mcp-figure-"):
+                raise RuntimeError("Refuse demo cleanup outside the explicitly owned scratch directory")
+            shutil.rmtree(owned_scratch)
+            checks["scratch_removed_after_handle_release"] = not owned_scratch.exists()
 
         bundle = await call("bundle_artifacts", {"root": str(out),
             "files": ["figure.png", "figure.json", "figure.vw", "native-history.out", "before.npz", "before.json", "monitor.csv"],

@@ -1,0 +1,123 @@
+{
+  "field": "temperature",
+  "surfaces": [
+    "symmetry-xyplane"
+  ],
+  "view": "front",
+  "source_pair": {
+    "case": {
+      "path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T215908Z\\figure-source.cas.h5",
+      "bytes": 3111248,
+      "sha256": "55c47b71a9134d18920b7b67c8c0277ee3d037cc1164b56e5ca339da6642b3a5"
+    },
+    "data": {
+      "path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T215908Z\\figure-source.dat.h5",
+      "bytes": 6402161,
+      "sha256": "01ceab9891d8fd9624eff3b19d96b0afd1b8348d41ff59b7ded6ef16025aae48"
+    }
+  },
+  "source_loaded": true,
+  "contour": {
+    "name": "mcp-figure-b0aac33bd0a4",
+    "field": "temperature",
+    "surfaces_list": [
+      "symmetry-xyplane"
+    ],
+    "range_option": {
+      "option": "auto-range-off",
+      "auto_range_off": {
+        "clip_to_range": false,
+        "minimum": 290.0,
+        "maximum": 315.0
+      }
+    },
+    "range_options": {
+      "global_range": false,
+      "auto_range": false,
+      "clip_to_range": false,
+      "minimum": 290.0,
+      "maximum": 315.0
+    },
+    "options": {
+      "filled": true,
+      "node_values": false,
+      "boundary_values": true
+    },
+    "filled": true,
+    "node_values": false,
+    "boundary_values": true,
+    "coloring": {
+      "option": "banded",
+      "banded": {}
+    },
+    "colorings": {
+      "banded": true,
+      "smooth": false
+    },
+    "color_map": {
+      "visible": true,
+      "color": "field-velocity",
+      "size": 100,
+      "log_scale": false,
+      "format": "%0.2e",
+      "show_all": true,
+      "position": 1,
+      "font_name": "Helvetica",
+      "font_automatic": true,
+      "font_size": 0.032,
+      "length": 0.65,
+      "width": 6.0,
+      "bground_transparent": true,
+      "bground_color": "#CCD3E2",
+      "title_elements": "Variable and Object Name"
+    },
+    "annotations_list": null,
+    "display_state_name": "None",
+    "deformation": false,
+    "deformation_scale": 1.0
+  },
+  "camera_file": {
+    "path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T215908Z\\figure.vw",
+    "bytes": 244,
+    "sha256": "847bb0174e4269b676e60115e1238ea4aacbc0c894f3ba20aff902dc90fee0d8"
+  },
+  "picture": {
+    "raytracer_image": false,
+    "color_mode": "color",
+    "driver_options": {
+      "hardcopy_format": "png",
+      "hardcopy_options": "",
+      "post_format": "rle-raster"
+    },
+    "invert_background": true,
+    "landscape": true,
+    "x_resolution": 1200,
+    "y_resolution": 800,
+    "use_window_resolution": false,
+    "standard_resolution": "custom (1200x800)"
+  },
+  "native": true,
+  "field_metadata": {
+    "display_name": "Static Temperature",
+    "section": "Temperature...",
+    "domain": "mixture",
+    "quantity_name": "temperature",
+    "unit_si": "K",
+    "unit_basis": "SI quantity mapping; null means not mapped"
+  },
+  "location": "face",
+  "artifact": {
+    "path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T215908Z\\figure.png",
+    "bytes": 30363,
+    "sha256": "243b01983f5a5cd5277f8108692bbe63804f2a18de07eaab56427cb57c1408fa"
+  },
+  "resolution": [
+    1200,
+    800
+  ],
+  "cleanup": {
+    "status": "complete",
+    "errors": {},
+    "scratch_directory": null
+  }
+}

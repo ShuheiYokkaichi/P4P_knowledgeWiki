@@ -1,0 +1,22 @@
+{
+  "fluent": "Ansys Fluent 2025 R2",
+  "python": "3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]",
+  "loaded_upstream_file": "C:\\Users\\Shuhei Yokkaichi\\AppData\\Local\\Temp\\p4p-mcp-upstream-20261026\\src\\ansys\\fluent\\mcp\\solve\\backends\\pyfluent.py",
+  "loaded_upstream_file_sha256": "e6ed9d7babd75750766f4d77c2a4fb636318f559b06e15d0f9db074cde547d59",
+  "upstream_sha": "f56e540931fbcdf5b9f81871a21934589f256d91",
+  "upstream_status": "",
+  "source_sha256": {
+    "artifacts.py": "13210691f47877c17ed5a1631ba4082c7df181003b015be7457203903dc672c0",
+    "artifact_bundle.py": "15be4f1d6b4ec59a20288ff0b365f37739e2acac9a96145628bd0bdc15ea1690",
+    "dataset_comparison.py": "108c8b873fcdf37dd7b85d5eba50717000d7bc4fc0199ab7bd6fe1a49929dad7",
+    "geometry.py": "797c9b47828c75ff30bad3587dd8e8cef77f0942ca21ae7fff0c2041925b157a",
+    "histories.py": "de603d3257cf44ab714c7753b41f3dfdbe5c2a0a1dad781893bcae8d8498dbf3",
+    "integration.py": "90bd204db8c9b8c20aebcc5f6a71f15b3d2abdaab85c40bc86ba755e10dc9a41",
+    "mesh_file.py": "7bdf539601c40eb6afddab97523b4da2c29b41a87be9d4d13c6c04e643d84615",
+    "schemas.py": "1154e7750be62d9d69a61fdc853f335dfa9437aef8d79b6cd4ce0ab0f3c7bcb4",
+    "segments.py": "591ec7b7d70fb50f2ae79965026c9ed4e62cc507843e9dcbb7157e5cc5ea7e05",
+    "session.py": "3ea9d75fbadbf28cdf1756b6d88fdc2aad7df13860d7d5932c3f2a214e05465f",
+    "__init__.py": "3ce2240b64bf5291d8d603807beeec3b2ed0a3a55da8c3753ce0aee5c6d91c6d"
+  },
+  "harness_sha256": "da14f2c126a9146bb767ca62c40c25298777165acf6663b6647619b150dabcfd"
+}

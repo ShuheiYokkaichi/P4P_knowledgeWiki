@@ -1,0 +1,39 @@
+﻿{
+    "root_pid":  40252,
+    "method":  "direct-fluent-use pinned-tree fallback after solver.exit left native processes",
+    "saved_endpoint":  "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T215908Z\\figure-source.cas.h5",
+    "stopped_processes":  [
+                              {
+                                  "Name":  "fluent.exe",
+                                  "ProcessId":  40252,
+                                  "ParentProcessId":  23464
+                              },
+                              {
+                                  "Name":  "cx2520.exe",
+                                  "ProcessId":  17640,
+                                  "ParentProcessId":  40252
+                              },
+                              {
+                                  "Name":  "fluent.exe",
+                                  "ProcessId":  608,
+                                  "ParentProcessId":  17640
+                              },
+                              {
+                                  "Name":  "fl2520.exe",
+                                  "ProcessId":  45872,
+                                  "ParentProcessId":  608
+                              },
+                              {
+                                  "Name":  "conhost.exe",
+                                  "ProcessId":  11436,
+                                  "ParentProcessId":  45872
+                              },
+                              {
+                                  "Name":  "ansyscl.exe",
+                                  "ProcessId":  3368,
+                                  "ParentProcessId":  17640
+                              }
+                          ],
+    "remaining_owned_processes":  0,
+    "verified_at_utc":  "2026-10-26T22:04:08.4612021Z"
+}

@@ -1,0 +1,17 @@
+{
+  "failed_worker_refused": true,
+  "initial_successes": 126,
+  "initial_distinct_resources": 126,
+  "concurrent_boundary_successes": 1,
+  "concurrent_boundary_refusals": 1,
+  "cancelled_publication_registered": true,
+  "total_registered_resources": 128,
+  "full_registry_refused": true,
+  "refused_output_absent": true,
+  "resource_bytes": 1659,
+  "resource_sha256": "6c6fc0b7c5a27aee7d94c1f8639c4fe16b882c5e9eca9e782961f51b0bf32078",
+  "resource_matches_receipt": true,
+  "resource_mime_types": [
+    "application/zip"
+  ]
+}

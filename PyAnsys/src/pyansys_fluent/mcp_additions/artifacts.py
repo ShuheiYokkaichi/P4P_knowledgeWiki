@@ -8,7 +8,6 @@ import shutil
 import tempfile
 from pathlib import Path
 import uuid
-import warnings
 from datetime import datetime, timezone
 from typing import Literal
 
@@ -184,10 +183,23 @@ def export_contour(solver, surfaces: list[str], field: str, output: str,
             action()
         except Exception as exc:
             cleanup_errors[label] = f"{type(exc).__name__}: {exc}"
+    scratch_attempted = False
+
+    def cleanup_scratch():
+        nonlocal scratch_attempted
+        if scratch_attempted:
+            return
+        scratch_attempted = True
+        try:
+            if scratch.resolve().parent != destination.parent.resolve() or not scratch.name.startswith(".mcp-figure-"):
+                raise RuntimeError("Refuse cleanup outside the operation's scratch directory")
+            shutil.rmtree(scratch)
+        except Exception as exc:
+            cleanup_errors["scratch"] = f"{scratch}: {type(exc).__name__}: {exc}"
+
     try:
         if primary is not None:
             raise primary
-        record["cleanup"] = {"status": "partial" if cleanup_errors else "complete", "errors": cleanup_errors}
         # Native writes stay in a private scratch directory. Publish each
         # validated output exclusively; never overwrite a racing writer.
         for original, target in ((native_view, view_file), (native_png, destination)):
@@ -195,6 +207,9 @@ def export_contour(solver, surfaces: list[str], field: str, output: str,
                 published.append(target)
                 with original.open("rb") as source:
                     shutil.copyfileobj(source, stream)
+        cleanup_scratch()
+        record["cleanup"] = {"status": "partial" if cleanup_errors else "complete", "errors": cleanup_errors,
+                             "scratch_directory": str(scratch) if "scratch" in cleanup_errors else None}
         with sidecar.open("x", encoding="utf-8") as stream:
             published.append(sidecar)
             json.dump(record, stream, indent=2)
@@ -205,15 +220,7 @@ def export_contour(solver, surfaces: list[str], field: str, output: str,
                 path.unlink(missing_ok=True)
             except Exception as cleanup:
                 cleanup_errors["file." + str(path)] = str(cleanup)
+        cleanup_scratch()
         if cleanup_errors:
             exc.add_note("Figure cleanup failures: " + json.dumps(cleanup_errors))
         raise
-    finally:
-        try:
-            if scratch.resolve().parent != destination.parent.resolve() or not scratch.name.startswith(".mcp-figure-"):
-                raise RuntimeError("Refuse cleanup outside the operation's scratch directory")
-            shutil.rmtree(scratch)
-        except Exception as exc:
-            # Only operation-owned scratch files remain here; published output
-            # paths and unrelated files are never part of this removal.
-            warnings.warn(f"Could not remove figure scratch directory {scratch}: {exc}", RuntimeWarning)

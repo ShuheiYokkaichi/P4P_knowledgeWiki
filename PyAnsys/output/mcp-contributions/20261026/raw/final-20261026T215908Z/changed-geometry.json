@@ -1,0 +1,36 @@
+{
+  "schema": "fluent.surface-dataset.v1",
+  "field": "temperature",
+  "coordinates": "m",
+  "field_metadata": {
+    "display_name": "Static Temperature",
+    "section": "Temperature...",
+    "domain": "mixture",
+    "quantity_name": "temperature",
+    "unit_si": "K",
+    "unit_basis": "SI quantity mapping; null means not mapped"
+  },
+  "observation": {
+    "captured_at_utc": "2026-10-26T21:59:45.919871+00:00",
+    "iteration_expression": 1119.0,
+    "flow_time_s": 0.27
+  },
+  "sampling": "face",
+  "boundary_values": true,
+  "surfaces": {
+    "outlet": {
+      "prefix": "s0",
+      "faces": 155,
+      "vertices": 246,
+      "samples": 155,
+      "nonfinite": 0
+    }
+  },
+  "sampling_basis": "boundary-face-indexed; boundary or adjacent-cell values, not guaranteed centroid evaluation",
+  "connectivity": "flat: vertex count followed by zero-based vertex IDs for each face",
+  "artifact": {
+    "path": "C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\final-20261026T215908Z\\changed-geometry.npz",
+    "bytes": 5196,
+    "sha256": "eb646d15ec7ad44d8fd7f65245bc3be04e8636e73aab6b9c13476a25c28e477a"
+  }
+}

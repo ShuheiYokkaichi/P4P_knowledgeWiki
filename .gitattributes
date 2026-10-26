@@ -1,5 +1,6 @@
 # Keep recorded source identities stable on Windows checkouts.
 PyAnsys/src/pyansys_fluent/mcp_additions/*.py text eol=lf
 PyAnsys/scripts/inspection/demo_mcp_additions*.py text eol=lf
+PyAnsys/scripts/inspection/demo_mcp_artifact_transport.py text eol=lf
 # Preserve native evidence bytes and their SHA-256 receipts.
 PyAnsys/output/mcp-contributions/**/raw/** -text -whitespace

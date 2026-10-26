@@ -1,0 +1,499 @@
+
+
++-----------------------------------------------------------------------------+
+|                                                                             |
+|                                                                             |
+|                        \u2584\u2580\u2580 \u2584\u2580\u2588 \u2588\u2580\u2580 \u2580\u2588\u2580 \u2588\u2580\u2584\u2580\u2588 \u2588\u2580\u2580 \u2588\u2580\u2588                        |
+|                        \u2588\u2580  \u2588\u2580\u2588 \u2584\u2584\u2588  \u2588  \u2588 \u2580 \u2588 \u2588\u2584\u2584 \u2588\u2580\u2580                        |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                FastMCP 3.4.7                                |
+|                            https://gofastmcp.com                            |
+|                                                                             |
+|            \U0001f5a5  Server:      ansys-fluent-mcp-contributions, 3.4.7            |
+|            \U0001f680 Deploy free: https://horizon.prefect.io                       |
+|                                                                             |
++-----------------------------------------------------------------------------+
++-----------------------------------------------------------------------------+
+|                         \U0001f389 Update available: 4.1.4                          |
+|                     Run: pip install --upgrade fastmcp                      |
++-----------------------------------------------------------------------------+
+
+
+2026-10-27 11:12:47,990 [INFO] ansys.fluent.mcp.base: solve leaf starting (backends=['pyfluent'])
+[10/27/26 11:12:47] INFO     Starting MCP server               transport.py:241
+                             'ansys-fluent-mcp-contributions'                  
+                             with transport 'stdio'                            
+2026-10-27 11:12:47,996 [INFO] mcp.server.lowlevel.server: Processing request of type ListToolsRequest
+2026-10-27 11:12:48,011 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:50,716 [INFO] mcp.server.lowlevel.server: Request 2 cancelled - duplicate response suppressed
+2026-10-27 11:12:50,725 [INFO] mcp.server.lowlevel.server: Processing request of type ReadResourceRequest
+[10/27/26 11:12:50] Error reading resource                                     
+                    'artifact://mcp-additions/bundles/49636944aa7d7a79fa935d886
+                    30b63d04fe3078b539873afcb0ab4c6b732617f'                   
+                    +----------- Traceback (most recent call last) -----------+
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\server\server.py:1514 in     |
+                    | read_resource                                           |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\resources\template.py:435 in |
+                    | _read                                                   |
+                    |                                                         |
+                    |                 ... 2 frames hidden ...                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\pydantic\_internal\_validate_call.py |
+                    | :137 in __call__                                        |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_mcp_contributions\PyAnsys\s |
+                    | rc\pyansys_fluent\mcp_additions\integration.py:48 in    |
+                    | read_bundle                                             |
+                    |                                                         |
+                    |    45         with bundle_lock:                         |
+                    |    46             expected = bundles.get(artifact_id)   |
+                    |    47         if expected is None:                      |
+                    | >  48             raise FileNotFoundError("Unknown or e |
+                    |    49         # Read at most the recorded size plus one |
+                    |    50         # replaces/grows the file after publicati |
+                    |    51         with Path(expected["path"]).open("rb") as |
+                    +---------------------------------------------------------+
+                    FileNotFoundError: Unknown or expired bundle resource      
+2026-10-27 11:12:50,813 [INFO] mcp.server.lowlevel.server: Processing request of type ReadResourceRequest
+                    Error reading resource                                     
+                    'artifact://mcp-additions/bundles/13ec5aeb4b5b0e2becafdbd49
+                    4fb81a8cb090764d3ae441516e87082173a5699'                   
+                    +----------- Traceback (most recent call last) -----------+
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\server\server.py:1514 in     |
+                    | read_resource                                           |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\resources\template.py:435 in |
+                    | _read                                                   |
+                    |                                                         |
+                    |                 ... 2 frames hidden ...                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\pydantic\_internal\_validate_call.py |
+                    | :137 in __call__                                        |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_mcp_contributions\PyAnsys\s |
+                    | rc\pyansys_fluent\mcp_additions\integration.py:48 in    |
+                    | read_bundle                                             |
+                    |                                                         |
+                    |    45         with bundle_lock:                         |
+                    |    46             expected = bundles.get(artifact_id)   |
+                    |    47         if expected is None:                      |
+                    | >  48             raise FileNotFoundError("Unknown or e |
+                    |    49         # Read at most the recorded size plus one |
+                    |    50         # replaces/grows the file after publicati |
+                    |    51         with Path(expected["path"]).open("rb") as |
+                    +---------------------------------------------------------+
+                    FileNotFoundError: Unknown or expired bundle resource      
+2026-10-27 11:12:50,862 [INFO] mcp.server.lowlevel.server: Processing request of type ReadResourceRequest
+                    Error reading resource                                     
+                    'artifact://mcp-additions/bundles/6e463bdcd98898ca21b0fa4c5
+                    d0aca780523fca7b9ca5815ab3bdd7062458f94'                   
+                    +----------- Traceback (most recent call last) -----------+
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\server\server.py:1514 in     |
+                    | read_resource                                           |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\resources\template.py:435 in |
+                    | _read                                                   |
+                    |                                                         |
+                    |                 ... 2 frames hidden ...                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\pydantic\_internal\_validate_call.py |
+                    | :137 in __call__                                        |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_mcp_contributions\PyAnsys\s |
+                    | rc\pyansys_fluent\mcp_additions\integration.py:48 in    |
+                    | read_bundle                                             |
+                    |                                                         |
+                    |    45         with bundle_lock:                         |
+                    |    46             expected = bundles.get(artifact_id)   |
+                    |    47         if expected is None:                      |
+                    | >  48             raise FileNotFoundError("Unknown or e |
+                    |    49         # Read at most the recorded size plus one |
+                    |    50         # replaces/grows the file after publicati |
+                    |    51         with Path(expected["path"]).open("rb") as |
+                    +---------------------------------------------------------+
+                    FileNotFoundError: Unknown or expired bundle resource      
+2026-10-27 11:12:50,906 [INFO] mcp.server.lowlevel.server: Processing request of type ReadResourceRequest
+                    Error reading resource                                     
+                    'artifact://mcp-additions/bundles/377bb058fbe7d041bfc01c4fe
+                    0ecece4bebb35b1ee61c482a433c6369b42c786'                   
+                    +----------- Traceback (most recent call last) -----------+
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\server\server.py:1514 in     |
+                    | read_resource                                           |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\resources\template.py:435 in |
+                    | _read                                                   |
+                    |                                                         |
+                    |                 ... 2 frames hidden ...                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\pydantic\_internal\_validate_call.py |
+                    | :137 in __call__                                        |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_mcp_contributions\PyAnsys\s |
+                    | rc\pyansys_fluent\mcp_additions\integration.py:48 in    |
+                    | read_bundle                                             |
+                    |                                                         |
+                    |    45         with bundle_lock:                         |
+                    |    46             expected = bundles.get(artifact_id)   |
+                    |    47         if expected is None:                      |
+                    | >  48             raise FileNotFoundError("Unknown or e |
+                    |    49         # Read at most the recorded size plus one |
+                    |    50         # replaces/grows the file after publicati |
+                    |    51         with Path(expected["path"]).open("rb") as |
+                    +---------------------------------------------------------+
+                    FileNotFoundError: Unknown or expired bundle resource      
+2026-10-27 11:12:50,955 [INFO] mcp.server.lowlevel.server: Processing request of type ReadResourceRequest
+                    Error reading resource                                     
+                    'artifact://mcp-additions/bundles/d1a3d3d206a6ddfa0bcecec55
+                    68430ab08022b687206458e5c915e3bff604928'                   
+                    +----------- Traceback (most recent call last) -----------+
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\server\server.py:1514 in     |
+                    | read_resource                                           |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\resources\template.py:435 in |
+                    | _read                                                   |
+                    |                                                         |
+                    |                 ... 2 frames hidden ...                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\pydantic\_internal\_validate_call.py |
+                    | :137 in __call__                                        |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_mcp_contributions\PyAnsys\s |
+                    | rc\pyansys_fluent\mcp_additions\integration.py:48 in    |
+                    | read_bundle                                             |
+                    |                                                         |
+                    |    45         with bundle_lock:                         |
+                    |    46             expected = bundles.get(artifact_id)   |
+                    |    47         if expected is None:                      |
+                    | >  48             raise FileNotFoundError("Unknown or e |
+                    |    49         # Read at most the recorded size plus one |
+                    |    50         # replaces/grows the file after publicati |
+                    |    51         with Path(expected["path"]).open("rb") as |
+                    +---------------------------------------------------------+
+                    FileNotFoundError: Unknown or expired bundle resource      
+2026-10-27 11:12:51,001 [INFO] mcp.server.lowlevel.server: Processing request of type ReadResourceRequest
+[10/27/26 11:12:51] Error reading resource                                     
+                    'artifact://mcp-additions/bundles/15b44506d2b2ef5662d1de26c
+                    acd79bb0e6f908b94459a17ccbbe67670442ff0'                   
+                    +----------- Traceback (most recent call last) -----------+
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\server\server.py:1514 in     |
+                    | read_resource                                           |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\resources\template.py:435 in |
+                    | _read                                                   |
+                    |                                                         |
+                    |                 ... 2 frames hidden ...                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\pydantic\_internal\_validate_call.py |
+                    | :137 in __call__                                        |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_mcp_contributions\PyAnsys\s |
+                    | rc\pyansys_fluent\mcp_additions\integration.py:48 in    |
+                    | read_bundle                                             |
+                    |                                                         |
+                    |    45         with bundle_lock:                         |
+                    |    46             expected = bundles.get(artifact_id)   |
+                    |    47         if expected is None:                      |
+                    | >  48             raise FileNotFoundError("Unknown or e |
+                    |    49         # Read at most the recorded size plus one |
+                    |    50         # replaces/grows the file after publicati |
+                    |    51         with Path(expected["path"]).open("rb") as |
+                    +---------------------------------------------------------+
+                    FileNotFoundError: Unknown or expired bundle resource      
+2026-10-27 11:12:51,053 [INFO] mcp.server.lowlevel.server: Processing request of type ReadResourceRequest
+2026-10-27 11:12:51,167 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,170 [ERROR] pyansys_fluent.mcp_additions.integration: Bundle publication failed
+Traceback (most recent call last):
+  File "C:\Users\Shuhei Yokkaichi\Documents\CFD\P4P_mcp_contributions\PyAnsys\src\pyansys_fluent\mcp_additions\integration.py", line 185, in finish_bundle
+    return await invoke(reservation, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shuhei Yokkaichi\Documents\CFD\P4P_mcp_contributions\PyAnsys\src\pyansys_fluent\mcp_additions\integration.py", line 142, in invoke
+    receipt = await asyncio.to_thread(function, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shuhei Yokkaichi\AppData\Local\Programs\Python\Python313\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shuhei Yokkaichi\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Shuhei Yokkaichi\Documents\CFD\P4P_mcp_contributions\PyAnsys\src\pyansys_fluent\mcp_additions\artifact_bundle.py", line 290, in bundle_artifacts
+    resolved = _resolve_source(root_path, path)
+  File "C:\Users\Shuhei Yokkaichi\Documents\CFD\P4P_mcp_contributions\PyAnsys\src\pyansys_fluent\mcp_additions\artifact_bundle.py", line 79, in _resolve_source
+    return _inside(root, selected.resolve(strict=True))
+                         ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Shuhei Yokkaichi\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 670, in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen ntpath>", line 726, in realpath
+FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\Shuhei Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-20261026\\transport-20261026T221245Z\\missing-native.out'
+                    Error calling tool 'bundle_artifacts'                      
+                    +----------- Traceback (most recent call last) -----------+
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\server\server.py:1312 in     |
+                    | call_tool                                               |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\tools\base.py:421 in _run    |
+                    |                                                         |
+                    |                ... 10 frames hidden ...                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\AppData\Local\Programs\Python\Python313\Lib\p |
+                    | athlib\_local.py:670 in resolve                         |
+                    |                                                         |
+                    |   667         normalizing it.                           |
+                    |   668         """                                       |
+                    |   669                                                   |
+                    | > 670         return self.with_segments(os.path.realpat |
+                    |   671                                                   |
+                    |   672     if pwd:                                       |
+                    |   673         def owner(self, *, follow_symlinks=True): |
+                    | in realpath:726                                         |
+                    +---------------------------------------------------------+
+                    FileNotFoundError: [WinError 2] The system cannot find the 
+                    file specified: 'C:\\Users\\Shuhei                         
+                    Yokkaichi\\Documents\\CFD\\FluentDirectUse\\mcp-additions-2
+                    0261026\\transport-20261026T221245Z\\missing-native.out'   
+2026-10-27 11:12:51,243 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,267 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,285 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,301 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,321 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,338 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,354 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,375 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,394 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,414 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,435 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,456 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,481 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,502 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,523 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,547 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,567 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,584 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,603 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,620 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,637 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,657 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,674 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,694 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,712 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,730 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,748 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,766 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,783 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,801 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,818 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,836 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,855 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,873 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,891 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,908 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,926 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,943 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,960 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,977 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:51,993 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,010 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,027 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,044 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,062 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,077 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,095 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,114 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,134 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,151 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,169 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,186 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,204 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,223 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,242 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,259 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,280 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,300 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,320 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,338 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,357 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,375 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,395 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,418 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,435 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,455 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,474 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,491 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,508 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,524 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,541 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,560 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,582 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,600 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,620 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,640 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,658 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,675 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,693 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,715 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,732 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,749 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,767 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,784 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,803 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,821 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,847 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,876 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,901 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,928 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,952 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,977 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:52,999 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,021 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,040 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,062 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,077 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,092 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,107 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,122 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,137 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,151 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,165 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,179 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,193 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,206 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,220 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,234 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,248 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,262 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,276 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,296 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,311 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,325 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,340 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,355 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,370 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,385 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,400 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,419 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,439 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,454 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,475 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,494 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,510 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,527 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,543 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+2026-10-27 11:12:53,544 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+[10/27/26 11:12:53] Error calling tool 'bundle_artifacts'                      
+                    +----------- Traceback (most recent call last) -----------+
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\server\server.py:1312 in     |
+                    | call_tool                                               |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\tools\base.py:421 in _run    |
+                    |                                                         |
+                    |                 ... 2 frames hidden ...                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\tools\function_tool.py:88 in |
+                    | wrapper                                                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_mcp_contributions\PyAnsys\s |
+                    | rc\pyansys_fluent\mcp_additions\integration.py:179 in   |
+                    | call                                                    |
+                    |                                                         |
+                    |   176             raise RuntimeError("Bundle resource r |
+                    |   177         with bundle_lock:                         |
+                    |   178             if len(bundles) >= 128:               |
+                    | > 179                 raise RuntimeError("Bundle resour |
+                    |       server")                                          |
+                    |   180             reservation = "pending-" + uuid.uuid4 |
+                    |   181             bundles[reservation] = None           |
+                    |   182                                                   |
+                    +---------------------------------------------------------+
+                    RuntimeError: Bundle resource registry is full; start a    
+                    fresh MCP server                                           
+2026-10-27 11:12:53,600 [INFO] mcp.server.lowlevel.server: Processing request of type CallToolRequest
+                    Error calling tool 'bundle_artifacts'                      
+                    +----------- Traceback (most recent call last) -----------+
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\server\server.py:1312 in     |
+                    | call_tool                                               |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\tools\base.py:421 in _run    |
+                    |                                                         |
+                    |                 ... 2 frames hidden ...                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_knowledgeWiki\PyAnsys\.venv |
+                    | \Lib\site-packages\fastmcp\tools\function_tool.py:88 in |
+                    | wrapper                                                 |
+                    |                                                         |
+                    | C:\Users\Shuhei                                         |
+                    | Yokkaichi\Documents\CFD\P4P_mcp_contributions\PyAnsys\s |
+                    | rc\pyansys_fluent\mcp_additions\integration.py:179 in   |
+                    | call                                                    |
+                    |                                                         |
+                    |   176             raise RuntimeError("Bundle resource r |
+                    |   177         with bundle_lock:                         |
+                    |   178             if len(bundles) >= 128:               |
+                    | > 179                 raise RuntimeError("Bundle resour |
+                    |       server")                                          |
+                    |   180             reservation = "pending-" + uuid.uuid4 |
+                    |   181             bundles[reservation] = None           |
+                    |   182                                                   |
+                    +---------------------------------------------------------+
+                    RuntimeError: Bundle resource registry is full; start a    
+                    fresh MCP server                                           
+2026-10-27 11:12:53,632 [INFO] mcp.server.lowlevel.server: Processing request of type ReadResourceRequest

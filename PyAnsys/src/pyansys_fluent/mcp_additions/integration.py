@@ -4,7 +4,9 @@ from __future__ import annotations
 import asyncio
 from functools import partial
 import inspect
+from threading import Lock
 from typing import Annotated, get_type_hints
+import uuid
 
 from pydantic import Field
 
@@ -31,13 +33,17 @@ def register_additions(server, *, include_experimental=False):
     from .artifact_bundle import bundle_artifacts
 
     bundles = {}
+    bundle_lock = Lock()
+    bundle_jobs = set()
 
     @server.resource("artifact://mcp-additions/bundles/{artifact_id}", mime_type="application/zip",
                      description="Read a bundle created by bundle_artifacts; arbitrary paths are not accepted")
-    def read_bundle(artifact_id: str) -> bytes:
+    def read_bundle(artifact_id: str):
         import hashlib
         from pathlib import Path
-        expected = bundles.get(artifact_id)
+        from fastmcp.resources import ResourceContent, ResourceResult
+        with bundle_lock:
+            expected = bundles.get(artifact_id)
         if expected is None:
             raise FileNotFoundError("Unknown or expired bundle resource")
         # Read at most the recorded size plus one byte, even if another process
@@ -46,7 +52,7 @@ def register_additions(server, *, include_experimental=False):
             data = stream.read(expected["bytes"] + 1)
         if len(data) != expected["bytes"] or hashlib.sha256(data).hexdigest() != expected["sha256"]:
             raise RuntimeError("Bundle bytes changed after publication")
-        return data
+        return ResourceResult([ResourceContent(data, mime_type="application/zip")])
 
     live = [export_surface_data, read_live_monitor_history, solver_progress,
             route_report_files, export_contour]
@@ -55,11 +61,11 @@ def register_additions(server, *, include_experimental=False):
     if include_experimental:
         live += [surface_geometry, boundary_fingerprint, surface_field_summary]
     for function in live + offline:
-        _register(server, function, function in live, bundles)
+        _register(server, function, function in live, bundles, bundle_lock, bundle_jobs)
     return [f.__name__ for f in live + offline]
 
 
-def _register(server, function, needs_solver, bundles=None):
+def _register(server, function, needs_solver, bundles=None, bundle_lock=None, bundle_jobs=None):
     signature = inspect.signature(function)
     hints = get_type_hints(function)
     parameters = list(signature.parameters.values())[1 if needs_solver else 0:]
@@ -104,9 +110,7 @@ def _register(server, function, needs_solver, bundles=None):
               "surface_field_summary": SurfaceFieldSummary, "inspect_mesh_file": MeshAtlas,
               "compare_surface_datasets": DatasetComparison, "bundle_artifacts": ArtifactBundle}.get(function.__name__, dict)
 
-    async def call(**kwargs):
-        if function.__name__ == "bundle_artifacts" and (bundles is None or len(bundles) >= 128):
-            raise RuntimeError("Bundle resource registry is unavailable or full; start a fresh MCP server")
+    async def invoke(reservation, **kwargs):
         if reference_type and kwargs.get("reference") is not None and hasattr(kwargs["reference"], "model_dump"):
             kwargs["reference"] = kwargs["reference"].model_dump(exclude_none=True)
         if function.__name__ == "solver_progress" and kwargs.get("previous") is not None and hasattr(kwargs["previous"], "model_dump"):
@@ -142,7 +146,9 @@ def _register(server, function, needs_solver, bundles=None):
             from mcp.types import ResourceLink, TextContent
             artifact = receipt["zip"]
             resource_id = artifact["sha256"]
-            bundles[resource_id] = dict(artifact)
+            with bundle_lock:
+                bundles.pop(reservation, None)
+                bundles[resource_id] = dict(artifact)
             receipt["resource_uri"] = "artifact://mcp-additions/bundles/" + resource_id
             return ToolResult(structured_content=receipt, content=[
                 TextContent(type="text", text=json.dumps(receipt)),
@@ -163,10 +169,42 @@ def _register(server, function, needs_solver, bundles=None):
             ])
         return receipt
 
+    async def call(**kwargs):
+        if function.__name__ != "bundle_artifacts":
+            return await invoke(None, **kwargs)
+        if bundles is None or bundle_lock is None or bundle_jobs is None:
+            raise RuntimeError("Bundle resource registry is unavailable")
+        with bundle_lock:
+            if len(bundles) >= 128:
+                raise RuntimeError("Bundle resource registry is full; start a fresh MCP server")
+            reservation = "pending-" + uuid.uuid4().hex
+            bundles[reservation] = None
+
+        async def finish_bundle():
+            try:
+                return await invoke(reservation, **kwargs)
+            finally:
+                with bundle_lock:
+                    bundles.pop(reservation, None)
+
+        def finished(job):
+            bundle_jobs.discard(job)
+            if not job.cancelled() and (error := job.exception()) is not None:
+                import logging
+                logging.getLogger(__name__).error("Bundle publication failed", exc_info=error)
+
+        # A cancelled request cannot stop a running thread. Keep ownership and
+        # its capacity reservation until publication/registration has finished.
+        # The server retains the task even when its requesting client leaves.
+        job = asyncio.create_task(finish_bundle())
+        bundle_jobs.add(job)
+        job.add_done_callback(finished)
+        return await asyncio.shield(job)
+
     call.__name__ = function.__name__
     call.__doc__ = function.__doc__
     if function.__name__ == "bundle_artifacts":
-        call.__doc__ += "\nMCP returns a resource_uri and resource link for ZIP retrieval. The hash-checked registry holds at most 128 bundles and lasts for this server process."
+        call.__doc__ += "\nMCP returns a resource_uri and resource link for ZIP retrieval. The hash-checked registry holds at most 128 bundles, including pending calls, and lasts for this server process. Request cancellation does not stop an accepted publication: while the server runs, it retains ownership until failure cleanup or resource registration finishes. A cancelled successful publication still occupies a registry slot; its URI is artifact://mcp-additions/bundles/{zip_sha256}."
     call.__signature__ = inspect.Signature(parameters, return_annotation=output)
     call.__annotations__ = {p.name: p.annotation for p in parameters}
     call.__annotations__["return"] = output
