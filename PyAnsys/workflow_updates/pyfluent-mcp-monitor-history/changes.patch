@@ -1,0 +1,436 @@
+diff --git a/doc/source/examples/usage_examples.rst b/doc/source/examples/usage_examples.rst
+index b598673d6543f792f81dcbe1e9657d81529df079..5c579a2b1f9d8fac87a08f22b5730d978fbec6c5 100644
+--- a/doc/source/examples/usage_examples.rst
++++ b/doc/source/examples/usage_examples.rst
+@@ -74,6 +74,25 @@ Compare two case files
+ 
+ Reply with the ``summary`` markdown table from the response verbatim.
+ 
++Read residual or report-monitor history
++---------------------------------------
++
++**User prompt:**
++
++*"Show the last 50 residual samples from the current Fluent session."*
++
++**Expected tool sequence:**
++
++#. Call ``read_monitor_history()`` to list monitor sets known to the session.
++#. If the list includes ``residual``, call
++   ``read_monitor_history(monitor_set="residual", max_points=50)``.
++#. Plot each monitor series against the sample indices in ``x_values``.
++   If the result is empty, report that the session has no captured samples.
++   Retry the read if the tool returns ``monitor_set_refreshed``.
++
++An attached session can have partial or empty history. To capture residuals
++for a new solve, enable the residual plot before initialization.
++
+ Next steps
+ ----------
+ 
+diff --git a/doc/source/user_guide/tools_and_capabilities.rst b/doc/source/user_guide/tools_and_capabilities.rst
+index 599b928b5c4dd1cb2179b8ed6ab6bab4b9fc906f..6f24243370573db8f99b57e5804a1045231e3cb8 100644
+--- a/doc/source/user_guide/tools_and_capabilities.rst
++++ b/doc/source/user_guide/tools_and_capabilities.rst
+@@ -4,7 +4,7 @@ Tools and capabilities
+ Tool surface
+ ------------
+ 
+-PyFluent-MCP exposes **25 tools** organized into 6 groups:
++The default PyFluent-MCP server exposes **25 tools** organized into 6 groups:
+ 
+ .. list-table::
+    :header-rows: 1
+@@ -13,7 +13,7 @@ PyFluent-MCP exposes **25 tools** organized into 6 groups:
+    * - Group
+      - Tools
+    * - Connection & session
+-     - ``connect``, ``disconnect``, ``session_status``, ``solver_status``, ``manage_fluent``
++     - ``connect``, ``disconnect``, ``session_status``, ``solver_status``
+    * - Schema discovery
+      - ``find_api``, ``get_help``, ``get_state``, ``get_targeted_context``
+    * - Named objects
+@@ -23,7 +23,7 @@ PyFluent-MCP exposes **25 tools** organized into 6 groups:
+    * - Reporting & inspection
+      - ``summarize_setup``, ``simulation_report``, ``screenshot``
+    * - Domain tools
+-     - ``mesh_quality``, ``list_fields``, ``compare_files``, ``probe_path``,
++     - ``mesh_quality``, ``list_fields``, ``read_monitor_history``, ``compare_files``, ``probe_path``,
+        ``get_active_status``, ``get_allowed_values``,
+        ``describe_named_object_template``, ``describe_path``
+ 
+@@ -40,7 +40,7 @@ Live versus offline tools
+ - ``connect``, ``disconnect``, ``session_status``, ``solver_status``, ``manage_fluent``
+ - ``get_state``, ``get_targeted_context``, named-object tools
+ - ``run_code``, ``summarize_setup``, ``simulation_report``, ``screenshot``
+-- ``mesh_quality``, ``list_fields``, ``compare_files``, ``probe_path``,
++- ``mesh_quality``, ``list_fields``, ``read_monitor_history``, ``compare_files``, ``probe_path``,
+   ``get_active_status``, ``get_allowed_values``,
+   ``describe_named_object_template``, ``describe_path``
+ 
+diff --git a/src/ansys/fluent/mcp/common/backend.py b/src/ansys/fluent/mcp/common/backend.py
+index b0029f58a59bb19820e582874f60a182be3f13dc..7db60bb78f28d4002280ea5572b7266ff4560117 100644
+--- a/src/ansys/fluent/mcp/common/backend.py
++++ b/src/ansys/fluent/mcp/common/backend.py
+@@ -446,6 +446,12 @@ class Backend(ABC):
+         """
+         return None
+ 
++    async def read_monitor_history(
++        self, *, monitor_set: str | None, max_points: int
++    ) -> dict[str, Any]:
++        """Read captured monitor samples or discover the available monitor sets."""
++        raise BackendUnavailableError(f"{self.label} does not expose monitor history.")
++
+     async def get_targeted_context(
+         self,
+         *,
+diff --git a/src/ansys/fluent/mcp/common/host/annotations.py b/src/ansys/fluent/mcp/common/host/annotations.py
+index 331c7c69e4be42e11f8397620c70e7c7b46e0b0e..98134f9848904963dc5556fae970326702150554 100644
+--- a/src/ansys/fluent/mcp/common/host/annotations.py
++++ b/src/ansys/fluent/mcp/common/host/annotations.py
+@@ -70,6 +70,7 @@ LEAF_TOOL_ANNOTATIONS: dict[str, dict[str, bool]] = {
+     "list_named_objects": READ_ONLY,
+     "mesh_quality": READ_ONLY,
+     "probe_path": READ_ONLY,
++    "read_monitor_history": READ_ONLY,
+     "screenshot": READ_ONLY,
+     "select_named_objects": READ_ONLY,
+     "session_status": READ_ONLY,
+diff --git a/src/ansys/fluent/mcp/solve/backends/composite.py b/src/ansys/fluent/mcp/solve/backends/composite.py
+index 021f2be9b3d7e11f1da91305a98da8d1d9c93df7..05e159ef7f3efc09566c0cafd301bfed46bd10e7 100644
+--- a/src/ansys/fluent/mcp/solve/backends/composite.py
++++ b/src/ansys/fluent/mcp/solve/backends/composite.py
+@@ -456,6 +456,14 @@ class SolveCompositeBackend(Backend):
+         """
+         return await self._pyfluent.list_fields(scope=scope)
+ 
++    async def read_monitor_history(
++        self, *, monitor_set: str | None, max_points: int
++    ) -> dict[str, Any]:
++        """Read monitor history from the connected PyFluent session."""
++        return await self._pyfluent.read_monitor_history(
++            monitor_set=monitor_set, max_points=max_points
++        )
++
+     async def mesh_adjacency_probe(
+         self,
+         cellzones: list[str],
+diff --git a/src/ansys/fluent/mcp/solve/backends/pyfluent.py b/src/ansys/fluent/mcp/solve/backends/pyfluent.py
+index 3b10f16c2bc9e8936171ef3a1ba46487d542a7d9..a63dd74153dbfcc7ac376ef64a5de83362fbf70c 100644
+--- a/src/ansys/fluent/mcp/solve/backends/pyfluent.py
++++ b/src/ansys/fluent/mcp/solve/backends/pyfluent.py
+@@ -37,6 +37,7 @@ import base64
+ import contextlib
+ import io
+ import logging
++import math
+ import os
+ from pathlib import Path
+ import tempfile
+@@ -2632,6 +2633,72 @@ class PyFluentBackend(Backend):
+ 
+         return await self._read_locked(_do)
+ 
++    async def read_monitor_history(
++        self, *, monitor_set: str | None, max_points: int
++    ) -> dict[str, Any]:
++        """Return recent samples captured by the current session's monitor stream."""
++        if not 1 <= max_points <= 1000:
++            raise InvalidArgumentsError("max_points must be between 1 and 1000.")
++        if monitor_set is not None and not monitor_set.strip():
++            raise InvalidArgumentsError("monitor_set must be a non-empty name.")
++
++        def _do() -> dict[str, Any]:
++            monitors = getattr(self._require(), "monitors", None)
++            if monitors is None:
++                raise BackendUnavailableError("This PyFluent session has no monitor manager.")
++
++            names = sorted(monitors.get_monitor_set_names())
++            result: dict[str, Any] = {
++                "source": "session.monitors",
++                "available_monitor_sets": names,
++            }
++            if monitor_set is None:
++                return result
++
++            result.update(
++                monitor_set=monitor_set,
++                status="monitor_set_unavailable",
++                x_label=None,
++                x_values=[],
++                series={},
++                point_count=0,
++            )
++            if monitor_set not in names:
++                return result
++
++            x_label = monitors.get_monitor_set_prop(monitor_set, "xlabel")
++            try:
++                # Slice in PyFluent so only the requested tail is converted to arrays.
++                x_values, series = monitors.get_monitor_set_data(
++                    monitor_set_name=monitor_set, start_index=-max_points
++                )
++            except KeyError:
++                # A data-load or initialization event can refresh the monitor sets.
++                result["available_monitor_sets"] = sorted(monitors.get_monitor_set_names())
++                return result
++
++            # PyFluent can refresh the set between these individually locked reads.
++            if monitors.get_monitor_set_prop(monitor_set, "xlabel") != x_label:
++                result.update(
++                    status="monitor_set_refreshed",
++                    available_monitor_sets=sorted(monitors.get_monitor_set_names()),
++                )
++                return result
++
++            result.update(
++                status="ok" if len(x_values) else "no_samples",
++                x_label=x_label,
++                x_values=[value if math.isfinite(value) else None for value in x_values.tolist()],
++                series={
++                    name: [value if math.isfinite(value) else None for value in values.tolist()]
++                    for name, values in series.items()
++                },
++                point_count=len(x_values),
++            )
++            return result
++
++        return await self._read_locked(_do)
++
+     async def get_targeted_context(
+         self,
+         *,
+diff --git a/src/ansys/fluent/mcp/solve/lib/discovery_tools.py b/src/ansys/fluent/mcp/solve/lib/discovery_tools.py
+index 6aedf12c936a948e3903b2fa751a146c8d5157ad..4952b9ddc542873e90f2ce257c40985dd4f179be 100644
+--- a/src/ansys/fluent/mcp/solve/lib/discovery_tools.py
++++ b/src/ansys/fluent/mcp/solve/lib/discovery_tools.py
+@@ -20,8 +20,7 @@ These tools talk directly to the connected Fluent backend and do not
+ depend on any host-side cache, so they are safe to expose from the
+ standalone MCP leaf.
+ 
+-Currently, ``list_fields_impl`` enumerates the data fields the loaded
+-solver case can plot and report on (e.g. for ``contour`` setup).
++These tools provide field names and captured monitor samples.
+ """
+ 
+ from __future__ import annotations
+@@ -85,4 +84,14 @@ async def list_fields_impl(
+     return {"connected": True, **info}
+ 
+ 
+-__all__ = ["list_fields_impl"]
++async def read_monitor_history_impl(
++    backend: Backend,
++    *,
++    monitor_set: str | None = None,
++    max_points: int = 100,
++) -> dict[str, Any]:
++    """List monitor sets or read the latest captured samples from a named set."""
++    return await backend.read_monitor_history(monitor_set=monitor_set, max_points=max_points)
++
++
++__all__ = ["list_fields_impl", "read_monitor_history_impl"]
+diff --git a/src/ansys/fluent/mcp/solve/lib/domain_tools.py b/src/ansys/fluent/mcp/solve/lib/domain_tools.py
+index b843aaa0b41f3e66cdef9e3be2d0ab120ac19d05..32ad6ccf0eaae926213ee04ae4fa52a19eaeff26 100644
+--- a/src/ansys/fluent/mcp/solve/lib/domain_tools.py
++++ b/src/ansys/fluent/mcp/solve/lib/domain_tools.py
+@@ -53,7 +53,7 @@ from __future__ import annotations
+ 
+ from ansys.fluent.mcp.common.domain_tools import DomainTool, DomainToolSpec
+ from ansys.fluent.mcp.solve.lib.compare_tools import compare_files_impl
+-from ansys.fluent.mcp.solve.lib.discovery_tools import list_fields_impl
++from ansys.fluent.mcp.solve.lib.discovery_tools import list_fields_impl, read_monitor_history_impl
+ from ansys.fluent.mcp.solve.lib.mesh_tools import mesh_quality_impl
+ from ansys.fluent.mcp.solve.lib.schema_probe_tools import (
+     describe_named_object_template_impl,
+@@ -88,6 +88,16 @@ _LIST_FIELDS_DESCRIPTION = (
+     "Requires a live session."
+ )
+ 
++_READ_MONITOR_HISTORY_DESCRIPTION = (
++    "Read recent residual or report-monitor samples captured in the connected "
++    "PyFluent session. Omit monitor_set to list the monitor sets currently known "
++    "to that session. Supply a monitor_set to get its x-axis label and sample indices "
++    "plus one series per monitor. max_points limits the returned tail to "
++    "1–1000 points per series (default 100). History may be empty or partial "
++    "after attaching to an existing solve. This tool does not start or stop "
++    "monitor streaming, change the solver, or determine convergence."
++)
++
+ _PROBE_PATH_DESCRIPTION = (
+     "Batch pre-flight probe for one or more Fluent settings paths. "
+     "Returns ``{path: {exists, is_active, is_user_creatable, kind}}`` "
+@@ -197,6 +207,14 @@ def get_solve_domain_tools() -> list[DomainTool]:
+             ),
+             handler=list_fields_impl,
+         ),
++        DomainTool(
++            spec=DomainToolSpec(
++                name="read_monitor_history",
++                description=_READ_MONITOR_HISTORY_DESCRIPTION,
++            ),
++            handler=read_monitor_history_impl,
++            requires_live_session=True,
++        ),
+         DomainTool(
+             spec=DomainToolSpec(
+                 name="compare_files",
+diff --git a/tests/test_monitor_history.py b/tests/test_monitor_history.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..4d2f9c9a103dcdf80ea5d35069c326fe5b1d9dd3
+--- /dev/null
++++ b/tests/test_monitor_history.py
+@@ -0,0 +1,129 @@
++# Copyright (C) 2026 Synopsys, Inc. and ANSYS, Inc. All rights reserved.
++# SPDX-License-Identifier: Apache-2.0
++#
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++# http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++
++from types import SimpleNamespace
++from unittest.mock import Mock
++
++import numpy as np
++import pytest
++
++from ansys.fluent.mcp.common.errors import BackendUnavailableError, InvalidArgumentsError
++from ansys.fluent.mcp.solve import SolveMCP
++from ansys.fluent.mcp.solve.backends.composite import SolveCompositeBackend
++from ansys.fluent.mcp.solve.backends.pyfluent import PyFluentBackend
++
++
++@pytest.fixture
++def live_backend():
++    monitors = Mock()
++    monitors.get_monitor_set_names.return_value = ["residual", "outlet-flow"]
++    monitors.get_monitor_set_prop.return_value = "iteration"
++    session = SimpleNamespace(is_active=lambda: True, monitors=monitors)
++    backend = PyFluentBackend()
++    backend.adopt_session(session, endpoint="test-session")
++    return backend, monitors
++
++
++@pytest.mark.asyncio
++async def test_monitor_history_mcp_returns_bounded_json_samples(live_backend):
++    backend, monitors = live_backend
++    monitors.get_monitor_set_data.return_value = (
++        np.array([4, 5]),
++        {"continuity": np.array([0.002, np.nan]), "x-velocity": np.array([np.inf, 0.001])},
++    )
++    composite = SolveCompositeBackend(pyfluent_backend=backend)
++    server = SolveMCP(backends={"pyfluent": composite})
++
++    result = await server.call_tool(
++        "read_monitor_history", {"monitor_set": "residual", "max_points": 2}
++    )
++
++    payload = result.structured_content
++    assert payload.get("result", payload) == {
++        "source": "session.monitors",
++        "available_monitor_sets": ["outlet-flow", "residual"],
++        "monitor_set": "residual",
++        "status": "ok",
++        "x_label": "iteration",
++        "x_values": [4, 5],
++        "series": {"continuity": [0.002, None], "x-velocity": [None, 0.001]},
++        "point_count": 2,
++    }
++    monitors.get_monitor_set_data.assert_called_once_with(
++        monitor_set_name="residual", start_index=-2
++    )
++    monitors.start.assert_not_called()
++    monitors.stop.assert_not_called()
++
++
++@pytest.mark.asyncio
++async def test_monitor_history_lists_and_reports_empty_or_unavailable_sets(live_backend):
++    backend, monitors = live_backend
++    monitors.get_monitor_set_data.return_value = (np.array([]), {})
++
++    discovery = await backend.read_monitor_history(monitor_set=None, max_points=100)
++    assert discovery["available_monitor_sets"] == ["outlet-flow", "residual"]
++    unavailable = await backend.read_monitor_history(monitor_set="unknown", max_points=100)
++    assert unavailable["status"] == "monitor_set_unavailable"
++    monitors.get_monitor_set_data.assert_not_called()
++
++    empty = await backend.read_monitor_history(monitor_set="outlet-flow", max_points=100)
++    assert empty["status"] == "no_samples"
++    assert empty["x_values"] == [] and empty["series"] == {} and empty["point_count"] == 0
++
++
++@pytest.mark.asyncio
++async def test_monitor_history_handles_set_disappearing_during_monitor_refresh(live_backend):
++    backend, monitors = live_backend
++    monitors.get_monitor_set_names.side_effect = [["residual"], []]
++    monitors.get_monitor_set_data.side_effect = KeyError("residual")
++
++    result = await backend.read_monitor_history(monitor_set="residual", max_points=100)
++    assert result["status"] == "monitor_set_unavailable"
++    assert result["available_monitor_sets"] == []
++
++
++@pytest.mark.asyncio
++async def test_monitor_history_returns_no_samples_when_axis_changes_during_read(live_backend):
++    backend, monitors = live_backend
++    monitors.get_monitor_set_prop.side_effect = ["Iteration", "Time Step"]
++    monitors.get_monitor_set_data.return_value = (
++        np.array([20, 30]),
++        {"mass-flow": np.array([1, 2])},
++    )
++
++    result = await backend.read_monitor_history(monitor_set="outlet-flow", max_points=2)
++
++    assert result["status"] == "monitor_set_refreshed"
++    assert result["x_label"] is None
++    assert result["x_values"] == [] and result["series"] == {} and result["point_count"] == 0
++
++
++@pytest.mark.asyncio
++@pytest.mark.parametrize(("monitor_set", "max_points"), [("", 100), ("residual", 0), (None, 1001)])
++async def test_monitor_history_rejects_invalid_arguments(monitor_set, max_points):
++    with pytest.raises(InvalidArgumentsError):
++        await PyFluentBackend().read_monitor_history(monitor_set=monitor_set, max_points=max_points)
++
++
++@pytest.mark.asyncio
++async def test_monitor_history_reports_missing_monitor_manager():
++    backend = PyFluentBackend()
++    backend.adopt_session(SimpleNamespace(is_active=lambda: True), endpoint="test-session")
++
++    with pytest.raises(BackendUnavailableError, match="no monitor manager"):
++        await backend.read_monitor_history(monitor_set=None, max_points=100)
+diff --git a/tests/test_server_domain_mesh.py b/tests/test_server_domain_mesh.py
+index c614a6bd6bb8934c853e7cbe1f588b16f7c81d21..b1bfae1b083ebe576232d869a982b8d34bf619e4 100644
+--- a/tests/test_server_domain_mesh.py
++++ b/tests/test_server_domain_mesh.py
+@@ -191,6 +191,7 @@ def test_solve_domain_tool_catalog_has_expected_tools():
+     assert [tool.spec.name for tool in tools] == [
+         "mesh_quality",
+         "list_fields",
++        "read_monitor_history",
+         "compare_files",
+         "probe_path",
+         "get_active_status",
+@@ -199,7 +200,9 @@ def test_solve_domain_tool_catalog_has_expected_tools():
+         "describe_path",
+     ]
+     assert all(callable(tool.handler) for tool in tools)
+-    assert all(tool.requires_live_session is False for tool in tools)
++    assert [tool.spec.name for tool in tools if tool.requires_live_session] == [
++        "read_monitor_history"
++    ]
+     assert "mesh quality" in tools[0].spec.description.lower()
+ 
+ 
